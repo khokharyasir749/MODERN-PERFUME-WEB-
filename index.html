@@ -1,0 +1,5240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SILLAGE — Haute Parfumerie | Paris Atelier</title>
+  <meta name="description" content="SILLAGE — Haute Parfumerie Paris. Three monumental extraits: Sillage Noir, Impérial Blanc, and Rouge Obsidienne. Handcrafted in Grasse, aged in obsidian.">
+
+  <!-- Google Fonts: Cormorant Garamond & Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Luxury Gold Droplet Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 32'%3E%3Cpath d='M12 2C12 2 3 14.5 3 21C3 25.9706 7.02944 30 12 30C16.9706 30 21 25.9706 21 21C21 14.5 12 2 12 2Z' fill='%23d4af37'/%3E%3C/svg%3E">
+
+  <style>
+    /* ==========================================================================
+       LUXURY DESIGN TOKENS & RESET
+       ========================================================================== */
+    :root {
+      --bg-color: #090807;
+      --bg-surface: #0e0d0b;
+      --bg-card: #12100d;
+      
+      --gold-primary: #d4af37;
+      --gold-pale: #f3e5ab;
+      --gold-deep: #8c7324;
+      --gold-glow: rgba(212, 175, 55, 0.04);
+      --gold-subtle: rgba(212, 175, 55, 0.08);
+      --gold-hairline: rgba(212, 175, 55, 0.15);
+
+      --text-main: #fbf8f2;
+      --text-muted: #a39c91;
+      --text-dim: #6c665d;
+
+      --border-subtle: rgba(255, 255, 255, 0.08);
+
+      --font-display: 'Cormorant Garamond', Garamond, Georgia, serif;
+      --font-body: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+      --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: clip;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: clip;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 900;
+      opacity: 0.025;
+      background-image: radial-gradient(var(--gold-pale) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    ::selection {
+      background: var(--gold-primary);
+      color: var(--bg-color);
+    }
+
+    
+    /* ==========================================================================
+       60FPS JANK & REFLOW ELIMINATION (HARDWARE ACCELERATION)
+       ========================================================================== */
+    #hero-video,
+    .hero-video,
+    .scrub-sticky-viewport,
+    .hero-narrative-overlay,
+    .flight-sticky-viewport,
+    .showcase-card,
+    .editorial-info-pane,
+    .dock-item,
+    .flight-conversion-settle,
+    .manifesto-sticky-viewport,
+    #manifesto-eyebrow,
+    #manifesto-pillars,
+    .reviews-sticky-viewport,
+    .pinned-review-item,
+    .faq-sticky-viewport,
+    .faq-answer-panel,
+    .faq-active-indicator-pill,
+    .faq-q-item,
+    .nav-link,
+    .telemetry-progress-bar {
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    /* ==========================================================================
+       SITE HEADER NAVIGATION
+       ========================================================================== */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4.5rem;
+      z-index: 9999;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(9, 8, 7, 0.96);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+      transition: background 0.4s var(--ease-lux);
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      text-decoration: none;
+    }
+
+    .brand-icon-svg {
+      width: 22px;
+      height: 28px;
+      fill: none;
+      stroke: var(--gold-primary);
+      stroke-width: 1.5;
+      filter: none;
+      transition: transform 0.4s var(--ease-lux), stroke 0.4s var(--ease-lux);
+    }
+
+    .brand-mark:hover .brand-icon-svg {
+      transform: translateY(-1px);
+      stroke: var(--gold-pale);
+    }
+
+    .brand-text-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      letter-spacing: 0.42em;
+      color: var(--gold-primary);
+      font-weight: 400;
+      text-transform: uppercase;
+      line-height: 1;
+      text-shadow: none;
+    }
+
+    .brand-sub {
+      font-size: 0.54rem;
+      letter-spacing: 0.38em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .nav-link,
+    .nav-item-btn {
+      background: none;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(243, 229, 171, 0.65);
+      cursor: pointer;
+      position: relative;
+      padding: 0.5rem 0;
+      transition: color 0.3s var(--ease-lux), border-color 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav-link:hover,
+    .nav-item-btn:hover {
+      color: #f3e5ab;
+    }
+
+    .nav-link.active,
+    .nav-item-btn.active,
+    .nav-link.is-active,
+    .nav-item-btn.is-active {
+      color: #f3e5ab;
+      text-shadow: none;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.6);
+    }
+
+    /* Section 4: Collection Portal Section */
+    .collection-portal-section {
+      position: relative;
+      padding: 7rem 2rem;
+      background: radial-gradient(ellipse at 50% 50%, rgba(212, 175, 55, 0.06) 0%, #090807 70%);
+      border-top: 1px solid rgba(212, 175, 55, 0.12);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .collection-portal-inner {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .collection-portal-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.36em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      font-weight: 500;
+    }
+
+    .collection-portal-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 4.2vw, 3.6rem);
+      font-weight: 300;
+      letter-spacing: 0.03em;
+      color: var(--text-main);
+      line-height: 1.15;
+      margin: 0;
+    }
+
+    .collection-portal-title em {
+      font-style: italic;
+      color: var(--gold-pale);
+    }
+
+    .collection-portal-subhead {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      font-weight: 300;
+      max-width: 620px;
+      margin: 0;
+    }
+
+    .collection-portal-actions {
+      margin-top: 1rem;
+    }
+
+    .btn-open-collection {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.85rem 2.2rem;
+      background: #090807;
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 999px;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold-pale);
+      cursor: pointer;
+      box-shadow: none;
+      transition: all 0.3s var(--ease-lux);
+    }
+
+    .btn-open-collection:hover {
+      background: rgba(212, 175, 55, 0.1);
+      border-color: rgba(212, 175, 55, 0.6);
+      color: #ffffff;
+      box-shadow: none;
+      transform: translateY(-1px);
+    }
+
+    .btn-open-collection svg {
+      transition: transform 0.3s ease;
+    }
+
+    .btn-open-collection:hover svg {
+      transform: translateX(2px);
+    }
+
+    .btn-reserve-glass {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.78rem 1.9rem;
+      font-family: var(--font-body);
+      font-size: 0.66rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-pale);
+      background: #090807;
+      border: 1px solid var(--gold-hairline);
+      border-radius: 999px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: none;
+      transition: all 0.3s var(--ease-lux);
+    }
+
+    .btn-reserve-glass:hover {
+      background: rgba(212, 175, 55, 0.1);
+      border-color: rgba(212, 175, 55, 0.6);
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: none;
+    }
+
+    /* Vertical Telemetry Bar */
+    .scrub-telemetry {
+      position: fixed;
+      right: 2.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 220px;
+      width: 2px;
+      background: rgba(255, 255, 255, 0.06);
+      z-index: 90;
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    .telemetry-progress-bar {
+      width: 100%;
+      height: 0%;
+      background: rgba(212, 175, 55, 0.6);
+      box-shadow: none;
+      transition: height 0.08s linear;
+    }
+
+    /* ==========================================================================
+       SECTION 1: HERO SCROLL VIDEO & SETTLE (1800vh RUNWAY)
+       ========================================================================== */
+    .scrub-container {
+      position: relative;
+      height: 1800vh;
+      width: 100%;
+    }
+
+    .sticky-hero-stage,
+    .scrub-sticky-viewport {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+      background-color: var(--bg-color);
+    }
+
+    #hero-video,
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      max-width: 100vw;
+      max-height: 100vh;
+      object-fit: contain;
+      object-position: center;
+      transform: scale(1) !important;
+      transform-origin: center center;
+      pointer-events: none;
+      background-color: var(--bg-color);
+      z-index: 1;
+    }
+
+    .hero-scrim {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(9, 8, 7, 0.15) 20%, rgba(9, 8, 7, 0.72) 75%, #090807 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .ambient-gold-aura {
+      position: absolute;
+      width: 70vw;
+      height: 70vh;
+      background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.55;
+    }
+
+    .hero-narrative-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+      will-change: transform, opacity;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      margin-bottom: 0.9rem;
+      display: inline-block;
+    }
+
+    .hero-main-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.8rem, 8vw, 7.2rem);
+      font-weight: 300;
+      letter-spacing: 0.38em;
+      color: var(--text-main);
+      line-height: 1;
+      text-transform: uppercase;
+      text-shadow: 0 4px 30px rgba(0, 0, 0, 0.9);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-tagline {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 2.2vw, 1.85rem);
+      font-style: italic;
+      color: var(--gold-pale);
+      letter-spacing: 0.04em;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.9);
+      max-width: 680px;
+    }
+
+    .hero-explore-prompt {
+      position: absolute;
+      bottom: 3.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--gold-pale);
+      font-size: 0.64rem;
+      letter-spacing: 0.36em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      transition: opacity 0.4s ease;
+    }
+
+    .explore-arrow {
+      font-size: 1.1rem;
+      animation: bounceDown 2.2s infinite ease-in-out;
+    }
+
+    @keyframes bounceDown {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* ==========================================================================
+       SECTION 2: FLIGHTONE SCROLL-PINNED CARD DOCK SHOWCASE (#flightone-showcase)
+       3-PART ARCHITECTURAL LAYOUT & CONTINUOUS LERP CARD MORPHING
+       ========================================================================== */
+    .flight-track {
+      height: 1200vh;
+      position: relative;
+      background-color: #090807;
+      z-index: 10;
+    }
+
+    .flight-viewport {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #090807;
+      padding: 0 3.5rem;
+      box-sizing: border-box;
+      transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .flight-ambient-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 68%);
+      transition: background 0.8s ease;
+      z-index: 1;
+    }
+
+    .flight-layout-container {
+      display: grid;
+      grid-template-columns: 200px minmax(360px, 440px) minmax(340px, 460px);
+      align-items: center;
+      justify-content: center;
+      gap: 4.5rem;
+      width: 100%;
+      max-width: 1340px;
+      position: relative;
+      z-index: 3;
+      padding-top: 1.5rem;
+    }
+
+    /* --------------------------------------------------------------------------
+       1. LEFT COLUMN: THUMBNAIL DOCK
+       -------------------------------------------------------------------------- */
+    .flight-left-dock {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      position: relative;
+      will-change: transform, opacity;
+      user-select: none;
+    }
+
+    .dock-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.16);
+      margin-bottom: 0.3rem;
+    }
+
+    .dock-eyebrow {
+      font-size: 0.62rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold-pale);
+      font-weight: 500;
+    }
+
+    .dock-counter {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      color: var(--gold-deep);
+    }
+
+    .dock-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .dock-item {
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+      background: transparent;
+      border: 1px solid transparent;
+      padding: 0.55rem;
+      border-radius: 14px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.35s ease;
+      position: relative;
+      outline: none;
+      width: 100%;
+      will-change: transform, opacity;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .dock-item:hover {
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(212, 175, 55, 0.2);
+    }
+
+    .dock-thumb-wrap {
+      position: relative;
+      width: 60px;
+      height: 80px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background-color: #0c0a08;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s var(--ease-lux);
+    }
+
+    .dock-thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease, filter 0.4s ease;
+      filter: brightness(0.65) contrast(1.1);
+    }
+
+    .dock-thumb-glow {
+      display: none;
+    }
+
+    .dock-item.is-active .dock-thumb-wrap,
+    .dock-item.is-docked .dock-thumb-wrap {
+      border-color: var(--gold-pale);
+      box-shadow: none;
+      transform: none;
+    }
+
+    .dock-item.is-active .dock-thumb-img,
+    .dock-item.is-docked .dock-thumb-img {
+      filter: contrast(1.02);
+    }
+
+    .dock-item.is-active .dock-thumb-glow {
+      display: none;
+    }
+
+    .dock-item-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .dock-item-num {
+      font-size: 0.6rem;
+      letter-spacing: 0.24em;
+      color: var(--gold-deep);
+    }
+
+    .dock-item-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      transition: color 0.35s ease;
+    }
+
+    .dock-item.is-active .dock-item-title {
+      color: var(--gold-pale);
+    }
+
+    .dock-item-state {
+      font-size: 0.52rem;
+      letter-spacing: 0.28em;
+      color: #6a6256;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .dock-item.is-active .dock-item-state {
+      color: var(--gold-primary);
+    }
+
+    .dock-item.is-docked .dock-item-state {
+      color: var(--gold-deep);
+    }
+
+    /* --------------------------------------------------------------------------
+       2. CENTER COLUMN: ACTIVE SHOWCASE CARD STAGE
+       -------------------------------------------------------------------------- */
+    .flight-center-stage {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 560px;
+    }
+
+    .center-cards-carrier {
+      position: relative;
+      width: 100%;
+      height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1200px;
+    }
+
+    .showcase-card {
+      position: absolute;
+      width: clamp(310px, 27vw, 400px);
+      aspect-ratio: 3 / 4;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      background-color: #0c0a08;
+      cursor: pointer;
+      will-change: transform, opacity;
+      user-select: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .showcase-card:hover {
+      box-shadow: 0 35px 80px rgba(0, 0, 0, 0.95);
+      border-color: rgba(212, 175, 55, 0.5);
+    }
+
+    .card-glass-frame {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .card-flacon-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: contrast(1.08) brightness(0.98);
+      pointer-events: none;
+    }
+
+    .card-specular-sheen {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(130deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 30%, transparent 55%, rgba(212, 175, 55, 0.08) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .card-lighting-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 15%, transparent 40%, rgba(0, 0, 0, 0.65) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .card-plaque {
+      position: absolute;
+      bottom: 1.6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 82%;
+      background: linear-gradient(135deg, #181512 0%, #26211a 40%, #15120f 75%, #241f17 100%);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      border-radius: 12px;
+      padding: 0.8rem 1.2rem;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(243, 229, 171, 0.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.25rem;
+      z-index: 4;
+      backdrop-filter: blur(8px);
+    }
+
+    .card-plaque-title {
+      font-family: var(--font-display);
+      font-size: 0.94rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold-pale);
+      font-weight: 500;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+      line-height: 1;
+    }
+
+    .card-plaque-serial {
+      font-family: monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.24em;
+      color: #b5ada2;
+    }
+
+    /* --------------------------------------------------------------------------
+       STAGE 4 CONVERSION SETTLE BLOCK (Perfect Vertical Centering & High Clearance)
+       -------------------------------------------------------------------------- */
+    .flight-conversion-settle {
+      position: absolute;
+      top: calc(50% + 30px);
+      left: 50%;
+      transform: translate3d(-50%, 0, 0);
+      width: 92vw;
+      max-width: 740px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      will-change: transform, opacity;
+      z-index: 15;
+    }
+
+    .settle-pill {
+      display: inline-block;
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      margin-bottom: 0.85rem;
+      font-weight: 500;
+      backdrop-filter: none;
+    }
+
+    .pill-spark {
+      display: none;
+    }
+
+    .settle-headline {
+      font-family: var(--font-display);
+      font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+      font-weight: 300;
+      line-height: 1.35;
+      letter-spacing: 0.02em;
+      color: var(--text-main);
+      margin-bottom: 0.65rem;
+      max-width: 660px;
+      text-shadow: none;
+    }
+
+    .settle-subtext {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.4rem;
+    }
+
+    .settle-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-settle-reserve {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.85rem 2.2rem;
+      background: #090807;
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 999px;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold-pale);
+      cursor: pointer;
+      box-shadow: none;
+      transition: all 0.3s var(--ease-lux);
+    }
+
+    .btn-settle-reserve svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      transition: transform 0.3s ease;
+    }
+
+    .btn-settle-reserve:hover {
+      background: rgba(212, 175, 55, 0.1);
+      border-color: rgba(212, 175, 55, 0.6);
+      color: #ffffff;
+      box-shadow: none;
+      transform: translateY(-1px);
+    }
+
+    .btn-settle-reserve:hover svg {
+      transform: translateX(4px);
+    }
+
+    .settle-explore-all {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-pale);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .settle-explore-all:hover {
+      color: #fff;
+    }
+
+    /* --------------------------------------------------------------------------
+       3. RIGHT COLUMN: EDITORIAL DETAILS
+       -------------------------------------------------------------------------- */
+    .flight-right-editorial {
+      position: relative;
+      min-height: 480px;
+      display: flex;
+      align-items: center;
+      will-change: transform, opacity;
+    }
+
+    .editorial-cards-stack {
+      position: relative;
+      width: 100%;
+      min-height: 440px;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+      align-items: center;
+    }
+
+    .editorial-info-pane {
+      grid-area: 1 / 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      will-change: transform, opacity;
+      transform: translate3d(0, 20px, 0);
+    }
+
+    .pane-badge {
+      font-size: 0.64rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold-pale);
+      margin-bottom: 0.8rem;
+    }
+
+    .pane-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.3rem, 3.6vw, 3.2rem);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: var(--gold-pale);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+      text-shadow: none;
+    }
+
+    .pane-notes-highlight {
+      font-family: var(--font-display);
+      font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+      font-style: italic;
+      color: var(--text-main);
+      margin-bottom: 1.2rem;
+      line-height: 1.4;
+    }
+
+    .pane-poetic-desc {
+      font-size: 0.94rem;
+      line-height: 1.85;
+      color: var(--text-muted);
+      font-weight: 300;
+      margin-bottom: 1.6rem;
+      max-width: 480px;
+    }
+
+    .pane-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .spec-tag {
+      padding: 0.45rem 0.9rem;
+      background: rgba(18, 16, 14, 0.6);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 4px;
+      font-size: 0.66rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold-pale);
+    }
+
+    .pane-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+    }
+
+    .btn-explore-scent {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-pale);
+      text-decoration: none;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn-explore-scent svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      transition: transform 0.3s ease;
+    }
+
+    .btn-explore-scent:hover {
+      color: #fff;
+      transform: translateX(4px);
+    }
+
+    .btn-explore-scent:hover svg {
+      transform: translateX(3px);
+    }
+
+    .btn-pane-reserve {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 1.8rem;
+      background: #090807;
+      border: 1px solid var(--gold-hairline);
+      border-radius: 999px;
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-pale);
+      cursor: pointer;
+      box-shadow: none;
+      transition: all 0.3s var(--ease-lux);
+    }
+
+    .btn-pane-reserve:hover {
+      background: rgba(212, 175, 55, 0.12);
+      border-color: rgba(212, 175, 55, 0.6);
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: none;
+    }
+
+    /* Scroll Cue */
+    .flight-scroll-cue {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.62rem;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: var(--gold-pale);
+      opacity: 0.85;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      z-index: 20;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .flight-scroll-cue.is-hidden {
+      opacity: 0;
+    }
+
+    .cue-chevron {
+      animation: bounceDown 2s infinite ease-in-out;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .flight-layout-container {
+        grid-template-columns: 1fr;
+        gap: 2.2rem;
+        padding-top: 1rem;
+      }
+      .flight-left-dock {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+      }
+      .dock-header {
+        display: none;
+      }
+      .dock-list {
+        flex-direction: row;
+        gap: 0.8rem;
+      }
+      .center-cards-carrier {
+        height: 420px;
+      }
+      .showcase-card {
+        width: 270px;
+      }
+      .flight-right-editorial {
+        text-align: center;
+      }
+      .editorial-info-pane {
+        align-items: center;
+      }
+      .pane-poetic-desc {
+        text-align: center;
+      }
+      .pane-specs {
+        justify-content: center;
+      }
+      .pane-actions {
+        justify-content: center;
+      }
+    }
+
+    /* ==========================================================================
+       SECTION 3: SCROLL-DRIVEN MANIFESTO TYPEWRITER (#manifesto)
+       PINNED LETTER-BY-LETTER REVEAL TRACK (350vh)
+       ========================================================================== */
+    .manifesto-scroll-track {
+      height: 350vh;
+      position: relative;
+      background-color: #14110e;
+    }
+
+    .manifesto-sticky-viewport {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4.5rem;
+      background-color: #14110e;
+      border-bottom: 1px solid var(--gold-hairline);
+      z-index: 20;
+    }
+
+    .manifesto-inner-wrap {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .manifesto-eyebrow {
+      font-size: 0.66rem;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      margin-bottom: 2.2rem;
+      font-weight: 500;
+      opacity: 0;
+      transform: translate3d(0, 12px, 0);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .philosophy-quote,
+    .manifesto-text {
+      max-width: 880px;
+      width: 90%;
+      margin: 0 auto;
+      line-height: 1.5;
+      text-align: center;
+      white-space: normal !important;
+    }
+
+    .manifesto-big-quote {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.8vw, 3.2rem);
+      font-style: italic;
+      color: var(--gold-pale);
+      line-height: 1.5;
+      margin: 0 auto 2.8rem auto;
+      max-width: 880px;
+      width: 90%;
+      text-align: center;
+      font-weight: 300;
+      user-select: none;
+      white-space: normal !important;
+      word-break: normal;
+      overflow-wrap: break-word;
+    }
+
+    .manifesto-word {
+      display: inline-block;
+      white-space: normal !important;
+    }
+
+    .manifesto-big-quote .char,
+    .philosophy-quote .char,
+    .manifesto-text .char {
+      display: inline;
+      white-space: normal !important;
+      opacity: 0.15;
+      color: #4a453e;
+      transition: opacity 0.15s ease, color 0.15s ease;
+      will-change: opacity, color;
+    }
+
+    .manifesto-pillars-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      opacity: 0;
+      transform: translate3d(0, 12px, 0);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .manifesto-pillar-item {
+      font-size: 0.74rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .manifesto-bullet {
+      color: var(--gold-primary);
+    }
+
+    /* ==========================================================================
+       DEDICATED LUXURY COLLECTION DRAWER / MODAL (#collection-modal-drawer)
+       FULL-SCREEN / 90VH BOTTOM SLIDE EXHIBITION WITH DARK OBSIDIAN GLASS
+       ========================================================================== */
+    .collection-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding-top: 85px;
+      background: rgba(4, 3, 2, 0.92);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      z-index: 900;
+      opacity: 0;
+      visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.45s;
+    }
+
+    .collection-modal-backdrop.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .collection-modal-panel {
+      width: 100%;
+      height: 100%;
+      max-height: none;
+      background: rgba(9, 8, 7, 0.98);
+      border-top: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 0;
+      box-shadow: 0 0 60px rgba(0, 0, 0, 0.95);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      transform: translate3d(0, 100%, 0);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .collection-modal-backdrop.is-open .collection-modal-panel {
+      transform: translate3d(0, 0, 0);
+    }
+
+    .collection-modal-header {
+      padding: 2.2rem 4rem 1.6rem 4rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.14);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .modal-header-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .modal-eyebrow {
+      font-size: 0.62rem;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      font-weight: 500;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      color: var(--gold-pale);
+      text-transform: uppercase;
+    }
+
+    .btn-modal-close {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      background: rgba(212, 175, 55, 0.06);
+      color: var(--gold-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s var(--ease-lux);
+    }
+
+    .btn-modal-close:hover {
+      background: rgba(212, 175, 55, 0.2);
+      border-color: var(--gold-pale);
+      color: #fff;
+      transform: rotate(90deg);
+    }
+
+    .collection-modal-body {
+      flex-grow: 1;
+      padding: 2rem 4rem 2.8rem 4rem;
+      overflow-y: auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .collection-grid,
+    .modal-cards-container {
+      margin-top: 55px !important;
+      padding-top: 25px !important;
+    }
+
+    .modal-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.2rem;
+      width: 100%;
+      max-width: 1360px;
+      margin: 55px auto 0 auto !important;
+      padding-top: 25px !important;
+      align-items: stretch;
+    }
+
+    .modal-flacon-card {
+      background: linear-gradient(180deg, rgba(18, 16, 14, 0.8) 0%, rgba(10, 9, 8, 0.96) 100%);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 20px;
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+      cursor: pointer;
+      transition: all 0.4s var(--ease-lux);
+    }
+
+    .modal-flacon-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(212, 175, 55, 0.45);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.95);
+    }
+
+    .modal-card-glow {
+      display: none;
+    }
+
+    .modal-flacon-card:hover .modal-card-glow {
+      display: none;
+    }
+
+    .modal-card-visual,
+    .modal-card-img-wrap,
+    .catalog-card-image {
+      position: relative;
+      width: 100%;
+      height: 270px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      overflow: visible !important;
+      padding: 0 16px !important;
+      box-sizing: border-box;
+      border-radius: 16px;
+      background: #060504;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      margin-bottom: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .modal-card-img-wrap,
+    .catalog-card-image {
+      height: 270px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      overflow: visible !important;
+    }
+
+    .modal-card img,
+    .catalog-card img,
+    .modal-card-img-wrap img,
+    .catalog-card-image img,
+    .modal-card-visual img,
+    .modal-card-img,
+    .modal-flacon-card img {
+      object-fit: contain !important;
+      height: 250px !important;
+      max-height: 250px !important;
+      width: auto !important;
+      max-width: 100% !important;
+      margin-top: 15px !important;
+      transform: translateY(15px) scale(0.88) !important;
+      transform-origin: center center;
+      object-position: center center !important;
+      display: block;
+      filter: contrast(1.06) brightness(0.98);
+      transition: transform 0.5s var(--ease-lux);
+    }
+
+    .modal-card img,
+    .catalog-card img,
+    .modal-card-img-wrap img {
+      object-fit: contain !important;
+      transform: translateY(15px) scale(0.88) !important;
+    }
+
+    .modal-flacon-card:hover .modal-card-visual img,
+    .modal-flacon-card:hover .modal-card-img,
+    .modal-flacon-card:hover .modal-card-img-wrap img,
+    .modal-flacon-card:hover .catalog-card-image img,
+    .modal-flacon-card:hover img {
+      transform: translateY(15px) scale(0.92) !important;
+    }
+
+    .modal-card-sheen {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, transparent 45%, rgba(212, 175, 55, 0.06) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .modal-card-badge {
+      position: absolute;
+      top: 0.9rem;
+      left: 1rem;
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      font-weight: 500;
+      backdrop-filter: none;
+      z-index: 3;
+    }
+
+    .modal-card-content {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      margin-bottom: 1.2rem;
+    }
+
+    .modal-card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.4rem;
+    }
+
+    .modal-card-conc {
+      font-size: 0.56rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      font-weight: 500;
+    }
+
+    .modal-card-batch {
+      font-family: monospace;
+      font-size: 0.54rem;
+      letter-spacing: 0.16em;
+      color: #7a7266;
+    }
+
+    .modal-card-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: var(--gold-pale);
+      text-transform: uppercase;
+      line-height: 1.15;
+      margin-bottom: 0.35rem;
+      transition: color 0.3s ease;
+    }
+
+    .modal-flacon-card:hover .modal-card-title {
+      color: #fff;
+    }
+
+    .modal-card-notes {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--text-main);
+      margin-bottom: 0.6rem;
+      line-height: 1.35;
+    }
+
+    .modal-card-desc {
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      font-weight: 300;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .modal-card-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .modal-pill {
+      padding: 0.22rem 0.6rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: 2px;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .modal-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(212, 175, 55, 0.14);
+      margin-top: auto;
+    }
+
+    .modal-price-group {
+      display: flex;
+      align-items: baseline;
+      gap: 0.25rem;
+    }
+
+    .modal-price {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--gold-pale);
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+
+    .modal-currency {
+      font-size: 0.68rem;
+      color: var(--gold-deep);
+      font-family: var(--font-body);
+    }
+
+    .btn-modal-reserve {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.65rem 1.45rem;
+      background: #090807;
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 999px;
+      font-family: var(--font-body);
+      font-size: 0.66rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-pale);
+      cursor: pointer;
+      box-shadow: none;
+      transition: all 0.3s var(--ease-lux);
+    }
+
+    .btn-modal-reserve svg {
+      width: 13px;
+      height: 13px;
+      stroke: currentColor;
+      transition: transform 0.3s ease;
+    }
+
+    .btn-modal-reserve:hover {
+      background: rgba(212, 175, 55, 0.1);
+      border-color: rgba(212, 175, 55, 0.6);
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: none;
+    }
+
+    .btn-modal-reserve:hover svg {
+      transform: translateX(2px);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .modal-cards-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        gap: 2rem;
+      }
+      .collection-modal-header {
+        padding: 1.5rem 2rem;
+      }
+      .collection-modal-body {
+        padding: 1.5rem 2rem 2.5rem 2rem;
+      }
+      .collection-modal-panel {
+        height: 100%;
+        max-height: none;
+      }
+    }
+
+    /* ==========================================================================
+       SECTION 5: SCROLL-PINNED SEQUENTIAL PATRON REVIEWS (#reviews-pinned-track)
+       EDITORIAL SCROLL-TO-WRITE LETTER-BY-LETTER PROGRESSION (450vh)
+       ========================================================================== */
+    .reviews-pinned-track {
+      height: 450vh;
+      position: relative;
+      background-color: #080706;
+      z-index: 15;
+    }
+
+    .reviews-sticky-viewport {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, #080706 72%);
+      padding: 0 4rem;
+      box-sizing: border-box;
+    }
+
+    /* Fixed Heading Overlap Bug with Generous Vertical Spacing */
+    .reviews-pinned-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 2;
+    }
+
+    .reviews-meta-tag {
+      font-size: 0.64rem;
+      letter-spacing: 0.36em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      font-weight: 500;
+    }
+
+    .reviews-main-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 4.4vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.25;
+      letter-spacing: 0.02em;
+      color: var(--text-main);
+      margin: 0;
+    }
+
+    .reviews-main-title em {
+      font-style: italic;
+      color: var(--gold-pale);
+    }
+
+    .reviews-main-subhead {
+      font-size: 0.82rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold-deep);
+      line-height: 1.4;
+      margin-top: 0.4rem;
+    }
+
+    /* Central Focused Stage for 3 Sequential Reviews (No Box Cards / Pure Luxury Typography) */
+    .reviews-stage-container {
+      position: relative;
+      width: 100%;
+      max-width: 1040px;
+      min-height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+    }
+
+    .pinned-review-item {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      opacity: 0;
+      transform: translate3d(0, 30px, 0);
+      pointer-events: none;
+      will-change: transform, opacity;
+    }
+
+    .pinned-review-stars {
+      color: #d4af37;
+      font-size: 1.25rem;
+      letter-spacing: 0.35em;
+      margin-bottom: 1.3rem;
+      text-shadow: none;
+    }
+
+    .review-quote,
+    .patron-quote {
+      max-width: 800px;
+      width: 90%;
+      margin: 1rem auto;
+      line-height: 1.5;
+      text-align: center;
+      white-space: normal !important;
+    }
+
+    .pinned-review-quote {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 3.2vw, 2.75rem);
+      font-style: italic;
+      line-height: 1.5;
+      font-weight: 300;
+      color: var(--text-main);
+      margin: 1rem auto;
+      max-width: 800px;
+      width: 90%;
+      text-align: center;
+      white-space: normal !important;
+      word-break: normal;
+      overflow-wrap: break-word;
+    }
+
+    .review-word {
+      display: inline-block;
+      white-space: normal !important;
+    }
+
+    .pinned-review-quote .review-char,
+    .review-quote .review-char,
+    .patron-quote .review-char {
+      display: inline;
+      white-space: normal !important;
+      opacity: 0.15;
+      color: #4a453e;
+      transition: opacity 0.12s ease, color 0.12s ease;
+      will-change: opacity, color;
+    }
+
+    /* Enforce natural line wrapping across all philosophy & review quotes and paragraphs */
+    #manifesto p,
+    #manifesto blockquote,
+    #reviews p,
+    #reviews blockquote,
+    #reviews-pinned-track p,
+    #reviews-pinned-track blockquote {
+      white-space: normal !important;
+      word-break: normal;
+      overflow-wrap: break-word;
+    }
+
+    .pinned-review-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.4rem;
+      padding: 0.4rem 0;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      backdrop-filter: none;
+    }
+
+    .meta-patron-name {
+      font-size: 0.74rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold-pale);
+      font-weight: 600;
+    }
+
+    .meta-patron-divider {
+      width: 1px;
+      height: 12px;
+      background: rgba(212, 175, 55, 0.4);
+    }
+
+    .meta-patron-badge {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-deep);
+    }
+
+    /* Scroll Cue */
+    .reviews-scroll-cue {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.6rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold-deep);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      z-index: 5;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .reviews-scroll-cue.is-hidden {
+      opacity: 0;
+    }
+
+    /* ==========================================================================
+       SECTION 6: 100% SCROLL-PINNED SEQUENTIAL CONCIERGE FAQ (#faq)
+       450vh RUNWAY & 4-STAGE PINNED STAGE WITH LERP GLOW
+       ========================================================================== */
+    .faq-scroll-track {
+      height: 600vh !important;
+      position: relative;
+      background-color: #070605;
+      z-index: 20;
+      border-top: 1px solid rgba(212, 175, 55, 0.12);
+    }
+
+    .faq-sticky-viewport {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #090807;
+      padding: 0 4.5rem;
+    }
+
+    .faq-ambient-glow {
+      position: absolute;
+      top: 50%;
+      right: 15%;
+      transform: translateY(-50%);
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.02) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .faq-split-container {
+      max-width: 1340px;
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 45% 55%;
+      gap: 4.5rem;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Left Column (45% - Question Selector) */
+    .faq-selector-column {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .faq-meta-eyebrow {
+      font-size: 0.64rem;
+      letter-spacing: 0.36em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+    }
+
+    .faq-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      color: var(--text-main);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .faq-headline em {
+      font-style: italic;
+      color: var(--gold-pale);
+    }
+
+    .faq-subtext {
+      font-size: 0.86rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      font-weight: 300;
+      margin-bottom: 2.8rem;
+      max-width: 460px;
+    }
+
+    .faq-questions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      position: relative;
+    }
+
+    /* Sliding Gold Active Indicator Pill */
+    .faq-active-indicator-pill {
+      position: absolute;
+      left: -2px;
+      top: 0;
+      width: 3px;
+      height: 62px;
+      background: var(--gold-primary);
+      border-radius: 2px;
+      box-shadow: 0 0 6px rgba(212, 175, 55, 0.2);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.4s ease;
+      pointer-events: none;
+      z-index: 5;
+      will-change: transform, opacity;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .faq-q-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.2rem;
+      padding: 1.25rem 1.6rem;
+      background: transparent;
+      border: 1px solid rgba(212, 175, 55, 0.12);
+      border-radius: 14px;
+      cursor: pointer;
+      text-align: left;
+      opacity: 0.45;
+      transition: opacity 0.45s ease, border-color 0.45s ease, background 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease;
+      position: relative;
+      outline: none;
+      width: 100%;
+      will-change: transform, opacity;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .faq-q-item:hover {
+      opacity: 0.85;
+      background: rgba(255, 255, 255, 0.025);
+      border-color: rgba(212, 175, 55, 0.3);
+      transform: translateX(4px);
+    }
+
+    .faq-q-item.is-active {
+      opacity: 1;
+      background: linear-gradient(90deg, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0.03) 100%);
+      border-color: var(--gold-pale);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6), inset 0 0 18px rgba(212, 175, 55, 0.08);
+      transform: translateX(8px);
+    }
+
+    .faq-q-left {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+    }
+
+    .faq-q-num {
+      font-family: monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      color: var(--gold-deep);
+      font-weight: 600;
+      transition: color 0.35s ease;
+    }
+
+    .faq-q-item.is-active .faq-q-num {
+      color: var(--gold-primary);
+    }
+
+    .faq-q-text {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      letter-spacing: 0.03em;
+      color: var(--text-muted);
+      transition: color 0.35s ease;
+      line-height: 1.3;
+    }
+
+    .faq-q-item:hover .faq-q-text {
+      color: var(--text-main);
+    }
+
+    .faq-q-item.is-active .faq-q-text {
+      color: var(--gold-champagne, #f3e5ab);
+    }
+
+    .faq-q-arrow {
+      width: 16px;
+      height: 16px;
+      stroke: var(--gold-deep);
+      fill: none;
+      flex-shrink: 0;
+      transition: transform 0.4s ease, stroke 0.4s ease;
+    }
+
+    .faq-q-item.is-active .faq-q-arrow {
+      transform: translateX(4px);
+      stroke: var(--gold-pale);
+    }
+
+    /* Right Column (55% - Dynamic Answer Portal) */
+    .faq-answer-portal-column {
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+    }
+
+    .faq-glass-portal {
+      width: 100%;
+      min-height: 490px;
+      background: rgba(18, 16, 14, 0.75);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 20px;
+      padding: 3rem 3.2rem;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), inset 0 0 25px rgba(212, 175, 55, 0.04);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .portal-specular-sheen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-pale), transparent);
+      opacity: 0.6;
+    }
+
+    .portal-panels-carrier {
+      position: relative;
+      width: 100%;
+      min-height: 400px;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+      align-items: center;
+    }
+
+    .faq-answer-panel {
+      grid-area: 1 / 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translate3d(0, 15px, 0);
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
+      will-change: transform, opacity;
+    }
+
+    .faq-answer-panel.is-active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .faq-answer-panel.is-exiting {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translate3d(0, -15px, 0);
+    }
+
+    .ans-badge {
+      display: inline-block;
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      font-size: 0.64rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      font-weight: 500;
+      width: fit-content;
+      margin-bottom: 0.85rem;
+    }
+
+    .ans-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 2.6vw, 2.2rem);
+      font-weight: 300;
+      letter-spacing: 0.03em;
+      color: var(--text-main);
+      line-height: 1.25;
+      margin-bottom: 0.9rem;
+    }
+
+    .ans-summary {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--gold-pale);
+      line-height: 1.5;
+      margin-bottom: 1.2rem;
+    }
+
+    /* Ans 01: Visual Metrics Dial Row */
+    .ans-dial-row {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      background: rgba(10, 9, 8, 0.5);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: 14px;
+      padding: 1.2rem 1.6rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .ans-metrics-dial {
+      position: relative;
+      width: 84px;
+      height: 84px;
+      flex-shrink: 0;
+    }
+
+    .dial-svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .dial-inner-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dial-big-num {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--gold-pale);
+      line-height: 1;
+    }
+
+    .dial-sub-text {
+      font-size: 0.48rem;
+      letter-spacing: 0.2em;
+      color: var(--gold-deep);
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .dial-narrative {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .dial-stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .stat-highlight {
+      font-family: monospace;
+      font-size: 0.76rem;
+      letter-spacing: 0.15em;
+      color: var(--gold-primary);
+      font-weight: 600;
+    }
+
+    .stat-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .ans-detailed-text {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+      font-weight: 300;
+      margin-bottom: 1.6rem;
+    }
+
+    .ans-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      border-top: 1px solid rgba(212, 175, 55, 0.15);
+      padding-top: 1.4rem;
+    }
+
+    .metric-pill-card {
+      background: #090807;
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: 2px;
+      padding: 0.8rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .metric-lbl {
+      font-size: 0.56rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-deep);
+    }
+
+    .metric-val {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      color: var(--gold-pale);
+    }
+
+    .seal-guarantee-badge {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.1rem 1.4rem;
+      background: #090807;
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: 2px;
+      margin-top: 0.5rem;
+    }
+
+    .seal-icon-svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--gold-primary);
+      flex-shrink: 0;
+    }
+
+    .seal-text-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .seal-title {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-pale);
+      font-weight: 600;
+    }
+
+    .seal-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* Scroll Cue */
+    .faq-scroll-cue {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.6rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold-deep);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      z-index: 5;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .faq-scroll-cue.is-hidden {
+      opacity: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .faq-scroll-track {
+        height: 600vh !important;
+      }
+      .faq-sticky-viewport {
+        padding: 4rem 1.5rem;
+        overflow-y: auto;
+      }
+      .faq-split-container {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .faq-glass-portal {
+        padding: 2.2rem 1.8rem;
+      }
+      .ans-dial-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* ==========================================================================
+       BRAND FOOTER (#footer)
+       ========================================================================== */
+    .site-footer {
+      background-color: #060504;
+      border-top: 1px solid var(--gold-hairline);
+      padding: 6.5rem 4.5rem 3.5rem 4.5rem;
+      position: relative;
+      z-index: 30;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .footer-brand-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-droplet-icon {
+      width: 26px;
+      height: 34px;
+      fill: none;
+      stroke: var(--gold-primary);
+      stroke-width: 1.5;
+      filter: none;
+    }
+
+    .footer-brand-title {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      letter-spacing: 0.45em;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      line-height: 1;
+      text-shadow: none;
+    }
+
+    .footer-brand-sub {
+      font-size: 0.58rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .footer-address-text {
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      color: var(--gold-pale);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+
+    .footer-nav-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4rem;
+      width: 100%;
+      max-width: 1100px;
+      margin: 2.5rem auto 3rem auto;
+      text-align: left;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 3rem 0;
+    }
+
+    .footer-nav-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .footer-col-title {
+      font-size: 0.65rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      font-weight: 600;
+    }
+
+    .footer-col-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .footer-col-link {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      cursor: pointer;
+      background: none;
+      border: none;
+      text-align: left;
+      font-family: var(--font-body);
+      padding: 0;
+      letter-spacing: 0.04em;
+    }
+
+    .footer-col-link:hover {
+      color: var(--gold-pale);
+    }
+
+    .footer-social-row {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+      justify-content: center;
+      margin: 1.5rem 0 2rem 0;
+    }
+
+    .footer-social-link {
+      font-size: 0.72rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-social-link:hover {
+      color: var(--gold-primary);
+    }
+
+    .footer-legal-bar {
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      line-height: 1.8;
+      max-width: 780px;
+    }
+
+    /* ==========================================================================
+       MODALS & LUXURY DRAWERS
+       ========================================================================== */
+
+    /* Custom Luxury Scrollbar across all Drawers & Modals */
+    .luxury-drawer-panel::-webkit-scrollbar,
+    .notes-drawer-panel::-webkit-scrollbar,
+    .collection-modal-drawer::-webkit-scrollbar {
+      width: 4px;
+      background: rgba(212, 175, 55, 0.08);
+    }
+    .luxury-drawer-panel::-webkit-scrollbar-track,
+    .notes-drawer-panel::-webkit-scrollbar-track,
+    .collection-modal-drawer::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .luxury-drawer-panel::-webkit-scrollbar-thumb,
+    .notes-drawer-panel::-webkit-scrollbar-thumb,
+    .collection-modal-drawer::-webkit-scrollbar-thumb {
+      background: rgba(212, 175, 55, 0.4);
+      border-radius: 4px;
+    }
+    .luxury-drawer-panel::-webkit-scrollbar-thumb:hover,
+    .notes-drawer-panel::-webkit-scrollbar-thumb:hover,
+    .collection-modal-drawer::-webkit-scrollbar-thumb:hover {
+      background: rgba(212, 175, 55, 0.7);
+    }
+    .luxury-drawer-panel,
+    .notes-drawer-panel,
+    .collection-modal-drawer {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(212, 175, 55, 0.4) rgba(212, 175, 55, 0.08);
+    }
+
+    /* Notes & Transparency Modal Drawer (#notes-modal / .notes-modal) */
+    .notes-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 5, 4, 0.88);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      z-index: 250;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s var(--ease-lux), visibility 0.4s;
+    }
+
+    .notes-modal.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .notes-drawer-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      max-width: 780px;
+      background: #090807;
+      background: rgba(14, 12, 10, 0.96);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-left: 1px solid rgba(212, 175, 55, 0.22);
+      box-shadow: -25px 0 80px rgba(0, 0, 0, 0.95);
+      padding: 0;
+      overflow-y: auto;
+      z-index: 251;
+      transform: translate3d(100%, 0, 0);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .notes-modal.is-open .notes-drawer-panel {
+      transform: translate3d(0, 0, 0);
+    }
+
+    .notes-modal-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3.5rem 2.5rem;
+      position: relative;
+    }
+
+    .notes-editorial-p {
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: var(--text-muted);
+      font-weight: 300;
+      margin-bottom: 2rem;
+    }
+
+    /* Custom Dark Glass Accordion */
+    .notes-inquiry-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .notes-inquiry-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+    }
+
+    .notes-inquiry-item:hover {
+      background: rgba(255, 255, 255, 0.045);
+      border-color: rgba(212, 175, 55, 0.35);
+    }
+
+    .notes-inquiry-item.is-open {
+      background: rgba(212, 175, 55, 0.05);
+      border-color: rgba(212, 175, 55, 0.45);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(212, 175, 55, 0.04);
+    }
+
+    .notes-inquiry-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+      text-align: left;
+      outline: none;
+    }
+
+    .inquiry-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .inquiry-num {
+      font-family: monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      color: var(--gold-deep);
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .notes-inquiry-item.is-open .inquiry-num {
+      color: var(--gold-primary);
+    }
+
+    .inquiry-title {
+      font-family: var(--font-display);
+      font-size: 1.22rem;
+      letter-spacing: 0.02em;
+      color: var(--gold-champagne, #f3e5ab);
+      font-weight: 400;
+      line-height: 1.35;
+      transition: color 0.3s ease;
+    }
+
+    .inquiry-chevron-svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--gold-primary);
+      flex-shrink: 0;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .notes-inquiry-item.is-open .inquiry-chevron-svg {
+      transform: rotate(180deg);
+    }
+
+    .notes-inquiry-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      opacity: 0;
+    }
+
+    .notes-inquiry-item.is-open .notes-inquiry-body {
+      max-height: 350px;
+      opacity: 1;
+      padding-top: 1rem;
+    }
+
+    .notes-inquiry-text {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #c8c2b7;
+      margin-bottom: 0.85rem;
+      font-weight: 300;
+    }
+
+    .notes-badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding-top: 0.6rem;
+      border-top: 1px solid rgba(212, 175, 55, 0.12);
+    }
+
+    .notes-spec-tag {
+      font-size: 0.58rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-pale);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: 2px;
+      padding: 0.22rem 0.55rem;
+    }
+
+    /* Pinned Gold Close Button */
+    .notes-drawer-panel .drawer-close-btn {
+      position: absolute;
+      top: 1.8rem;
+      right: 2rem;
+      background: rgba(14, 12, 10, 0.6);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: var(--gold-pale);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.3s ease;
+    }
+    .notes-drawer-panel .drawer-close-btn:hover {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: var(--gold-primary);
+      color: #fff;
+    }
+
+    .luxury-drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 5, 4, 0.84);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 200;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s var(--ease-lux), visibility 0.4s;
+    }
+
+    .luxury-drawer-backdrop.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .luxury-drawer-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      max-width: 680px;
+      background: var(--bg-surface);
+      border-left: 1px solid var(--gold-hairline);
+      box-shadow: -20px 0 60px rgba(0, 0, 0, 0.95);
+      padding: 4rem 3.5rem;
+      overflow-y: auto;
+      z-index: 201;
+      transform: translate3d(100%, 0, 0);
+      transition: transform 0.5s var(--ease-lux);
+    }
+
+    .luxury-drawer-backdrop.is-open .luxury-drawer-panel {
+      transform: translate3d(0, 0, 0);
+    }
+
+    .drawer-close-btn {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .drawer-close-btn:hover {
+      border-color: var(--gold-primary);
+      color: #fff;
+    }
+
+    .drawer-header {
+      margin-bottom: 2rem;
+    }
+
+    .drawer-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.36em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      display: block;
+      margin-bottom: 0.8rem;
+    }
+
+    .drawer-title {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      color: var(--gold-pale);
+      line-height: 1.15;
+    }
+
+    .maison-quote-box {
+      border-left: 2px solid var(--gold-primary);
+      padding: 1rem 1.6rem;
+      background: rgba(212, 175, 55, 0.04);
+      margin-bottom: 2rem;
+    }
+
+    .maison-quote-text {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--gold-pale);
+      line-height: 1.5;
+    }
+
+    .maison-editorial-p {
+      font-size: 0.94rem;
+      line-height: 1.9;
+      color: var(--text-muted);
+      font-weight: 300;
+      margin-bottom: 2rem;
+    }
+
+    .craft-step-row {
+      display: flex;
+      gap: 1.8rem;
+      margin-bottom: 1.8rem;
+      padding-bottom: 1.8rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .craft-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--gold-primary);
+      line-height: 1;
+    }
+
+    .craft-info h4 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--gold-pale);
+      margin-bottom: 0.4rem;
+    }
+
+    .craft-info p {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    /* Forms */
+    .luxury-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      background: rgba(14, 12, 10, 0.8);
+      border: 1px solid var(--border-subtle);
+      border-radius: 2px;
+      padding: 0.95rem 1.2rem;
+      color: var(--text-main);
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.3);
+    }
+
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .btn-submit-gold {
+      padding: 1.15rem 2rem;
+      background: #090807;
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      color: var(--gold-pale);
+      font-family: var(--font-body);
+      font-size: 0.74rem;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      box-shadow: none;
+      transition: all 0.3s var(--ease-lux);
+    }
+
+    .btn-submit-gold:hover {
+      background: rgba(212, 175, 55, 0.1);
+      border-color: rgba(212, 175, 55, 0.6);
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: none;
+    }
+
+    .btn-concierge-inquiry {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 1.1rem 2rem;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold-pale);
+      background: rgba(212, 175, 55, 0.06);
+      border: 1px solid var(--gold-hairline);
+      border-radius: 2px;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: all 0.35s var(--ease-lux);
+    }
+
+    .btn-concierge-inquiry:hover {
+      background: rgba(212, 175, 55, 0.16);
+      border-color: var(--gold-primary);
+      color: #fff;
+    }
+
+    .success-alert {
+      display: none;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .success-icon {
+      width: 52px;
+      height: 52px;
+      stroke: var(--gold-primary);
+      stroke-width: 1.5;
+      fill: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .success-title {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      color: var(--gold-pale);
+      margin-bottom: 0.8rem;
+    }
+
+    .serial-box {
+      display: inline-block;
+      margin: 1.2rem 0;
+      padding: 0.8rem 2rem;
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid var(--gold-primary);
+      font-family: monospace;
+      font-size: 1.1rem;
+      letter-spacing: 0.28em;
+      color: var(--gold-pale);
+    }
+
+    .success-text {
+      font-size: 0.92rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin: 0 auto;
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .site-header {
+        padding: 0 1.8rem;
+      }
+      .nav-menu {
+        display: none;
+      }
+      #hero-product-slider {
+        padding: 6rem 1.8rem;
+      }
+      .slider-container-grid {
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+      }
+      .slider-stage-wrapper {
+        height: 480px;
+      }
+      .bottle-3d-stage {
+        height: 420px;
+      }
+      .stage-bottle-card {
+        width: 260px;
+      }
+      .stage-bottle-card.is-queued {
+        transform: translate3d(80px, 0, -60px) rotateY(-18deg) scale(0.68);
+      }
+      .manifesto-section, .editorial-catalog-section, .reviews-faq-section {
+        padding: 6rem 1.8rem;
+      }
+      .reviews-grid, .footer-nav-grid {
+        grid-template-columns: 1fr;
+        gap: 2.2rem;
+      }
+      .editorial-row-main {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+      .row-right-group {
+        justify-content: space-between;
+        width: 100%;
+      }
+      .scrub-telemetry {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       SITE HEADER WITH CLEAN NAVIGATION
+       ========================================================================== -->
+  <header class="site-header" id="site-header">
+    <a href="#the-scent" class="brand-mark" id="brand-logo" aria-label="SILLAGE Paris">
+      <svg class="brand-icon-svg" viewBox="0 0 24 32" aria-hidden="true">
+        <path d="M12 2C12 2 3 14.5 3 21C3 25.9706 7.02944 30 12 30C16.9706 30 21 25.9706 21 21C21 14.5 12 2 12 2Z" />
+      </svg>
+      <div class="brand-text-group">
+        <span class="brand-title">SILLAGE</span>
+        <span class="brand-sub">Haute Parfumerie &bull; Paris</span>
+      </div>
+    </a>
+
+    <nav aria-label="Primary Navigation">
+      <ul class="nav-menu">
+        <li><a href="#the-scent" class="nav-link nav-item-btn">The Scent</a></li>
+        <li><a href="#flightone-showcase" class="nav-link nav-item-btn">Showcase</a></li>
+        <li><a href="#manifesto" class="nav-link nav-item-btn">Manifesto</a></li>
+        <li><a href="#collection" class="nav-link nav-item-btn" onclick="openDrawer('collection'); return false;">Collection</a></li>
+        <li><a href="#reviews-pinned-track" class="nav-link nav-item-btn">Reviews &amp; FAQ</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <button type="button" class="btn-reserve-glass" onclick="openDrawer('reserve')">Reserve Your Bottle</button>
+    </div>
+  </header>
+
+  <!-- Vertical Telemetry Bar -->
+  <aside class="scrub-telemetry" aria-hidden="true" id="scrub-telemetry">
+    <div class="telemetry-progress-bar" id="telemetry-progress-bar"></div>
+  </aside>
+
+  <main>
+    <!-- ==========================================================================
+         SECTION 1: HERO SCROLL VIDEO & SETTLE (PINNED 1800vh RUNWAY)
+         ========================================================================== -->
+    <section class="scrub-container" id="the-scent" aria-label="The Sillage Cinematic Journey">
+      <div class="sticky-hero-stage scrub-sticky-viewport" id="hero-sticky-stage">
+
+        <!-- Scrubber Video Element -->
+        <video 
+          id="hero-video" 
+          class="hero-video" 
+          src="assets/hero-scrub.mp4" 
+          poster="assets/poster.jpg"
+          preload="auto" 
+          muted 
+          playsinline>
+        </video>
+
+        <!-- Dark Radial Scrim Overlay & Aura -->
+        <div class="hero-scrim" aria-hidden="true"></div>
+        <div class="ambient-gold-aura" aria-hidden="true"></div>
+
+        <!-- Narrative Overlay over the Video -->
+        <div class="hero-narrative-overlay" id="hero-narrative-overlay">
+          <span class="hero-subtitle">Eau de Parfum</span>
+          <h1 class="hero-main-title">SILLAGE</h1>
+          <p class="hero-tagline">“Where presence becomes a signature.”</p>
+          
+          <div class="hero-explore-prompt" id="hero-explore-prompt">
+            <span class="explore-label">EXPLORE FRAGRANCE</span>
+            <div class="explore-arrow">↓</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 2: INTERACTIVE FLACON SHOWCASE (#hero-product-slider)
+         DYNAMIC THEME & 3D CAROUSEL
+         ========================================================================== -->
+    <section class="flight-track" id="flightone-showcase" aria-label="FlightOne Collection Showcase">
+      <!-- Invisible anchor for legacy links/nav -->
+      <span id="hero-product-slider" style="position: absolute; top: 0; pointer-events: none;"></span>
+
+      <div class="flight-viewport" id="flight-viewport">
+        <!-- Ambient luxury background aura -->
+        <div class="flight-ambient-glow" id="flight-ambient-glow" aria-hidden="true"></div>
+
+        <!-- 3-Part Main Layout -->
+        <div class="flight-layout-container" id="flight-layout-container">
+          
+          <!-- 1. LEFT COLUMN: THUMBNAIL DOCK -->
+          <aside class="flight-left-dock" id="flight-left-dock" aria-label="Editions Dock">
+            <div class="dock-header">
+              <span class="dock-eyebrow">EDITION ARCHIVE</span>
+              <span class="dock-counter" id="dock-counter">01 / 03</span>
+            </div>
+
+            <div class="dock-list" id="dock-list">
+              <!-- Dock Item 0: Sillage Noir -->
+              <button type="button" class="dock-item is-active" id="dock-item-0" onclick="flightJumpTo(0.125)">
+                <div class="dock-thumb-wrap">
+                  <img src="assets/sillage-noir.jpg" alt="Sillage Noir thumbnail" class="dock-thumb-img">
+                  <div class="dock-thumb-glow"></div>
+                </div>
+                <div class="dock-item-info">
+                  <span class="dock-item-num">01</span>
+                  <span class="dock-item-title">NOIR</span>
+                  <span class="dock-item-state">ACTIVE</span>
+                </div>
+              </button>
+
+              <!-- Dock Item 1: Impérial Blanc -->
+              <button type="button" class="dock-item" id="dock-item-1" onclick="flightJumpTo(0.375)">
+                <div class="dock-thumb-wrap">
+                  <img src="assets/imperial-blanc.jpg" alt="Impérial Blanc thumbnail" class="dock-thumb-img">
+                  <div class="dock-thumb-glow"></div>
+                </div>
+                <div class="dock-item-info">
+                  <span class="dock-item-num">02</span>
+                  <span class="dock-item-title">BLANC</span>
+                  <span class="dock-item-state">UPCOMING</span>
+                </div>
+              </button>
+
+              <!-- Dock Item 2: Rouge Obsidienne -->
+              <button type="button" class="dock-item" id="dock-item-2" onclick="flightJumpTo(0.625)">
+                <div class="dock-thumb-wrap">
+                  <img src="assets/rouge-obsidienne.jpg" alt="Rouge Obsidienne thumbnail" class="dock-thumb-img">
+                  <div class="dock-thumb-glow"></div>
+                </div>
+                <div class="dock-item-info">
+                  <span class="dock-item-num">03</span>
+                  <span class="dock-item-title">ROUGE</span>
+                  <span class="dock-item-state">UPCOMING</span>
+                </div>
+              </button>
+            </div>
+          </aside>
+
+          <!-- 2. CENTER COLUMN: ACTIVE SHOWCASE CARD STAGE -->
+          <main class="flight-center-stage" id="flight-center-stage">
+            <div class="center-cards-carrier" id="center-cards-carrier">
+              
+              <!-- Card 0: SILLAGE NOIR -->
+              <div class="showcase-card" id="flight-card-0" onclick="openDrawer('reserve', 'Sillage Noir')">
+                <div class="card-glass-frame">
+                  <img src="assets/sillage-noir.jpg" alt="Sillage Noir Flacon" class="card-flacon-img">
+                  <div class="card-specular-sheen"></div>
+                  <div class="card-lighting-vignette"></div>
+                  <div class="card-plaque">
+                    <span class="card-plaque-title">SILLAGE &bull; PARIS</span>
+                    <span class="card-plaque-serial">NOIR &bull; EXTRAIT DE PARFUM &bull; 32%</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 1: IMPÉRIAL BLANC -->
+              <div class="showcase-card" id="flight-card-1" onclick="openDrawer('reserve', 'Impérial Blanc')">
+                <div class="card-glass-frame">
+                  <img src="assets/imperial-blanc.jpg" alt="Impérial Blanc Flacon" class="card-flacon-img">
+                  <div class="card-specular-sheen"></div>
+                  <div class="card-lighting-vignette"></div>
+                  <div class="card-plaque">
+                    <span class="card-plaque-title">SILLAGE &bull; PARIS</span>
+                    <span class="card-plaque-serial">BLANC &bull; EXTRAIT DE PARFUM &bull; 28%</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 2: ROUGE OBSIDIENNE -->
+              <div class="showcase-card" id="flight-card-2" onclick="openDrawer('reserve', 'Rouge Obsidienne')">
+                <div class="card-glass-frame">
+                  <img src="assets/rouge-obsidienne.jpg" alt="Rouge Obsidienne Flacon" class="card-flacon-img">
+                  <div class="card-specular-sheen"></div>
+                  <div class="card-lighting-vignette"></div>
+                  <div class="card-plaque">
+                    <span class="card-plaque-title">SILLAGE &bull; PARIS</span>
+                    <span class="card-plaque-serial">ROUGE &bull; EXTRAIT DE PARFUM &bull; 30%</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Stage 4 Conversion Settle Block (Centered Below Bottle) -->
+            <div class="flight-conversion-settle" id="flight-conversion-settle">
+              <div class="settle-pill">
+                <span>HAND-CRAFTED ATELIER ARCHIVE &bull; GRASSE</span>
+              </div>
+              <h3 class="settle-headline">
+                Every flacon is hand-poured in Grasse, numbered and aged in obsidian flacons designed around you.
+              </h3>
+              <p class="settle-subtext">Numbered allocation strictly limited to 500 crystal flacons globally.</p>
+              <div class="settle-cta-group">
+                <button type="button" class="btn-settle-reserve" onclick="openDrawer('reserve')">
+                  <span>RESERVE YOUR ALLOCATION</span>
+                  <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"/></svg>
+                </button>
+                <button type="button" class="settle-explore-all" onclick="openDrawer('collection')" style="background:none;border:none;cursor:pointer;">Explore Entire Collection ↗</button>
+              </div>
+            </div>
+          </main>
+
+          <!-- 3. RIGHT COLUMN: EDITORIAL DETAILS -->
+          <section class="flight-right-editorial" id="flight-right-editorial" aria-label="Fragrance Story">
+            <div class="editorial-cards-stack">
+              
+              <!-- Editorial Card 0: Sillage Noir -->
+              <article class="editorial-info-pane" id="flight-pane-0">
+                <div class="pane-badge">01 / 03 &bull; EXTRAIT DE PARFUM</div>
+                <h2 class="pane-title">01 / SILLAGE NOIR</h2>
+                <div class="pane-notes-highlight">Dark Baltic Amber &amp; Smoked Oud</div>
+                <p class="pane-poetic-desc">
+                  Smoldering presence steeped in balsamic resin, wild Assamese oud, and French birch embers. Calibrated for magnetic nightfall impact.
+                </p>
+                <div class="pane-specs">
+                  <span class="spec-tag">Concentration: 32%</span>
+                  <span class="spec-tag">Longevity: 18h+</span>
+                  <span class="spec-tag">Allocation #001/500</span>
+                </div>
+                <div class="pane-actions">
+                  <button type="button" class="btn-explore-scent" onclick="openDrawer('collection')" style="background:none;border:none;cursor:pointer;">
+                    <span>Explore Scent</span>
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  </button>
+                  <button type="button" class="btn-pane-reserve" onclick="openDrawer('reserve', 'Sillage Noir')">
+                    <span>Reserve $140</span>
+                  </button>
+                </div>
+              </article>
+
+              <!-- Editorial Card 1: Impérial Blanc -->
+              <article class="editorial-info-pane" id="flight-pane-1">
+                <div class="pane-badge">02 / 03 &bull; EXTRAIT DE PARFUM</div>
+                <h2 class="pane-title">02 / IMPÉRIAL BLANC</h2>
+                <div class="pane-notes-highlight">Calabrian Bergamot &amp; Florentine Orris</div>
+                <p class="pane-poetic-desc">
+                  Crisp, radiant dawn reflection. Powdery butter of rare Tuscan orris roots kissed by sparkling Italian citrus and solar white ambergris.
+                </p>
+                <div class="pane-specs">
+                  <span class="spec-tag">Concentration: 28%</span>
+                  <span class="spec-tag">Longevity: 14h+</span>
+                  <span class="spec-tag">Allocation #001/500</span>
+                </div>
+                <div class="pane-actions">
+                  <button type="button" class="btn-explore-scent" onclick="openDrawer('collection')" style="background:none;border:none;cursor:pointer;">
+                    <span>Explore Scent</span>
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  </button>
+                  <button type="button" class="btn-pane-reserve" onclick="openDrawer('reserve', 'Impérial Blanc')">
+                    <span>Reserve $160</span>
+                  </button>
+                </div>
+              </article>
+
+              <!-- Editorial Card 2: Rouge Obsidienne -->
+              <article class="editorial-info-pane" id="flight-pane-2">
+                <div class="pane-badge">03 / 03 &bull; EXTRAIT DE PARFUM</div>
+                <h2 class="pane-title">03 / ROUGE OBSIDIENNE</h2>
+                <div class="pane-notes-highlight">Damask Rose &amp; Charred Cedar</div>
+                <p class="pane-poetic-desc">
+                  Velvet midnight crimson. Dark Turkish Damask roses macerated in blackberry resin and ancient incense smoke over scorched French cedarwood.
+                </p>
+                <div class="pane-specs">
+                  <span class="spec-tag">Concentration: 30%</span>
+                  <span class="spec-tag">Longevity: 16h+</span>
+                  <span class="spec-tag">Allocation #001/500</span>
+                </div>
+                <div class="pane-actions">
+                  <button type="button" class="btn-explore-scent" onclick="openDrawer('collection')" style="background:none;border:none;cursor:pointer;">
+                    <span>Explore Scent</span>
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  </button>
+                  <button type="button" class="btn-pane-reserve" onclick="openDrawer('reserve', 'Rouge Obsidienne')">
+                    <span>Reserve $180</span>
+                  </button>
+                </div>
+              </article>
+
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Subtle Scroll Cue -->
+        <div class="flight-scroll-cue" id="flight-scroll-cue">
+          <span>SCROLL TO EXPAND EDITIONS</span>
+          <span class="cue-chevron">↓</span>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="manifesto-scroll-track" id="manifesto" aria-label="Brand Philosophy &amp; Manifesto">
+      <div class="manifesto-sticky-viewport" id="manifesto-sticky-viewport">
+        <div class="manifesto-inner-wrap">
+          <span class="manifesto-eyebrow" id="manifesto-eyebrow">THE MAISON PHILOSOPHY &bull; PARIS ATELIER</span>
+          <blockquote class="manifesto-big-quote philosophy-quote manifesto-text" id="manifesto-text">
+            “We believe a fragrance should not announce your arrival—it should linger long after you have departed. Handcrafted in Grasse with rarest botanicals.”
+          </blockquote>
+
+          <div class="manifesto-pillars-row" id="manifesto-pillars">
+            <div class="manifesto-pillar-item"><span class="manifesto-bullet">&mdash;</span> Wild Assamese Centenarian Agarwood</div>
+            <div class="manifesto-pillar-item"><span class="manifesto-bullet">&mdash;</span> Supercritical CO₂ Molecular Extraction</div>
+            <div class="manifesto-pillar-item"><span class="manifesto-bullet">&mdash;</span> 120-Day Charred French Oak Maceration</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       SECTION 4: SILLAGE COLLECTION ARCHIVE & ATELIER PORTAL (#collection)
+       ========================================================================== -->
+    <section class="collection-portal-section" id="collection" aria-label="The Sillage Collection Archive">
+      <div class="collection-portal-inner">
+        <span class="collection-portal-eyebrow">ATELIER ARCHIVE &bull; PRIVATE ALLOCATIONS</span>
+        <h2 class="collection-portal-title">The Sillage <em>Collection</em></h2>
+        <p class="collection-portal-subhead">Explore our complete repertoire of rare extraits de parfum, hand-blown crystal flacons, and private cellar reserves.</p>
+        <div class="collection-portal-actions">
+          <button type="button" class="btn-open-collection" onclick="openDrawer('collection')">
+            <span>Explore Complete Archive</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+    <!-- ==========================================================================
+       SECTION 5: SCROLL-PINNED SEQUENTIAL PATRON REVIEWS (#reviews-pinned-track)
+       ========================================================================== -->
+    <section class="reviews-pinned-track" id="reviews-pinned-track" aria-label="Patron Appraisals">
+      <!-- Anchors for legacy navigation -->
+      <span id="reviews" style="position: absolute; top: 0; pointer-events: none;"></span>
+      <span id="reviews-faq" style="position: absolute; top: 0; pointer-events: none;"></span>
+      
+      <div class="reviews-sticky-viewport" id="reviews-sticky-viewport">
+        
+        <!-- Section Header with generous vertical spacing and zero collision -->
+        <header class="reviews-pinned-header">
+          <span class="reviews-meta-tag">PATRON APPRAISALS &bull; INAUGURAL SALON</span>
+          <h2 class="reviews-main-title">Early <em>Impressions</em></h2>
+          <p class="reviews-main-subhead">Verifiable appraisals from the inaugural private tasting salon.</p>
+        </header>
+
+        <!-- Stage Container for the 3 sequential reviews -->
+        <div class="reviews-stage-container" id="reviews-stage-container">
+          
+          <!-- Review 01: Julien V. • Paris (Stage 1: 0.00 - 0.33) -->
+          <article class="pinned-review-item" id="pinned-review-0">
+            <div class="pinned-review-stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote class="pinned-review-quote review-quote patron-quote" id="review-quote-0">
+              “A deep, intensely sophisticated fragrance with an unforgettable dry down. The smoked amber lingers on cashmere for days.”
+            </blockquote>
+            <div class="pinned-review-meta">
+              <span class="meta-patron-name">JULIEN V. &bull; PARIS</span>
+              <span class="meta-patron-divider"></span>
+              <span class="meta-patron-badge">VERIFIED PATRON ALLOCATION</span>
+            </div>
+          </article>
+
+          <!-- Review 02: Marcus T. • London (Stage 2: 0.33 - 0.66) -->
+          <article class="pinned-review-item" id="pinned-review-1">
+            <div class="pinned-review-stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote class="pinned-review-quote review-quote patron-quote" id="review-quote-1">
+              “True extrait strength. Two sprays leave an intoxicating, quiet trail that commands presence without being loud.”
+            </blockquote>
+            <div class="pinned-review-meta">
+              <span class="meta-patron-name">MARCUS T. &bull; LONDON</span>
+              <span class="meta-patron-divider"></span>
+              <span class="meta-patron-badge">VERIFIED PATRON ALLOCATION</span>
+            </div>
+          </article>
+
+          <!-- Review 03: Sophia H. • Milan (Stage 3: 0.66 - 1.00) -->
+          <article class="pinned-review-item" id="pinned-review-2">
+            <div class="pinned-review-stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote class="pinned-review-quote review-quote patron-quote" id="review-quote-2">
+              “The flacon weight alone is remarkable, but the Assam oud maceration is where the true luxury lies.”
+            </blockquote>
+            <div class="pinned-review-meta">
+              <span class="meta-patron-name">SOPHIA H. &bull; MILAN</span>
+              <span class="meta-patron-divider"></span>
+              <span class="meta-patron-badge">VERIFIED PATRON ALLOCATION</span>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Subtle Scroll Cue -->
+        <div class="reviews-scroll-cue" id="reviews-scroll-cue">
+          <span>SCROLL TO READ PATRON APPRAISALS</span>
+          <span class="cue-chevron">↓</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       SECTION 6: 100% SCROLL-PINNED SEQUENTIAL CONCIERGE FAQ (#faq)
+       450vh RUNWAY & 4-STAGE PINNED STAGE
+       ========================================================================== -->
+    <section class="faq-scroll-track" id="faq" aria-label="Frequently Inquired Concierge FAQ">
+      <div class="faq-sticky-viewport">
+      <div class="faq-ambient-glow" aria-hidden="true"></div>
+
+      <div class="faq-split-container">
+        
+        <!-- Left Column (45% - Question Selector) -->
+        <div class="faq-selector-column">
+          <span class="faq-meta-eyebrow">ATELIER TRANSPARENCY</span>
+          <h2 class="faq-headline">Frequently <em>Inquired</em></h2>
+          <p class="faq-subtext">
+            Direct protocols from our Master Distiller on longevity, authenticated wax sealing, global courier dispatch, and ethical harvesting.
+          </p>
+
+          <div class="faq-questions-list" id="faq-questions-list" role="tablist">
+            <!-- Sliding Gold Indicator Pill -->
+            <div class="faq-active-indicator-pill" id="faq-active-indicator-pill" aria-hidden="true"></div>
+
+            <!-- Q1 -->
+            <button type="button" class="faq-q-item is-active" id="faq-q-0" data-index="0" role="tab" aria-selected="true" aria-controls="faq-ans-0">
+              <div class="faq-q-left">
+                <span class="faq-q-num">01 /</span>
+                <span class="faq-q-text">Longevity &amp; Projection Profile</span>
+              </div>
+              <svg class="faq-q-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </button>
+
+            <!-- Q2 -->
+            <button type="button" class="faq-q-item" id="faq-q-1" data-index="1" role="tab" aria-selected="false" aria-controls="faq-ans-1">
+              <div class="faq-q-left">
+                <span class="faq-q-num">02 /</span>
+                <span class="faq-q-text">The Sealed Flacon &amp; Discovery Miniature</span>
+              </div>
+              <svg class="faq-q-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </button>
+
+            <!-- Q3 -->
+            <button type="button" class="faq-q-item" id="faq-q-2" data-index="2" role="tab" aria-selected="false" aria-controls="faq-ans-2">
+              <div class="faq-q-left">
+                <span class="faq-q-num">03 /</span>
+                <span class="faq-q-text">White-Glove Global Courier Logistics</span>
+              </div>
+              <svg class="faq-q-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </button>
+
+            <!-- Q4 -->
+            <button type="button" class="faq-q-item" id="faq-q-3" data-index="3" role="tab" aria-selected="false" aria-controls="faq-ans-3">
+              <div class="faq-q-left">
+                <span class="faq-q-num">04 /</span>
+                <span class="faq-q-text">Ethical Sourcing &amp; Agarwood CITES Certification</span>
+              </div>
+              <svg class="faq-q-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Right Column (55% - Dynamic Answer Portal) -->
+        <div class="faq-answer-portal-column">
+          <div class="faq-glass-portal">
+            <div class="portal-specular-sheen"></div>
+            <div class="portal-panels-carrier">
+              
+              <!-- Answer 01: Longevity & Projection Profile -->
+              <article class="faq-answer-panel is-active" id="faq-ans-0" role="tabpanel" aria-labelledby="faq-q-0">
+                <div class="ans-badge">CONCENTRATION &bull; EXTRAIT PROFILE</div>
+                <h3 class="ans-title">16+ Hour Resonance with a 2-Meter Radiance</h3>
+                <p class="ans-summary">
+                  “32% pure extrait concentration yields a 16+ hour skin-smolder and 2-meter projection aura.”
+                </p>
+
+                <!-- Visual Metrics Dial -->
+                <div class="ans-dial-row">
+                  <div class="ans-metrics-dial">
+                    <svg class="dial-svg" viewBox="0 0 100 100" aria-label="32 percent extrait concentration dial">
+                      <circle class="dial-track" cx="50" cy="50" r="40" fill="none" stroke="rgba(212,175,55,0.15)" stroke-width="6" />
+                      <circle class="dial-progress" cx="50" cy="50" r="40" fill="none" stroke="url(#goldGradientFaq)" stroke-width="6" stroke-dasharray="251.2" stroke-dashoffset="80" stroke-linecap="round" />
+                      <defs>
+                        <linearGradient id="goldGradientFaq" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stop-color="#f3e5ab" />
+                          <stop offset="100%" stop-color="#d4af37" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    <div class="dial-inner-content">
+                      <span class="dial-big-num">32%</span>
+                      <span class="dial-sub-text">EXTRAIT</span>
+                    </div>
+                  </div>
+                  <div class="dial-narrative">
+                    <div class="dial-stat-item">
+                      <span class="stat-highlight">16+ HOURS RESIDENCE</span>
+                      <span class="stat-desc">Dermal adherence sustained by wild Assamese resins without synthetic fixatives.</span>
+                    </div>
+                    <div class="dial-stat-item">
+                      <span class="stat-highlight">2.0-METER PROJECTION</span>
+                      <span class="stat-desc">Intimate sillage aura that commands space without overwhelming presence.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <p class="ans-detailed-text">
+                  Compounded without water dilution or synthetic fixatives, SILLAGE opens with crisp vibrant effervescence before developing into an intimate 1.5m to 2.2m sillage. Resinous Baltic amber and wild Assamese agarwood cling deeply to pulse points and cashmere for multiple days.
+                </p>
+                <div class="ans-metrics-grid">
+                  <div class="metric-pill-card">
+                    <span class="metric-lbl">CONCENTRATION</span>
+                    <span class="metric-val">28% &ndash; 32% Pure Extrait</span>
+                  </div>
+                  <div class="metric-pill-card">
+                    <span class="metric-lbl">DIFFUSION RADIUS</span>
+                    <span class="metric-val">1.8m &ndash; 2.2m Sillage Aura</span>
+                  </div>
+                  <div class="metric-pill-card">
+                    <span class="metric-lbl">SKIN PERSISTENCE</span>
+                    <span class="metric-val">16 &ndash; 24 Hours Continuous</span>
+                  </div>
+                  <div class="metric-pill-card">
+                    <span class="metric-lbl">OAK MACERATION</span>
+                    <span class="metric-val">120 Days Aged in Grasse</span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Answer 02: Sealed Flacon & Discovery Miniature -->
+              <article class="faq-answer-panel" id="faq-ans-1" role="tabpanel" aria-labelledby="faq-q-1">
+                <div class="ans-badge">DISCOVERY PROTOCOL &bull; SEAL PROTECTION</div>
+                <h3 class="ans-title">Test First with Complimentary Discovery Vial</h3>
+                <p class="ans-summary">
+                  “Every allocation includes a complimentary 2ml discovery vial. Test on skin first; full flacon remains eligible for return if wax seal is intact.”
+                </p>
+                <p class="ans-detailed-text">
+                  To honor the intimacy of personal chemistry, we include a hand-filled 2ml extraction vial beside each numbered presentation flacon. Experience the top, heart, and base notes over 48 hours. If the sillage does not command your devotion, return the untouched sealed box within 30 days for an immediate refund.
+                </p>
+                <div class="seal-guarantee-badge">
+                  <svg class="seal-icon-svg" viewBox="0 0 24 24"><path d="M12 2L4 7v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V7l-8-5z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
+                  <div class="seal-text-group">
+                    <span class="seal-title">UNBROKEN WAX SEAL GUARANTEE</span>
+                    <span class="seal-desc">30-day atelier return window with complimentary insured courier return logistics.</span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Answer 03: White-Glove Global Courier Logistics -->
+              <article class="faq-answer-panel" id="faq-ans-2" role="tabpanel" aria-labelledby="faq-q-2">
+                <div class="ans-badge">GLOBAL CONCIERGE &bull; WHITE-GLOVE DISPATCH</div>
+                <h3 class="ans-title">Insured Temperature-Controlled Express Delivery</h3>
+                <p class="ans-summary">
+                  “Complimentary temperature-controlled insured courier dispatched directly from Paris Atelier to over 60 countries.”
+                </p>
+                <p class="ans-detailed-text">
+                  Bottles are dispatched directly from our 8th arrondissement vault in shock-absorbent thermal cases to protect volatile botanicals from altitude and temperature fluctuation. Full insurance and signature requirement are included without charge.
+                </p>
+                <div class="ans-metrics-grid">
+                  <div class="metric-pill-card">
+                    <span class="metric-lbl">DISPATCH ORIGIN</span>
+                    <span class="metric-val">Paris Atelier, France</span>
+                  </div>
+                  <div class="metric-pill-card">
+                    <span class="metric-lbl">TRANSIT DURATION</span>
+                    <span class="metric-val">3 &ndash; 5 Business Days Global</span>
+                  </div>
+                  <div class="metric-pill-card">
+                    <span class="metric-lbl">DESTINATIONS</span>
+                    <span class="metric-val">60+ Sovereign Nations</span>
+                  </div>
+                  <div class="metric-pill-card">
+                    <span class="metric-lbl">COURIER PROTOCOL</span>
+                    <span class="metric-val">Direct Signature Required</span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Answer 04: Ethical Sourcing & CITES Certification -->
+              <article class="faq-answer-panel" id="faq-ans-3" role="tabpanel" aria-labelledby="faq-q-3">
+                <div class="ans-badge">SUSTAINABLE HARVEST &bull; CITES AUDIT</div>
+                <h3 class="ans-title">100% Certified Sustainable Centenarian Agarwood</h3>
+                <p class="ans-summary">
+                  “100% CITES-certified sustainable Assam agarwood harvested ethically from centenarian plantations.”
+                </p>
+                <p class="ans-detailed-text">
+                  Our Assamese agarwood is salvaged exclusively from fallen centenarian trees in certified reserves under strict supervision of forestry authorities. Grasse Damask roses and Florentine orris butter are cultivated biodynamically with zero chemical fertilizers.
+                </p>
+                <div class="ans-metrics-grid">
+                  <div class="metric-pill-card">
+                    <span class="metric-lbl">CITES COMPLIANCE</span>
+                    <span class="metric-val">Appendix II Certified Audit</span>
+                  </div>
+                  <div class="metric-pill-card">
+                    <span class="metric-lbl">BOTANICAL PURITY</span>
+                    <span class="metric-val">Zero Synthetic Fixatives</span>
+                  </div>
+                  <div class="metric-pill-card">
+                    <span class="metric-lbl">FLORAL EXTRACTION</span>
+                    <span class="metric-val">Supercritical CO₂ Molecular</span>
+                  </div>
+                  <div class="metric-pill-card">
+                    <span class="metric-lbl">REFORESTATION</span>
+                    <span class="metric-val">5 Saplings Planted per Flacon</span>
+                  </div>
+                </div>
+              </article>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+          <!-- Scroll Cue Indicator -->
+        <div class="faq-scroll-cue" id="faq-scroll-cue" aria-hidden="true">
+          <span>SCROLL TO ADVANCE PROTOCOLS</span>
+          <div class="cue-pill-arrow">↓</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       BRAND FOOTER (#footer)
+       ========================================================================== -->
+  <footer class="site-footer" id="footer" aria-label="Brand Footer">
+    <div class="footer-brand-wrap">
+      <svg class="footer-droplet-icon" viewBox="0 0 24 32" aria-hidden="true">
+        <path d="M12 2C12 2 3 14.5 3 21C3 25.9706 7.02944 30 12 30C16.9706 30 21 25.9706 21 21C21 14.5 12 2 12 2Z" />
+      </svg>
+      <div class="footer-brand-title">SILLAGE PARIS</div>
+      <div class="footer-brand-sub">Haute Parfumerie &bull; Atelier de Cr&eacute;ation</div>
+    </div>
+
+    <div class="footer-address-text">
+      8 Place Vend&ocirc;me, 75001 Paris, France
+    </div>
+
+    <nav class="footer-nav-grid" aria-label="Footer Directory">
+      <!-- Column 1: Collection -->
+      <div class="footer-nav-col">
+        <span class="footer-col-title">COLLECTION</span>
+        <ul class="footer-col-list">
+          <li><button type="button" class="footer-col-link" onclick="openDrawer('reserve', 'Sillage Noir')">Sillage Noir (Assam Oud)</button></li>
+          <li><button type="button" class="footer-col-link" onclick="openDrawer('reserve', 'Impérial Blanc')">Imp&eacute;rial Blanc (Orris &amp; Amber)</button></li>
+          <li><button type="button" class="footer-col-link" onclick="openDrawer('reserve', 'Rouge Obsidienne')">Rouge Obsidienne (Damask Rose)</button></li>
+          <li><button type="button" class="footer-col-link" onclick="openDrawer('reserve', 'Trio Master Coffret')">Master Discovery Coffret</button></li>
+        </ul>
+      </div>
+
+      <!-- Column 2: The Maison -->
+      <div class="footer-nav-col">
+        <span class="footer-col-title">THE MAISON</span>
+        <ul class="footer-col-list">
+          <li><button type="button" class="footer-col-link" onclick="openDrawer('maison')">Philosophy &amp; Story</button></li>
+          <li><button type="button" class="footer-col-link" onclick="openDrawer('maison')">Supercritical CO₂ Extraction</button></li>
+          <li><button type="button" class="footer-col-link" onclick="openDrawer('maison')">120-Day Oak Maceration</button></li>
+          <li><button type="button" class="footer-col-link" onclick="openDrawer('maison')">The Grasse Atelier</button></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Client Care -->
+      <div class="footer-nav-col">
+        <span class="footer-col-title">CLIENT CARE</span>
+        <ul class="footer-col-list">
+          <li><button type="button" class="footer-col-link" onclick="openDrawer('faq')">White-Glove Insured Delivery</button></li>
+          <li><button type="button" class="footer-col-link" onclick="openDrawer('faq')">30-Day Sealed Returns</button></li>
+          <li><button type="button" class="footer-col-link" onclick="openDrawer('faq')">Fragrance Notes &amp; FAQ</button></li>
+          <li><button type="button" class="footer-col-link" onclick="openDrawer('reserve')">Private Concierge Inquiries</button></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: Legal -->
+      <div class="footer-nav-col">
+        <span class="footer-col-title">LEGAL</span>
+        <ul class="footer-col-list">
+          <li><a href="#footer" class="footer-col-link">Terms of Allocation</a></li>
+          <li><a href="#footer" class="footer-col-link">Privacy Policy</a></li>
+          <li><a href="#footer" class="footer-col-link">CITES Ethics Certification</a></li>
+          <li><a href="#footer" class="footer-col-link">Intellectual Property</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Social Links -->
+    <div class="footer-social-row">
+      <a href="https://instagram.com" target="_blank" rel="noopener" class="footer-social-link">Instagram</a>
+      <a href="#manifesto" class="footer-social-link">Editorial Journal</a>
+      <button type="button" class="footer-social-link" style="background:none; border:none; cursor:pointer;" onclick="openDrawer('maison')">Private Salon</button>
+    </div>
+
+    <!-- Copyright Bar -->
+    <p class="footer-legal-bar">
+      &copy; 2026 SILLAGE HAUTE PARFUMERIE. ALL RIGHTS RESERVED.
+    </p>
+  </footer>
+
+  <!-- ==========================================================================
+       MODAL / DRAWER: DEDICATED SILLAGE COLLECTION ARCHIVE (#collection-modal-drawer)
+       ========================================================================== -->
+  <div class="collection-modal-backdrop" id="collection-modal-drawer" onclick="closeAllDrawers()">
+    <div class="collection-modal-panel" onclick="event.stopPropagation()">
+      
+      <!-- Drawer Header -->
+      <header class="collection-modal-header">
+        <div class="modal-header-text">
+          <span class="modal-eyebrow">ATELIER HAUTE PARFUMERIE &bull; PARIS</span>
+          <h2 class="modal-title">THE SILLAGE COLLECTION &mdash; COMPLETE ATELIER ARCHIVE</h2>
+        </div>
+        <button type="button" class="btn-modal-close" onclick="closeAllDrawers()" aria-label="Close Collection Drawer">
+          <svg viewBox="0 0 24 24" width="20" height="20">
+            <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </header>
+
+      <!-- Drawer Content: 3 Flacon Cards in Modern Horizontal Row -->
+      <div class="collection-modal-body">
+        <div class="modal-cards-grid collection-grid modal-cards-container">
+          
+          <!-- Card 01: SILLAGE NOIR -->
+          <article class="modal-flacon-card modal-card catalog-card" onclick="openDrawer('reserve', 'Sillage Noir')">
+            <div class="modal-card-glow"></div>
+            
+            <div class="modal-card-visual modal-card-img-wrap catalog-card-image">
+              <img src="assets/sillage-noir.jpg" alt="Sillage Noir Flacon" class="modal-card-img">
+              <div class="modal-card-sheen"></div>
+              <span class="modal-card-badge">01 / EXTRAIT</span>
+            </div>
+
+            <div class="modal-card-content">
+              <div class="modal-card-meta">
+                <span class="modal-card-conc">32% CONCENTRATION</span>
+                <span class="modal-card-batch">BATCH #001/500</span>
+              </div>
+              <h3 class="modal-card-title">01 / SILLAGE NOIR</h3>
+              <p class="modal-card-notes">Dark Baltic Amber &bull; Smoked Oud</p>
+              <p class="modal-card-desc">
+                Smoldering presence steeped in balsamic amber, wild Assamese agarwood, and charred French birch embers.
+              </p>
+              <div class="modal-card-pills">
+                <span class="modal-pill">50ML / 100ML</span>
+                <span class="modal-pill">18h+ Longevity</span>
+                <span class="modal-pill">Assam Oud</span>
+              </div>
+            </div>
+
+            <div class="modal-card-footer">
+              <div class="modal-price-group">
+                <span class="modal-price">$140</span>
+                <span class="modal-currency">USD</span>
+              </div>
+              <button type="button" class="btn-modal-reserve" onclick="event.stopPropagation(); openDrawer('reserve', 'Sillage Noir')">
+                <span>RESERVE</span>
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 02: IMPÉRIAL BLANC -->
+          <article class="modal-flacon-card modal-card catalog-card" onclick="openDrawer('reserve', 'Impérial Blanc')">
+            <div class="modal-card-glow"></div>
+            
+            <div class="modal-card-visual modal-card-img-wrap catalog-card-image">
+              <img src="assets/imperial-blanc.jpg" alt="Impérial Blanc Flacon" class="modal-card-img">
+              <div class="modal-card-sheen"></div>
+              <span class="modal-card-badge">02 / EXTRAIT</span>
+            </div>
+
+            <div class="modal-card-content">
+              <div class="modal-card-meta">
+                <span class="modal-card-conc">28% CONCENTRATION</span>
+                <span class="modal-card-batch">BATCH #001/500</span>
+              </div>
+              <h3 class="modal-card-title">02 / IMPÉRIAL BLANC</h3>
+              <p class="modal-card-notes">Calabrian Bergamot &bull; Florentine Orris</p>
+              <p class="modal-card-desc">
+                Crisp, radiant dawn reflection. Powdery butter of rare Tuscan orris roots kissed by sparkling Italian citrus and white ambergris.
+              </p>
+              <div class="modal-card-pills">
+                <span class="modal-pill">50ML / 100ML</span>
+                <span class="modal-pill">14h+ Diffusion</span>
+                <span class="modal-pill">White Ambergris</span>
+              </div>
+            </div>
+
+            <div class="modal-card-footer">
+              <div class="modal-price-group">
+                <span class="modal-price">$160</span>
+                <span class="modal-currency">USD</span>
+              </div>
+              <button type="button" class="btn-modal-reserve" onclick="event.stopPropagation(); openDrawer('reserve', 'Impérial Blanc')">
+                <span>RESERVE</span>
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 03: ROUGE OBSIDIENNE -->
+          <article class="modal-flacon-card modal-card catalog-card" onclick="openDrawer('reserve', 'Rouge Obsidienne')">
+            <div class="modal-card-glow"></div>
+            
+            <div class="modal-card-visual modal-card-img-wrap catalog-card-image">
+              <img src="assets/rouge-obsidienne.jpg" alt="Rouge Obsidienne Flacon" class="modal-card-img">
+              <div class="modal-card-sheen"></div>
+              <span class="modal-card-badge">03 / EXTRAIT</span>
+            </div>
+
+            <div class="modal-card-content">
+              <div class="modal-card-meta">
+                <span class="modal-card-conc">30% CONCENTRATION</span>
+                <span class="modal-card-batch">BATCH #001/500</span>
+              </div>
+              <h3 class="modal-card-title">03 / ROUGE OBSIDIENNE</h3>
+              <p class="modal-card-notes">Damask Rose &bull; Charred Cedar</p>
+              <p class="modal-card-desc">
+                Velvet midnight crimson. Dark Damask rose petals macerated in blackberry lacquer, bound by sacred frankincense and cedar.
+              </p>
+              <div class="modal-card-pills">
+                <span class="modal-pill">50ML / 100ML</span>
+                <span class="modal-pill">16h+ Smolder</span>
+                <span class="modal-pill">Frankincense</span>
+              </div>
+            </div>
+
+            <div class="modal-card-footer">
+              <div class="modal-price-group">
+                <span class="modal-price">$180</span>
+                <span class="modal-currency">USD</span>
+              </div>
+              <button type="button" class="btn-modal-reserve" onclick="event.stopPropagation(); openDrawer('reserve', 'Rouge Obsidienne')">
+                <span>RESERVE</span>
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL / DRAWER 1: THE MAISON (EDITORIAL & PHILOSOPHY)
+       ========================================================================== -->
+  <div class="luxury-drawer-backdrop" id="drawer-backdrop-maison" onclick="closeAllDrawers()">
+    <div class="luxury-drawer-panel" onclick="event.stopPropagation()">
+      <button type="button" class="drawer-close-btn" onclick="closeAllDrawers()" aria-label="Close">&times;</button>
+      
+      <div class="drawer-header">
+        <span class="drawer-tag">The Philosophy</span>
+        <h2 class="drawer-title">Crafted in <em>Grasse</em>,<br>aged in <em>obsidian</em>.</h2>
+      </div>
+
+      <div class="maison-quote-box">
+        <p class="maison-quote-text">“We reject the vulgarity of loudness. True luxury whispers only to those permitted into your orbit.”</p>
+      </div>
+
+      <p class="maison-editorial-p">
+        Founded in the 8ème Arrondissement of Paris with distillation quarters in Grasse, SILLAGE was conceived as an antidote to mass-market olfactory noise. Our compounding philosophy honors the ancient alchemy of maceration: allowing raw resins, wild oud, and rare floral concretes to mature in total darkness.
+      </p>
+
+      <div class="drawer-header" style="margin-top: 2rem; margin-bottom: 1rem;">
+        <span class="drawer-tag">Alchemical Rigor</span>
+        <h3 class="drawer-title" style="font-size: 1.8rem;">Extraction &amp; Master <em>Craft</em></h3>
+      </div>
+
+      <div class="craft-step-row">
+        <div class="craft-num">01</div>
+        <div class="craft-info">
+          <h4>Supercritical CO₂ Extraction</h4>
+          <p>Dense liquid carbon dioxide under sub-ambient pressure isolates delicate floral fractions without destructive thermal stress or petrochemical solvents.</p>
+        </div>
+      </div>
+
+      <div class="craft-step-row">
+        <div class="craft-num">02</div>
+        <div class="craft-info">
+          <h4>120-Day Charred Oak Maceration</h4>
+          <p>Compounded elixirs mature for four lunar cycles in charred French Limousin oak casks, infusing the perfume with velvety wood vanillins and tannins.</p>
+        </div>
+      </div>
+
+      <div class="craft-step-row">
+        <div class="craft-num">03</div>
+        <div class="craft-info">
+          <h4>Cold Filtration &amp; Crystal Pour</h4>
+          <p>Cooled to precisely -4°C to precipitate residual botanical waxes before decanting into lead-free crystal flacons with individually turned solid gold caps.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL / DRAWER 2: NOTES & TRANSPARENCY (#notes-modal / #drawer-backdrop-faq)
+       ========================================================================== -->
+  <div class="luxury-drawer-backdrop notes-modal" id="notes-modal" onclick="closeAllDrawers()">
+    <div class="luxury-drawer-panel notes-drawer-panel" onclick="event.stopPropagation()">
+      <button type="button" class="drawer-close-btn" onclick="closeAllDrawers()" aria-label="Close Notes &amp; Transparency">&times;</button>
+      
+      <div class="notes-modal-inner">
+        <div class="drawer-header">
+          <span class="drawer-tag">PROVENANCE &amp; ARCHIVE</span>
+          <h2 class="drawer-title">Notes &amp; <em>Transparency</em></h2>
+        </div>
+
+        <p class="notes-editorial-p">
+          Every botanical and resinous note in the SILLAGE archive is ethically obtained through CITES-certified sustainable cooperatives. Explore our verified olfactory protocols below.
+        </p>
+
+        <!-- Custom Dark Glass Interactive Inquiry List (No white boxes or native browser inputs) -->
+        <div class="notes-inquiry-list">
+          
+          <!-- Inquiry 01 -->
+          <div class="notes-inquiry-item is-open">
+            <button type="button" class="notes-inquiry-trigger" aria-expanded="true" onclick="toggleNotesInquiry(this)">
+              <div class="inquiry-title-wrap">
+                <span class="inquiry-num">01 /</span>
+                <span class="inquiry-title">Longevity &amp; Projection Profile</span>
+              </div>
+              <svg class="inquiry-chevron-svg" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="notes-inquiry-body" style="max-height: 280px; opacity: 1; padding-top: 1rem;">
+              <p class="notes-inquiry-text">
+                Compounded at 28%–32% pure Extrait concentration, SILLAGE yields an intimate 1.5m to 2.2m sillage aura. On skin, wear lasts 16–24 hours; on cashmere and natural silks, the resinous amber-oud trail persists for days without synthetic fixatives.
+              </p>
+              <div class="notes-badge-row">
+                <span class="notes-spec-tag">32% EXTRAIT CONCENTRATION</span>
+                <span class="notes-spec-tag">16+ HRS SKIN-SMOLDER</span>
+                <span class="notes-spec-tag">2-METER RADIANCE</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inquiry 02 -->
+          <div class="notes-inquiry-item">
+            <button type="button" class="notes-inquiry-trigger" aria-expanded="false" onclick="toggleNotesInquiry(this)">
+              <div class="inquiry-title-wrap">
+                <span class="inquiry-num">02 /</span>
+                <span class="inquiry-title">The Sealed Flacon &amp; Discovery Miniature</span>
+              </div>
+              <svg class="inquiry-chevron-svg" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="notes-inquiry-body">
+              <p class="notes-inquiry-text">
+                Every allocation includes a complimentary 2ml discovery extraction vial. Test on skin first over 48 hours; if the sillage does not harmonize with your chemistry, return the presentation flacon eligible for full atelier refund provided the wax seal is intact.
+              </p>
+              <div class="notes-badge-row">
+                <span class="notes-spec-tag">2ML MINIATURE INCLUDED</span>
+                <span class="notes-spec-tag">100% UNBROKEN WAX SEAL GUARANTEE</span>
+                <span class="notes-spec-tag">30-DAY RETURN</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inquiry 03 -->
+          <div class="notes-inquiry-item">
+            <button type="button" class="notes-inquiry-trigger" aria-expanded="false" onclick="toggleNotesInquiry(this)">
+              <div class="inquiry-title-wrap">
+                <span class="inquiry-num">03 /</span>
+                <span class="inquiry-title">White-Glove Global Courier Logistics</span>
+              </div>
+              <svg class="inquiry-chevron-svg" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="notes-inquiry-body">
+              <p class="notes-inquiry-text">
+                Complimentary temperature-controlled insured courier dispatched directly from Paris Atelier vault to over 60 sovereign countries in shock-absorbent thermal cases with direct adult signature required.
+              </p>
+              <div class="notes-badge-row">
+                <span class="notes-spec-tag">PARIS ATELIER ORIGIN</span>
+                <span class="notes-spec-tag">3-5 BUSINESS DAYS GLOBAL</span>
+                <span class="notes-spec-tag">60+ NATIONS</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inquiry 04 -->
+          <div class="notes-inquiry-item">
+            <button type="button" class="notes-inquiry-trigger" aria-expanded="false" onclick="toggleNotesInquiry(this)">
+              <div class="inquiry-title-wrap">
+                <span class="inquiry-num">04 /</span>
+                <span class="inquiry-title">Ethical Sourcing &amp; Agarwood CITES Certification</span>
+              </div>
+              <svg class="inquiry-chevron-svg" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="notes-inquiry-body">
+              <p class="notes-inquiry-text">
+                100% CITES-certified sustainable Assam agarwood harvested ethically from centenarian plantations. Zero chemical fertilizers, with supercritical CO₂ floral extraction and 5 saplings replanted per flacon.
+              </p>
+              <div class="notes-badge-row">
+                <span class="notes-spec-tag">CITES APPENDIX II AUDITED</span>
+                <span class="notes-spec-tag">BIODYNAMIC CULTIVATION</span>
+                <span class="notes-spec-tag">REFORESTATION COMMITTED</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL / DRAWER 3: VIP CONCIERGE RESERVATION
+       ========================================================================== -->
+  <div class="luxury-drawer-backdrop" id="drawer-backdrop-reserve" onclick="closeAllDrawers()">
+    <div class="luxury-drawer-panel" onclick="event.stopPropagation()">
+      <button type="button" class="drawer-close-btn" onclick="closeAllDrawers()" aria-label="Close">&times;</button>
+      
+      <div id="reservation-form-container">
+        <div class="drawer-header">
+          <span class="drawer-tag">Private Allocation &bull; Batch 001</span>
+          <h2 class="drawer-title">The Concierge <em>Reservation</em></h2>
+        </div>
+
+        <p class="maison-editorial-p" style="margin-bottom: 2.2rem;">
+          Batch 001 is strictly limited to 500 numbered crystal bottles worldwide. Complete your dossier to request allocation authentication directly from Paris.
+        </p>
+
+        <form class="luxury-form" id="concierge-reservation-form">
+          <div class="form-group">
+            <label for="client-name" class="form-label">Full Legal Name</label>
+            <input type="text" id="client-name" class="form-input" placeholder="e.g. Jean-Luc de Montmirail" required autocomplete="name">
+          </div>
+
+          <div class="form-group">
+            <label for="client-email" class="form-label">Private Email Address</label>
+            <input type="email" id="client-email" class="form-input" placeholder="e.g. montmirail@collection.fr" required autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label for="flacon-edition" class="form-label">Selected Flacon Allocation</label>
+            <select id="flacon-edition" class="form-select" required>
+              <option value="Sillage Noir">01. Sillage Noir (Assam Oud &bull; $140 USD)</option>
+              <option value="Impérial Blanc">02. Impérial Blanc (Florentine Orris &bull; $160 USD)</option>
+              <option value="Rouge Obsidienne">03. Rouge Obsidienne (Damask Rose &bull; $180 USD)</option>
+              <option value="Trio Master Coffret">Trio Master Coffret (3x 50ml Discovery &bull; $420 USD)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="client-country" class="form-label">Destination Country</label>
+            <select id="client-country" class="form-select" required>
+              <option value="" disabled selected>Select destination</option>
+              <option value="FR">France (Atelier Hand Delivery)</option>
+              <option value="UK">United Kingdom</option>
+              <option value="US">United States</option>
+              <option value="AE">United Arab Emirates</option>
+              <option value="CH">Switzerland</option>
+              <option value="JP">Japan</option>
+              <option value="SG">Singapore</option>
+              <option value="OTHER">International White-Glove Courier</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="client-notes" class="form-label">Concierge Inscription / Notes</label>
+            <textarea id="client-notes" class="form-textarea" placeholder="Bespoke flacon engraving initials, private delivery timing, or gift packaging..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit-gold" id="btn-submit-form">
+            Request Private Allocation &bull; Batch 001
+          </button>
+        </form>
+      </div>
+
+      <!-- Zero-Reload Confirmation State -->
+      <div class="success-alert" id="reservation-success-state" role="alert" aria-live="polite">
+        <svg class="success-icon" viewBox="0 0 24 24">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="22 4 12 14.01 9 11.01" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3 class="success-title">Allocation Authenticated</h3>
+        <div class="serial-box" id="allocated-serial-num">SIL-PARIS-001/214</div>
+        <p class="success-text">
+          Your reservation request has been officially recorded in the Paris archive. Our Master Concierge will contact your private email address within 12 hours with dispatch coordinates and encrypted payment verification.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SCROLL ENGINE & INTERACTIVITY JAVASCRIPT
+       ========================================================================== -->
+  <script>
+(function () {
+      'use strict';
+
+      // ========================================================================
+      // 1. DOM REFS & CORE CONSTANTS
+      // ========================================================================
+      // Hero
+      const heroTrack = document.getElementById('the-scent');
+      const video = document.getElementById('hero-video');
+      const heroOverlay = document.getElementById('hero-narrative-overlay');
+      const progressBar = document.getElementById('telemetry-progress-bar');
+
+      // FlightOne Showcase
+      const flightTrack = document.getElementById('flightone-showcase');
+      const flightViewport = document.getElementById('flight-viewport');
+      const flightGlow = document.getElementById('flight-ambient-glow');
+      const flightLeftDock = document.getElementById('flight-left-dock');
+      const flightRightEd = document.getElementById('flight-right-editorial');
+      const flightSettle = document.getElementById('flight-conversion-settle');
+      const flightScrollCue = document.getElementById('flight-scroll-cue');
+      const dockCounter = document.getElementById('dock-counter');
+      const collectionLink = document.querySelector('.nav-menu a[href="#collection"]');
+      const collectionModal = document.getElementById('collection-modal-drawer');
+
+      const flightCards = [
+        document.getElementById('flight-card-0'),
+        document.getElementById('flight-card-1'),
+        document.getElementById('flight-card-2')
+      ];
+
+      const flightPanes = [
+        document.getElementById('flight-pane-0'),
+        document.getElementById('flight-pane-1'),
+        document.getElementById('flight-pane-2')
+      ];
+
+      const dockItems = [
+        document.getElementById('dock-item-0'),
+        document.getElementById('dock-item-1'),
+        document.getElementById('dock-item-2')
+      ];
+
+      // Manifesto
+      const manifestoTrack = document.getElementById('manifesto');
+      const manifestoTextElem = document.getElementById('manifesto-text');
+      const manifestoEyebrow = document.getElementById('manifesto-eyebrow');
+      const manifestoPillars = document.getElementById('manifesto-pillars');
+      let manifestoCharSpans = [];
+
+      // Reviews
+      const reviewsTrack = document.getElementById('reviews-pinned-track');
+      const reviewsCue = document.getElementById('reviews-scroll-cue');
+      const reviewItems = [
+        document.getElementById('pinned-review-0'),
+        document.getElementById('pinned-review-1'),
+        document.getElementById('pinned-review-2')
+      ];
+      let reviewCharSpans = [[], [], []];
+
+      // FAQ
+      const faqTrack = document.getElementById('faq');
+      const faqQuestionButtons = document.querySelectorAll('.faq-q-item');
+      const faqAnswerPanels = document.querySelectorAll('.faq-answer-panel');
+      const faqIndicatorPill = document.getElementById('faq-active-indicator-pill');
+      const faqScrollCue = document.getElementById('faq-scroll-cue');
+      let activeFaqStage = -1;
+
+      // ========================================================================
+      // 2. PRE-CALCULATED LAYOUT ENGINE (ZERO JANK / ZERO REFLOWS IN rAF)
+      // ========================================================================
+      const layoutMetrics = {
+        hero: { top: 0, total: 1 },
+        flight: { top: 0, height: 0, total: 1 },
+        manifesto: { top: 0, total: 1 },
+        collection: { top: 0, height: 0 },
+        reviews: { top: 0, total: 1 },
+        faq: { top: 0, total: 1 },
+        docTotal: 1
+      };
+
+      function measureLayout() {
+        const winH = window.innerHeight;
+        const scrollY = window.scrollY;
+
+        function getDocTop(elem) {
+          if (!elem) return 0;
+          return elem.getBoundingClientRect().top + scrollY;
+        }
+
+        if (heroTrack) {
+          layoutMetrics.hero.top = getDocTop(heroTrack);
+          layoutMetrics.hero.total = Math.max(1, heroTrack.offsetHeight - winH);
+        }
+
+        if (flightTrack) {
+          layoutMetrics.flight.top = getDocTop(flightTrack);
+          layoutMetrics.flight.height = flightTrack.offsetHeight;
+          layoutMetrics.flight.total = Math.max(1, layoutMetrics.flight.height - winH);
+        }
+
+        if (manifestoTrack) {
+          layoutMetrics.manifesto.top = getDocTop(manifestoTrack);
+          layoutMetrics.manifesto.total = Math.max(1, manifestoTrack.offsetHeight - winH);
+        }
+
+        if (reviewsTrack) {
+          layoutMetrics.reviews.top = getDocTop(reviewsTrack);
+          layoutMetrics.reviews.total = Math.max(1, reviewsTrack.offsetHeight - winH);
+        }
+
+        if (faqTrack) {
+          layoutMetrics.faq.top = getDocTop(faqTrack);
+          layoutMetrics.faq.total = Math.max(1, faqTrack.offsetHeight - winH);
+        }
+
+        const collTrack = document.getElementById('collection');
+        if (collTrack) {
+          layoutMetrics.collection.top = getDocTop(collTrack);
+          layoutMetrics.collection.height = collTrack.offsetHeight;
+        }
+
+        layoutMetrics.docTotal = Math.max(1, document.documentElement.scrollHeight - winH);
+      }
+
+      window.addEventListener('resize', measureLayout);
+      window.addEventListener('load', measureLayout);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(measureLayout);
+      }
+      setTimeout(measureLayout, 300);
+      measureLayout();
+
+      // ========================================================================
+      // 3. RESPONSIVE LERP ENGINE (0.12 FACTOR WITH <0.0005 SNAP)
+      // ========================================================================
+      function lerpSnap(current, target, factor) {
+        const diff = target - current;
+        if (Math.abs(diff) < 0.0005) {
+          return target;
+        }
+        return current + diff * (factor || 0.12);
+      }
+
+      function smoothStep(edge0, edge1, x) {
+        const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
+        return t * t * (3 - 2 * t);
+      }
+
+      let heroTargetProgress = 0;
+      let heroCurrentProgress = 0;
+
+      let flightTargetProgress = 0;
+      let flightCurrentProgress = 0;
+
+      let manifestoTargetProgress = 0;
+      let manifestoCurrentProgress = 0;
+
+      let reviewsTargetProgress = 0;
+      let reviewsCurrentProgress = 0;
+
+      let faqTargetProgress = 0;
+      let faqCurrentProgress = 0;
+
+      let targetTime = 0;
+      let isSeeking = false;
+      let lastSeekRequest = 0;
+
+      // Click to fly smoothly to specific stage
+      window.flightJumpTo = function (norm) {
+        if (flightTrack) {
+          const targetY = layoutMetrics.flight.top + norm * layoutMetrics.flight.total;
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+        }
+      };
+
+      // ========================================================================
+      // 4. SECTION RENDER FUNCTIONS
+      // ========================================================================
+      function renderHero(progressHero) {
+        if (video) {
+          video.style.transform = 'scale(1) translate3d(0, 0, 0)';
+        }
+
+        if (video && video.duration && !isNaN(video.duration)) {
+          targetTime = progressHero * Math.max(video.duration - 0.05, 0);
+
+          if (!isSeeking && Math.abs(video.currentTime - targetTime) > 0.01) {
+            isSeeking = true;
+            lastSeekRequest = Date.now();
+            const timeDiff = targetTime - video.currentTime;
+            if (Math.abs(timeDiff) < 0.005) {
+              video.currentTime = targetTime;
+            } else {
+              video.currentTime += timeDiff * 0.12;
+            }
+          }
+        }
+
+        if (heroOverlay) {
+          let textOpacity = 1;
+          let textY = 0;
+
+          if (progressHero < 0.15) {
+            textOpacity = 1;
+            textY = 0;
+          } else if (progressHero < 0.35) {
+            const t = (progressHero - 0.15) / 0.20;
+            textOpacity = 1.0 - (0.85 * t);
+            textY = -15 * t;
+          } else if (progressHero < 0.78) {
+            textOpacity = 0.15;
+            textY = -15;
+          } else {
+            const t = (progressHero - 0.78) / 0.22;
+            textOpacity = 0.15 + (0.85 * t);
+            textY = -15 + (15 * t);
+          }
+
+          heroOverlay.style.opacity = textOpacity.toFixed(3);
+          heroOverlay.style.transform = 'translate3d(0, ' + textY.toFixed(2) + 'px, 0)';
+        }
+      }
+
+      function renderFlightShowcase(p) {
+        // Hide scroll cue on scroll
+        if (flightScrollCue) {
+          if (p > 0.04) {
+            flightScrollCue.classList.add('is-hidden');
+          } else {
+            flightScrollCue.classList.remove('is-hidden');
+          }
+        }
+
+        // Ambient RGB Background Color Interpolation across the 4 stages
+        let r = 9, g = 8, b = 7;
+        if (p < 0.25) {
+          const t = p / 0.25;
+          r = 9 + (7 - 9) * t;
+          g = 8 + (19 - 8) * t;
+          b = 7 + (16 - 7) * t;
+        } else if (p < 0.50) {
+          const t = (p - 0.25) / 0.25;
+          r = 7 + (22 - 7) * t;
+          g = 19 + (8 - 19) * t;
+          b = 16 + (11 - 16) * t;
+        } else if (p < 0.75) {
+          const t = (p - 0.50) / 0.25;
+          r = 22 + (10 - 22) * t;
+          g = 8 + (9 - 8) * t;
+          b = 11 + (8 - 11) * t;
+        } else {
+          r = 10; g = 9; b = 8;
+        }
+
+        if (flightViewport) {
+          flightViewport.style.backgroundColor = 'rgb(' + Math.round(r) + ',' + Math.round(g) + ',' + Math.round(b) + ')';
+        }
+
+        // Card Stage Transitions
+        const t1 = smoothStep(0.19, 0.29, p);
+        const t2 = smoothStep(0.44, 0.54, p);
+        const t3 = smoothStep(0.72, 0.88, p);
+
+        // CARD 0 (Sillage Noir)
+        if (flightCards[0]) {
+          if (p < 0.35) {
+            const x = -t1 * 110;
+            const y = -t1 * 70;
+            const scale = 1 - t1 * 0.7;
+            const op = 1 - t1;
+            flightCards[0].style.transform = 'translate3d(' + x.toFixed(1) + '%, ' + y.toFixed(1) + 'px, 0) scale(' + scale.toFixed(3) + ')';
+            flightCards[0].style.opacity = op.toFixed(3);
+            flightCards[0].style.display = op > 0.01 ? 'block' : 'none';
+            flightCards[0].style.pointerEvents = (op > 0.6 && t1 < 0.4) ? 'auto' : 'none';
+          } else {
+            flightCards[0].style.display = 'none';
+            flightCards[0].style.opacity = '0';
+          }
+        }
+
+        // CARD 1 (Impérial Blanc)
+        if (flightCards[1]) {
+          if (p >= 0.18 && p < 0.60) {
+            let x = 0;
+            let y = 0;
+            let scale = 1;
+            let op = 0;
+
+            if (t1 < 1) {
+              x = (1 - t1) * 120;
+              scale = 0.85 + t1 * 0.15;
+              op = t1;
+            } else {
+              x = -t2 * 110;
+              y = t2 * 20;
+              scale = 1 - t2 * 0.7;
+              op = 1 - t2;
+            }
+
+            flightCards[1].style.transform = 'translate3d(' + x.toFixed(1) + '%, ' + y.toFixed(1) + 'px, 0) scale(' + scale.toFixed(3) + ')';
+            flightCards[1].style.opacity = op.toFixed(3);
+            flightCards[1].style.display = op > 0.01 ? 'block' : 'none';
+            flightCards[1].style.pointerEvents = (op > 0.6 && t2 < 0.4) ? 'auto' : 'none';
+          } else {
+            flightCards[1].style.display = 'none';
+            flightCards[1].style.opacity = '0';
+          }
+        }
+
+        // CARD 2 (Rouge Obsidienne)
+        if (flightCards[2]) {
+          if (p >= 0.42) {
+            let x = 0;
+            let y = 0;
+            let scale = 1;
+            let op = 0;
+
+            if (t2 < 1) {
+              x = (1 - t2) * 120;
+              scale = 0.85 + t2 * 0.15;
+              op = t2;
+            } else {
+              x = 0;
+              y = -t3 * 105;
+              scale = 1 - t3 * 0.50;
+              const exitCard = p > 0.93 ? Math.min(1, (p - 0.93) / 0.07) : 0;
+              op = 1 - exitCard;
+            }
+
+            flightCards[2].style.transform = 'translate3d(' + x.toFixed(1) + '%, ' + y.toFixed(1) + 'px, 0) scale(' + scale.toFixed(3) + ')';
+            flightCards[2].style.opacity = op.toFixed(3);
+            flightCards[2].style.display = 'block';
+            flightCards[2].style.pointerEvents = 'auto';
+          } else {
+            flightCards[2].style.display = 'none';
+            flightCards[2].style.opacity = '0';
+          }
+        }
+
+        // Editorial Right Panes
+        const pane0Op = (1 - t1);
+        if (flightPanes[0]) {
+          flightPanes[0].style.opacity = pane0Op.toFixed(3);
+          flightPanes[0].style.transform = 'translate3d(0, ' + (-t1 * 20).toFixed(1) + 'px, 0)';
+          flightPanes[0].style.visibility = pane0Op > 0.02 ? 'visible' : 'hidden';
+          flightPanes[0].style.pointerEvents = pane0Op > 0.5 ? 'auto' : 'none';
+        }
+
+        const pane1Op = t1 * (1 - t2);
+        if (flightPanes[1]) {
+          flightPanes[1].style.opacity = pane1Op.toFixed(3);
+          flightPanes[1].style.transform = 'translate3d(0, ' + ((1 - t1) * 20 - t2 * 20).toFixed(1) + 'px, 0)';
+          flightPanes[1].style.visibility = pane1Op > 0.02 ? 'visible' : 'hidden';
+          flightPanes[1].style.pointerEvents = pane1Op > 0.5 ? 'auto' : 'none';
+        }
+
+        const pane2Op = t2 * (1 - t3);
+        if (flightPanes[2]) {
+          flightPanes[2].style.opacity = pane2Op.toFixed(3);
+          flightPanes[2].style.transform = 'translate3d(0, ' + ((1 - t2) * 20 - t3 * 20).toFixed(1) + 'px, 0)';
+          flightPanes[2].style.visibility = pane2Op > 0.02 ? 'visible' : 'hidden';
+          flightPanes[2].style.pointerEvents = pane2Op > 0.5 ? 'auto' : 'none';
+        }
+
+        // Stage 4 Conversion Settle
+        if (flightLeftDock) {
+          const dockOp = 1 - t3;
+          flightLeftDock.style.opacity = dockOp.toFixed(3);
+          flightLeftDock.style.transform = 'translate3d(' + (-t3 * 70).toFixed(1) + 'px, 0, 0)';
+          flightLeftDock.style.pointerEvents = dockOp > 0.4 ? 'auto' : 'none';
+        }
+
+        if (flightRightEd) {
+          const rightOp = 1 - t3;
+          flightRightEd.style.opacity = rightOp.toFixed(3);
+          flightRightEd.style.transform = 'translate3d(' + (t3 * 70).toFixed(1) + 'px, 0, 0)';
+          flightRightEd.style.pointerEvents = rightOp > 0.4 ? 'auto' : 'none';
+        }
+
+        let exitT = 0;
+        if (p > 0.93) {
+          exitT = Math.min(1, (p - 0.93) / 0.07);
+        }
+        const settleFade = 1 - exitT;
+
+        if (flightSettle) {
+          const settleOp = t3 * settleFade;
+          flightSettle.style.opacity = settleOp.toFixed(3);
+          flightSettle.style.transform = 'translate3d(-50%, ' + ((1 - t3) * 25).toFixed(1) + 'px, 0)';
+          flightSettle.style.pointerEvents = (t3 > 0.65 && exitT < 0.5) ? 'auto' : 'none';
+        }
+
+        // Left Dock Items Active / Docked / Upcoming
+        if (dockItems[0] && dockItems[1] && dockItems[2]) {
+          let activeIdx = 0;
+          if (p >= 0.25 && p < 0.50) activeIdx = 1;
+          else if (p >= 0.50) activeIdx = 2;
+
+          if (dockCounter) {
+            dockCounter.textContent = '0' + (activeIdx + 1) + ' / 03';
+          }
+
+          dockItems.forEach(function (item, idx) {
+            item.classList.remove('is-active', 'is-docked', 'is-upcoming');
+            const stateLabel = item.querySelector('.dock-item-state');
+
+            if (idx === activeIdx) {
+              item.classList.add('is-active');
+              if (stateLabel) stateLabel.textContent = 'ACTIVE';
+            } else if (idx < activeIdx) {
+              item.classList.add('is-docked');
+              if (stateLabel) stateLabel.textContent = 'DOCKED';
+            } else {
+              item.classList.add('is-upcoming');
+              if (stateLabel) stateLabel.textContent = 'UPCOMING';
+            }
+          });
+        }
+      }
+
+      // Manifesto Character Splitting
+      if (manifestoTextElem) {
+        const rawText = manifestoTextElem.textContent.trim();
+        manifestoTextElem.innerHTML = '';
+        const words = rawText.split(/\\s+/);
+        words.forEach(function (word, wIdx) {
+          const wordSpan = document.createElement('span');
+          wordSpan.className = 'manifesto-word';
+
+          for (let i = 0; i < word.length; i++) {
+            const charSpan = document.createElement('span');
+            charSpan.className = 'char';
+            charSpan.textContent = word[i];
+            charSpan.style.opacity = '0.15';
+            charSpan.style.color = '#4a453e';
+            charSpan.style.transition = 'opacity 0.15s ease, color 0.15s ease';
+            wordSpan.appendChild(charSpan);
+            manifestoCharSpans.push(charSpan);
+          }
+
+          manifestoTextElem.appendChild(wordSpan);
+
+          if (wIdx < words.length - 1) {
+            const spaceSpan = document.createElement('span');
+            spaceSpan.className = 'char space-char';
+            spaceSpan.textContent = ' ';
+            spaceSpan.style.display = 'inline';
+            spaceSpan.style.whiteSpace = 'normal';
+            spaceSpan.style.opacity = '0.15';
+            manifestoTextElem.appendChild(spaceSpan);
+            manifestoCharSpans.push(spaceSpan);
+          }
+        });
+      }
+
+      function renderManifesto(progress) {
+        if (!manifestoTrack || manifestoCharSpans.length === 0) return;
+
+        const badgeProgress = Math.min(Math.max((progress - 0.04) / 0.12, 0), 1);
+        if (manifestoEyebrow) {
+          manifestoEyebrow.style.opacity = badgeProgress.toFixed(3);
+          manifestoEyebrow.style.transform = 'translate3d(0, ' + ((1 - badgeProgress) * 12).toFixed(1) + 'px, 0)';
+        }
+        if (manifestoPillars) {
+          manifestoPillars.style.opacity = badgeProgress.toFixed(3);
+          manifestoPillars.style.transform = 'translate3d(0, ' + ((1 - badgeProgress) * 12).toFixed(1) + 'px, 0)';
+        }
+
+        const totalChars = manifestoCharSpans.length;
+        const normalizedTyping = Math.min(Math.max(progress / 0.94, 0), 1);
+        const activeCount = Math.floor(normalizedTyping * totalChars);
+
+        for (let i = 0; i < totalChars; i++) {
+          const span = manifestoCharSpans[i];
+          if (i < activeCount) {
+            span.style.opacity = '1';
+            span.style.color = 'var(--gold-champagne, #f3e5ab)';
+            span.style.textShadow = 'none';
+          } else {
+            span.style.opacity = '0.15';
+            span.style.color = '#4a453e';
+            span.style.textShadow = 'none';
+          }
+        }
+      }
+
+      // Reviews Character Splitting
+      function initReviewTypewriters() {
+        for (let k = 0; k < 3; k++) {
+          const quoteElem = document.getElementById('review-quote-' + k);
+          if (quoteElem) {
+            const rawText = quoteElem.textContent.trim();
+            quoteElem.innerHTML = '';
+            const words = rawText.split(/\\s+/);
+            words.forEach(function (word, wIdx) {
+              const wordSpan = document.createElement('span');
+              wordSpan.className = 'review-word';
+
+              for (let i = 0; i < word.length; i++) {
+                const charSpan = document.createElement('span');
+                charSpan.className = 'review-char';
+                charSpan.textContent = word[i];
+                charSpan.style.opacity = '0.15';
+                charSpan.style.color = '#4a453e';
+                wordSpan.appendChild(charSpan);
+                reviewCharSpans[k].push(charSpan);
+              }
+
+              quoteElem.appendChild(wordSpan);
+              if (wIdx < words.length - 1) {
+                quoteElem.appendChild(document.createTextNode(' '));
+              }
+            });
+          }
+        }
+      }
+      initReviewTypewriters();
+
+      function renderReviewsSequence(p) {
+        if (reviewsCue) {
+          if (p > 0.04) {
+            reviewsCue.classList.add('is-hidden');
+          } else {
+            reviewsCue.classList.remove('is-hidden');
+          }
+        }
+
+        // Stage 1: Review 0
+        if (reviewItems[0]) {
+          if (p < 0.35) {
+            const local = p / 0.33;
+            let op = 1;
+            let y = 0;
+
+            if (local > 0.85) {
+              const exit = (local - 0.85) / 0.15;
+              op = 1 - exit;
+              y = -exit * 30;
+            }
+
+            reviewItems[0].style.opacity = op.toFixed(3);
+            reviewItems[0].style.transform = 'translate3d(0, ' + y.toFixed(1) + 'px, 0)';
+            reviewItems[0].style.display = op > 0.01 ? 'flex' : 'none';
+
+            const typeProg = Math.min(1, Math.max(0, local / 0.70));
+            const chars = reviewCharSpans[0];
+            const activeCount = Math.floor(typeProg * chars.length);
+            for (let i = 0; i < chars.length; i++) {
+              if (i < activeCount) {
+                chars[i].style.opacity = '1';
+                chars[i].style.color = '#f3e5ab';
+                chars[i].style.textShadow = 'none';
+              } else {
+                chars[i].style.opacity = '0.15';
+                chars[i].style.color = '#4a453e';
+                chars[i].style.textShadow = 'none';
+              }
+            }
+          } else {
+            reviewItems[0].style.display = 'none';
+            reviewItems[0].style.opacity = '0';
+          }
+        }
+
+        // Stage 2: Review 1
+        if (reviewItems[1]) {
+          if (p >= 0.31 && p < 0.68) {
+            const local = (p - 0.33) / 0.33;
+            let op = 1;
+            let y = 0;
+
+            if (local < 0.12) {
+              const entry = Math.max(0, local / 0.12);
+              op = entry;
+              y = (1 - entry) * 30;
+            } else if (local > 0.85) {
+              const exit = (local - 0.85) / 0.15;
+              op = 1 - exit;
+              y = -exit * 30;
+            }
+
+            reviewItems[1].style.opacity = op.toFixed(3);
+            reviewItems[1].style.transform = 'translate3d(0, ' + y.toFixed(1) + 'px, 0)';
+            reviewItems[1].style.display = op > 0.01 ? 'flex' : 'none';
+
+            const typeProg = Math.min(1, Math.max(0, (local - 0.10) / 0.65));
+            const chars = reviewCharSpans[1];
+            const activeCount = Math.floor(typeProg * chars.length);
+            for (let i = 0; i < chars.length; i++) {
+              if (i < activeCount) {
+                chars[i].style.opacity = '1';
+                chars[i].style.color = '#f3e5ab';
+                chars[i].style.textShadow = 'none';
+              } else {
+                chars[i].style.opacity = '0.15';
+                chars[i].style.color = '#4a453e';
+                chars[i].style.textShadow = 'none';
+              }
+            }
+          } else {
+            reviewItems[1].style.display = 'none';
+            reviewItems[1].style.opacity = '0';
+          }
+        }
+
+        // Stage 3: Review 2
+        if (reviewItems[2]) {
+          if (p >= 0.64) {
+            const local = (p - 0.66) / 0.34;
+            let op = 1;
+            let y = 0;
+
+            if (local < 0.12) {
+              const entry = Math.max(0, local / 0.12);
+              op = entry;
+              y = (1 - entry) * 30;
+            } else if (local > 0.90) {
+              const exit = (local - 0.90) / 0.10;
+              op = 1 - exit;
+              y = -exit * 20;
+            }
+
+            reviewItems[2].style.opacity = op.toFixed(3);
+            reviewItems[2].style.transform = 'translate3d(0, ' + y.toFixed(1) + 'px, 0)';
+            reviewItems[2].style.display = op > 0.01 ? 'flex' : 'none';
+
+            const typeProg = Math.min(1, Math.max(0, (local - 0.10) / 0.65));
+            const chars = reviewCharSpans[2];
+            const activeCount = Math.floor(typeProg * chars.length);
+            for (let i = 0; i < chars.length; i++) {
+              if (i < activeCount) {
+                chars[i].style.opacity = '1';
+                chars[i].style.color = '#f3e5ab';
+                chars[i].style.textShadow = 'none';
+              } else {
+                chars[i].style.opacity = '0.15';
+                chars[i].style.color = '#4a453e';
+                chars[i].style.textShadow = 'none';
+              }
+            }
+          } else {
+            reviewItems[2].style.display = 'none';
+            reviewItems[2].style.opacity = '0';
+          }
+        }
+      }
+
+      // FAQ Indicators and Stages
+      function updateFaqPill(targetIndex) {
+        if (!faqIndicatorPill || !faqQuestionButtons[targetIndex]) return;
+        const activeBtn = faqQuestionButtons[targetIndex];
+        faqIndicatorPill.style.transform = 'translate3d(0, ' + activeBtn.offsetTop + 'px, 0)';
+        faqIndicatorPill.style.height = activeBtn.offsetHeight + 'px';
+      }
+
+      function applyFaqStage(targetIndex) {
+        faqQuestionButtons.forEach(function (btn, idx) {
+          if (idx === targetIndex) {
+            btn.classList.add('is-active');
+            btn.setAttribute('aria-selected', 'true');
+          } else {
+            btn.classList.remove('is-active');
+            btn.setAttribute('aria-selected', 'false');
+          }
+        });
+
+        faqAnswerPanels.forEach(function (panel, idx) {
+          if (idx === targetIndex) {
+            panel.classList.remove('is-exiting');
+            panel.classList.add('is-active');
+          } else {
+            if (panel.classList.contains('is-active')) {
+              panel.classList.remove('is-active');
+              panel.classList.add('is-exiting');
+            } else {
+              panel.classList.remove('is-exiting');
+            }
+          }
+        });
+
+        updateFaqPill(targetIndex);
+      }
+
+      let lastFaqStageTime = 0;
+      const FAQ_STAGE_MIN_INTERVAL = 110; // ms minimum dwell per sequential stage on fast scroll
+
+      function renderFaqSequence(p) {
+        if (faqScrollCue) {
+          if (p > 0.04) {
+            faqScrollCue.classList.add('is-hidden');
+          } else {
+            faqScrollCue.classList.remove('is-hidden');
+          }
+        }
+
+        // 4 dedicated stages (150vh runway per row):
+        // Row 01: 0.00 - 0.25
+        // Row 02: 0.25 - 0.50
+        // Row 03: 0.50 - 0.75
+        // Row 04: 0.75 - 1.00
+        let targetStage = 0;
+        if (p < 0.25) {
+          targetStage = 0;
+        } else if (p < 0.50) {
+          targetStage = 1;
+        } else if (p < 0.75) {
+          targetStage = 2;
+        } else {
+          targetStage = 3;
+        }
+
+        if (activeFaqStage === -1) {
+          activeFaqStage = targetStage;
+          applyFaqStage(activeFaqStage);
+          lastFaqStageTime = Date.now();
+          return;
+        }
+
+        if (targetStage !== activeFaqStage) {
+          const now = Date.now();
+          // Sequential activation: even on ultra-fast scroll or wheel flick,
+          // advance exactly 1 stage at a time (01 -> 02 -> 03 -> 04) without skipping
+          if (now - lastFaqStageTime >= FAQ_STAGE_MIN_INTERVAL) {
+            if (targetStage > activeFaqStage) {
+              activeFaqStage = activeFaqStage + 1;
+            } else if (targetStage < activeFaqStage) {
+              activeFaqStage = activeFaqStage - 1;
+            }
+            applyFaqStage(activeFaqStage);
+            lastFaqStageTime = now;
+          }
+        }
+      }
+
+      faqQuestionButtons.forEach(function (btn) {
+        const idx = parseInt(btn.getAttribute('data-index'), 10);
+        btn.addEventListener('click', function () {
+          activeFaqStage = idx;
+          applyFaqStage(idx);
+          lastFaqStageTime = Date.now();
+          if (faqTrack) {
+            const targetProg = (idx * 0.25) + 0.12;
+            const targetY = layoutMetrics.faq.top + (targetProg * layoutMetrics.faq.total);
+            window.scrollTo({ top: targetY, behavior: 'smooth' });
+          } else {
+            applyFaqStage(idx);
+          }
+        });
+      });
+
+      window.addEventListener('load', function () {
+        applyFaqStage(0);
+      });
+      window.addEventListener('resize', function () {
+        updateFaqPill(activeFaqStage >= 0 ? activeFaqStage : 0);
+      });
+
+      // ========================================================================
+      // 5. MASTER ANIMATION LOOP (SINGLE rAF, INSTANT WHEEL, ZERO JANK)
+      // ========================================================================
+      function updateTargets() {
+        const scrollY = window.scrollY;
+
+        // Hero
+        const heroScroll = scrollY - layoutMetrics.hero.top;
+        heroTargetProgress = Math.min(Math.max(heroScroll / layoutMetrics.hero.total, 0), 1);
+
+        // FlightOne Showcase
+        const flightScroll = scrollY - layoutMetrics.flight.top;
+        flightTargetProgress = Math.min(Math.max(flightScroll / layoutMetrics.flight.total, 0), 1);
+
+        // Update nav scroll spy
+        updateNavActive();
+
+        // Manifesto
+        const manifestoScroll = scrollY - layoutMetrics.manifesto.top;
+        manifestoTargetProgress = Math.min(Math.max(manifestoScroll / layoutMetrics.manifesto.total, 0), 1);
+
+        // Reviews
+        const reviewsScroll = scrollY - layoutMetrics.reviews.top;
+        reviewsTargetProgress = Math.min(Math.max(reviewsScroll / layoutMetrics.reviews.total, 0), 1);
+
+        // FAQ (strictly clamped progress: 0.0 to 1.0)
+        const faqScroll = scrollY;
+        const faqTop = layoutMetrics.faq.top;
+        const faqTotalHeight = layoutMetrics.faq.total;
+        const faqProgress = Math.min(Math.max((faqScroll - faqTop) / faqTotalHeight, 0), 1);
+        faqTargetProgress = faqProgress;
+
+        // Telemetry progress bar
+        if (progressBar && layoutMetrics.docTotal > 0) {
+          const overallProg = Math.min(Math.max(scrollY / layoutMetrics.docTotal, 0), 1);
+          progressBar.style.height = (overallProg * 100).toFixed(1) + '%';
+        }
+      }
+
+      function updateScroll() {
+        updateTargets();
+
+        // 1. Hero scrub
+        heroCurrentProgress = lerpSnap(heroCurrentProgress, heroTargetProgress, 0.12);
+        renderHero(heroCurrentProgress);
+
+        // 2. FlightOne Showcase
+        flightCurrentProgress = lerpSnap(flightCurrentProgress, flightTargetProgress, 0.12);
+        renderFlightShowcase(flightCurrentProgress);
+
+        // 3. Manifesto Typewriter
+        manifestoCurrentProgress = lerpSnap(manifestoCurrentProgress, manifestoTargetProgress, 0.12);
+        renderManifesto(manifestoCurrentProgress);
+
+        // 4. Patron Reviews
+        reviewsCurrentProgress = lerpSnap(reviewsCurrentProgress, reviewsTargetProgress, 0.12);
+        renderReviewsSequence(reviewsCurrentProgress);
+
+        // 5. Concierge FAQ
+        faqCurrentProgress = lerpSnap(faqCurrentProgress, faqTargetProgress, 0.12);
+        renderFaqSequence(faqCurrentProgress);
+
+        requestAnimationFrame(updateScroll);
+      }
+
+      // Initialize Video Events
+      if (video) {
+        video.pause();
+
+        video.addEventListener('seeked', function () {
+          isSeeking = false;
+        });
+
+        setInterval(function () {
+          if (isSeeking && (Math.abs(video.currentTime - targetTime) < 0.05 || (Date.now() - lastSeekRequest > 130))) {
+            isSeeking = false;
+          }
+        }, 100);
+
+        video.addEventListener('loadedmetadata', function () {
+          video.pause();
+        });
+
+        if (window.location.protocol.startsWith('http')) {
+          fetch('assets/hero-scrub.mp4')
+            .then(function (res) {
+              if (!res.ok) throw new Error('HTTP ' + res.status);
+              return res.blob();
+            })
+            .then(function (blob) {
+              const memoryUrl = URL.createObjectURL(blob);
+              video.src = memoryUrl;
+              video.load();
+              video.addEventListener('loadedmetadata', function () {
+                video.pause();
+              }, { once: true });
+            })
+            .catch(function (err) {
+              console.warn('[SILLAGE] Direct video stream active:', err);
+            });
+        }
+      }
+
+      // Kick off master animation loop
+      requestAnimationFrame(updateScroll);
+
+      // ========================================================================
+      // 6. DRAWER / MODAL SYSTEM
+      // ========================================================================
+      window.toggleNotesInquiry = function (btn) {
+        const item = btn.closest('.notes-inquiry-item');
+        if (!item) return;
+        const wasOpen = item.classList.contains('is-open');
+        
+        const allItems = document.querySelectorAll('.notes-inquiry-item');
+        allItems.forEach(function (it) {
+          it.classList.remove('is-open');
+          const trigger = it.querySelector('.notes-inquiry-trigger');
+          if (trigger) trigger.setAttribute('aria-expanded', 'false');
+          const body = it.querySelector('.notes-inquiry-body');
+          if (body) {
+            body.style.maxHeight = '0';
+            body.style.opacity = '0';
+          }
+        });
+
+        if (!wasOpen) {
+          item.classList.add('is-open');
+          btn.setAttribute('aria-expanded', 'true');
+          const body = item.querySelector('.notes-inquiry-body');
+          if (body) {
+            body.style.maxHeight = '350px';
+            body.style.opacity = '1';
+            body.style.paddingTop = '1rem';
+          }
+        }
+      };
+
+      window.openDrawer = function (drawerType, perfumeChoice) {
+        let backdrop = document.getElementById('drawer-backdrop-' + drawerType);
+        if (!backdrop) {
+          if (drawerType === 'collection') {
+            backdrop = document.getElementById('collection-modal-drawer');
+          }
+          if (drawerType === 'faq' || drawerType === 'notes' || drawerType === 'transparency') {
+            backdrop = document.getElementById('notes-modal') || document.getElementById('drawer-backdrop-faq');
+          }
+        }
+        if (backdrop && backdrop.classList.contains('is-open') && !perfumeChoice) {
+          closeAllDrawers();
+          return;
+        }
+        closeAllDrawers();
+        if (backdrop) {
+          backdrop.classList.add('is-open');
+          document.body.style.overflow = 'hidden';
+          updateNavActive();
+        }
+
+        if (drawerType === 'reserve' && perfumeChoice) {
+          const selectElem = document.getElementById('flacon-edition');
+          if (selectElem) {
+            for (let i = 0; i < selectElem.options.length; i++) {
+              if (selectElem.options[i].value.includes(perfumeChoice)) {
+                selectElem.selectedIndex = i;
+                break;
+              }
+            }
+          }
+        }
+      };
+
+      window.closeAllDrawers = function () {
+        const backdrops = document.querySelectorAll('.luxury-drawer-backdrop, .collection-modal-backdrop, .notes-modal');
+        backdrops.forEach(function (d) {
+          d.classList.remove('is-open');
+        });
+        document.body.style.overflow = '';
+        updateNavActive();
+      };
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          closeAllDrawers();
+        }
+      });
+
+      // VIP Reservation Form Submission
+      const form = document.getElementById('concierge-reservation-form');
+      const formContainer = document.getElementById('reservation-form-container');
+      const successState = document.getElementById('reservation-success-state');
+      const serialNum = document.getElementById('allocated-serial-num');
+
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          if (formContainer && successState) {
+            const randomSerial = String(Math.floor(Math.random() * 450) + 1).padStart(3, '0');
+            if (serialNum) {
+              serialNum.textContent = 'SIL-PARIS-001/' + randomSerial;
+            }
+            formContainer.style.display = 'none';
+            successState.style.display = 'block';
+          }
+        });
+      }
+
+      // ========================================================================
+      // 7. STICKY HEADER NAVIGATION ACTIVE WIRING & SCROLL SPY
+      // ========================================================================
+      const observedSections = [
+        { id: 'the-scent', link: document.querySelector('.nav-menu a[href="#the-scent"]') },
+        { id: 'flightone-showcase', link: document.querySelector('.nav-menu a[href="#flightone-showcase"]') },
+        { id: 'manifesto', link: document.querySelector('.nav-menu a[href="#manifesto"]') },
+        { id: 'collection', link: document.querySelector('.nav-menu a[href="#collection"]') },
+        { id: 'reviews-pinned-track', link: document.querySelector('.nav-menu a[href="#reviews-pinned-track"]') || document.querySelector('.nav-menu a[href="#reviews-faq"]') }
+      ];
+
+      function updateNavActive() {
+        // If collection modal is open, immediately highlight COLLECTION link
+        if (collectionModal && collectionModal.classList.contains('is-open')) {
+          observedSections.forEach(function (item) {
+            if (item.link) {
+              if (item.id === 'collection') {
+                item.link.classList.add('active', 'is-active');
+                item.link.setAttribute('aria-current', 'true');
+              } else {
+                item.link.classList.remove('active', 'is-active');
+                item.link.removeAttribute('aria-current');
+              }
+            }
+          });
+          return;
+        }
+
+        const scrollPos = window.scrollY + 220;
+        let currentSec = 'the-scent';
+
+        for (let i = 0; i < observedSections.length; i++) {
+          const sId = observedSections[i].id;
+          let top = 0;
+          let height = 0;
+
+          if (sId === 'the-scent') {
+            top = layoutMetrics.hero.top;
+            height = layoutMetrics.hero.total + window.innerHeight;
+          } else if (sId === 'flightone-showcase') {
+            top = layoutMetrics.flight.top;
+            height = layoutMetrics.flight.height;
+          } else if (sId === 'manifesto') {
+            top = layoutMetrics.manifesto.top;
+            height = layoutMetrics.manifesto.total + window.innerHeight;
+          } else if (sId === 'collection') {
+            top = layoutMetrics.collection.top;
+            height = layoutMetrics.collection.height || 350;
+          } else if (sId === 'reviews-pinned-track') {
+            top = layoutMetrics.reviews.top;
+            height = (layoutMetrics.faq.top + layoutMetrics.faq.total + window.innerHeight) - top;
+          } else {
+            const sec = document.getElementById(sId);
+            if (sec) { top = sec.offsetTop; height = sec.offsetHeight; }
+          }
+
+          if (scrollPos >= top && scrollPos < top + height) {
+            currentSec = sId;
+            break;
+          }
+        }
+
+        observedSections.forEach(function (item) {
+          if (item.link) {
+            if (item.id === currentSec) {
+              item.link.classList.add('active', 'is-active');
+              item.link.setAttribute('aria-current', 'true');
+            } else {
+              item.link.classList.remove('active', 'is-active');
+              item.link.removeAttribute('aria-current');
+            }
+          }
+        });
+      }
+
+      // IntersectionObserver for active section highlight
+      if ('IntersectionObserver' in window) {
+        const spyObserver = new IntersectionObserver(function (entries) {
+          if (collectionModal && collectionModal.classList.contains('is-open')) return;
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              let targetId = entry.target.id;
+              if (targetId === 'faq') targetId = 'reviews-pinned-track';
+              observedSections.forEach(function (item) {
+                if (item.link) {
+                  if (item.id === targetId) {
+                    item.link.classList.add('active', 'is-active');
+                    item.link.setAttribute('aria-current', 'true');
+                  } else {
+                    item.link.classList.remove('active', 'is-active');
+                    item.link.removeAttribute('aria-current');
+                  }
+                }
+              });
+            }
+          });
+        }, {
+          rootMargin: '-20% 0px -55% 0px',
+          threshold: 0
+        });
+
+        ['the-scent', 'flightone-showcase', 'manifesto', 'collection', 'reviews-pinned-track', 'faq'].forEach(function (id) {
+          const el = document.getElementById(id);
+          if (el) spyObserver.observe(el);
+        });
+      }
+
+      window.addEventListener('scroll', updateNavActive, { passive: true });
+      updateNavActive();
+
+    })();
+  </script>
+</body>
+</html>

@@ -1,49 +1,13 @@
-# SILLAGE &mdash; Haute Parfumerie &bull; Paris
+SILLAGE — Haute Parfumerie ParisA $10,000-tier digital flagship experience engineered with continuous cinematic scrollytelling, frame-accurate scrub choreography, and bespoke Parisian editorial aesthetics.The VisionSILLAGE is an ultra-luxury digital showcase designed to abandon conventional e-commerce grid tropes. Built to emulate the interactive editorial standard of elite design houses, every screen transition, video scrub, and typographic reveal is tied directly to the patron's scroll velocity.There are no generic SaaS templates, no artificial glow bloat, and no jarring page reloads—only continuous, deliberate, and immersive luxury storytelling.Architectural Highlights1. Zero-Jank Video Scrub EngineFramerate & Precision: Hardware-accelerated <video> frame seeking driven via a custom requestAnimationFrame render loop with dual-target LERP smoothing ($\alpha \approx 0.12$).Natural Scale Framing: Locked to an uncropped object-fit: contain perspective against an exact #090807 obsidian background to ensure full bottle clearance on any screen ratio.2. FlightOne-Inspired Flacon Showcase4-Stage Pinned Runway: An expanded 1200vh scroll runway giving dedicated dwell time to each extrait formulation.Synchronized Tri-Zone Display:Left: Interactive thumb dock with active bronze level indicator.Center: Isolated hero bottle stage with high-contrast reflection floor.Right: Editorial notes breakdown, maceration timeline, and olfactory accords.3. Scroll-to-Type Philosophy & Patron AppraisalsLetter-by-letter dynamic opacity orchestration calibrated to scroll progress.Automatic editorial vertical line-wrapping without horizontal blowout or layout shifting.4. Sequential Split-Screen Inquiry (FAQ)Pinned 600vh container preventing premature footer jumps.Sequentially locked transition engine ensuring inquiries ($01 \rightarrow 04$) advance with rhythmic dignity.5. Atelier Drawer ArchiveOn-demand modal overlay for the full archive, preserving the uncluttered purity of the main editorial scroll flow.Technical Specifications & PerformanceVectorSpecificationDependenciesZero external frameworks (100% Native Vanilla JS & CSS3)Animation LoopDecoupled requestAnimationFrame with cached layout metricsColor SystemPure Obsidian (#090807), Champagne Gold (#F3E5AB), Muted Bronze (#D4AF37)TypographyCormorant Garamond (Editorial Serif) & Montserrat (Architectural Sans)Scroll RunwayMulti-stage dynamic vertical tracks ($350\text{vh}$ to $1800\text{vh}$)Local SetupPrerequisitesAny static HTTP server (e.g., Python, Node.js http-server, Live Server, or Caddy).Installation# Clone the repository
+git clone https://github.com/khokharyasir749/MODERN-PERFUME-WEB-.git
 
-An ultra-luxury, scrollytelling web experience crafted for **SILLAGE**, an exclusive Parisian haute parfumerie atelier based in the 8ème Arrondissement of Paris with distillation quarters in Grasse.
+# Navigate to the project root
+cd MODERN-PERFUME-WEB-
 
----
+# Launch via Python 3
+python -m http.server 8080
 
-## Overview
-
-SILLAGE features a bespoke, high-performance scrollytelling architectural experience:
-- **Interactive Scrollytelling Hero**: Video scrubbing pinned viewport with dynamic typography.
-- **FlightOne 3D Card Dock Showcase**: Multi-flacon morphing showcase (*Sillage Noir*, *Impérial Blanc*, *Rouge Obsidienne*) driven by responsive LERP scrolling.
-- **The Maison Philosophy / Manifesto**: Interactive typewriter letter-by-letter reveal.
-- **Sequential Pinned Patron Reviews**: Multi-stage pinned testimonial appraisal salon.
-- **Concierge FAQ & Answer Portal**: Interactive dual-column inquiry tabs with real-time radial concentration dials and transparent sourcing protocols.
-- **Private Archive Collection Modal & Concierge Reservation Drawer**: Dark obsidian glass drawers with custom reservation request flows.
-
-## Tech Stack & Architecture
-
-- **Core**: Semantic HTML5 & Vanilla JavaScript
-- **Styling**: Vanilla CSS (zero heavy CSS frameworks), custom design tokens, dark obsidian glass surfaces (`#090807`), razor-thin muted bronze hairline borders (`1px solid rgba(212, 175, 55, 0.15)`), and bespoke typography (Cormorant Garamond & Montserrat).
-- **Performance**: Hardware-accelerated transforms (`translate3d`), pre-calculated section offsets on resize, optimized scroll damping without layout thrashing.
-
-## Getting Started
-
-To view the site locally:
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/khokharyasir749/MODERN-PERFUME-WEB-.git
-   cd MODERN-PERFUME-WEB-
-   ```
-2. Serve the static files using any local web server:
-   ```bash
-   # Using Python
-   python -m http.server 8080
-
-   # Or using Node.js / npx
-   npx serve .
-   ```
-3. Open your browser and navigate to `http://127.0.0.1:8080`.
-
-## Assets & Media
-
-- `assets/hero-scrub.mp4` &mdash; 60fps high-efficiency keyframe scrub video
-- `assets/*.jpg` &mdash; Hand-poured flacons (*Sillage Noir*, *Impérial Blanc*, *Rouge Obsidienne*) and botanical macro photography
-
----
-
-&copy; SILLAGE Paris Atelier. All rights reserved.
+# Or launch via Node http-server
+npx http-server . -p 8080
+Open your browser and navigate to http://127.0.0.1:8080.Asset Encoding StandardsTo maintain smooth video scrubbing without browser memory leaks, video assets are encoded with an ultra-dense keyframe structure:ffmpeg -i input.mp4 -vf "scale=1280:720" -c:v libx264 -preset slow -crf 18 -g 1 -keyint_min 1 -pix_fmt yuv420p -an assets/hero-scrub.mp4
+(Every frame is an intra-frame keyframe ($G=1$), allowing instant bi-directional seeking without artifact stutter).LicenseCrafted for private atelier presentation under the MIT License.

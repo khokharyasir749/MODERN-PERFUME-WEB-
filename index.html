@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -131,7 +131,23 @@
       -webkit-backdrop-filter: blur(20px);
       background: rgba(9, 8, 7, 0.96);
       border-bottom: 1px solid rgba(212, 175, 55, 0.18);
-      transition: background 0.4s var(--ease-lux);
+      transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .site-header.header-transparent {
+      background: transparent !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      border-bottom-color: transparent !important;
+      box-shadow: none !important;
+    }
+
+    .site-header.header-transparent .brand-title {
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.75);
+    }
+
+    .site-header.header-transparent .nav-link {
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.75);
     }
 
     .brand-mark {
@@ -366,45 +382,64 @@
     }
 
     /* ==========================================================================
-       SECTION 1: HERO SCROLL VIDEO & SETTLE (1800vh RUNWAY)
+       SECTION 1: HERO SCROLL VIDEO & SETTLE (FULL VIEWPORT COVERAGE)
        ========================================================================== */
+    .outer-wrapper,
+    .hero-outer-wrapper,
+    .hero-video-wrapper {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+
     .scrub-container {
       position: relative;
       height: 1800vh;
       width: 100%;
+      margin: 0;
+      padding: 0;
     }
 
+    /* Pinned Full Viewport Hero Stage */
     .sticky-hero-stage,
-    .scrub-sticky-viewport {
+    .scrub-sticky-viewport,
+    .hero-video-container {
       position: sticky;
       top: 0;
       left: 0;
       width: 100vw;
-      height: 100vh;
+      width: 100%;
+      max-width: 100vw;
+      height: 100vh !important;
+      max-height: 100vh !important;
+      min-height: 100vh !important;
       overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
       z-index: 1;
       background-color: var(--bg-color);
+      transform: none !important;
     }
 
+    /* Edge-to-Edge Hero Video / Canvas (No Side Bars) */
     #hero-video,
-    .hero-video {
+    .hero-video,
+    .hero-scrub-video,
+    #hero-canvas {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      max-width: 100vw;
-      max-height: 100vh;
-      object-fit: contain;
-      object-position: center;
-      transform: scale(1) !important;
-      transform-origin: center center;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: cover !important;
+      object-position: center center !important;
       pointer-events: none;
       background-color: var(--bg-color);
       z-index: 1;
+      transform: none !important;
     }
 
     .hero-scrim {
@@ -431,7 +466,11 @@
 
     .hero-narrative-overlay {
       position: absolute;
-      inset: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      max-height: 100vh;
       z-index: 10;
       pointer-events: none;
       display: flex;
@@ -1673,715 +1712,198 @@
     }
 
     /* ==========================================================================
-       SECTION 5: SCROLL-PINNED SEQUENTIAL PATRON REVIEWS (#reviews-pinned-track)
-       EDITORIAL SCROLL-TO-WRITE LETTER-BY-LETTER PROGRESSION (450vh)
+       SECTION 5: REVIEWS (#reviews) & FAQ (#faq) DEDICATED LUXURY SECTIONS
        ========================================================================== */
-    .reviews-pinned-track {
-      height: 450vh;
+    .reviews-section,
+    .faq-section {
       position: relative;
       background-color: #080706;
+      padding: 6.5rem 5% 7.5rem;
+      min-height: auto;
       z-index: 15;
+      border-top: 1px solid rgba(212, 175, 55, 0.1);
     }
 
-    .reviews-sticky-viewport {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, #080706 72%);
-      padding: 0 4rem;
-      box-sizing: border-box;
+    .faq-section {
+      background-color: #060504;
+      border-top: 1px solid rgba(212, 175, 55, 0.08);
     }
 
-    /* Fixed Heading Overlap Bug with Generous Vertical Spacing */
-    .reviews-pinned-header {
+    .section-header-centered {
       text-align: center;
-      margin-bottom: 2.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      z-index: 2;
+      max-width: 820px;
+      margin: 0 auto 3.8rem;
     }
 
-    .reviews-meta-tag {
-      font-size: 0.64rem;
+    .section-header-centered .section-eyebrow {
+      font-size: 0.65rem;
       letter-spacing: 0.36em;
       text-transform: uppercase;
       color: var(--gold-primary);
       font-weight: 500;
-    }
-
-    .reviews-main-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.4rem, 4.4vw, 3.8rem);
-      font-weight: 300;
-      line-height: 1.25;
-      letter-spacing: 0.02em;
-      color: var(--text-main);
-      margin: 0;
-    }
-
-    .reviews-main-title em {
-      font-style: italic;
-      color: var(--gold-pale);
-    }
-
-    .reviews-main-subhead {
-      font-size: 0.82rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--gold-deep);
-      line-height: 1.4;
-      margin-top: 0.4rem;
-    }
-
-    /* Central Focused Stage for 3 Sequential Reviews (No Box Cards / Pure Luxury Typography) */
-    .reviews-stage-container {
-      position: relative;
-      width: 100%;
-      max-width: 1040px;
-      min-height: 320px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 3;
-    }
-
-    .pinned-review-item {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      opacity: 0;
-      transform: translate3d(0, 30px, 0);
-      pointer-events: none;
-      will-change: transform, opacity;
-    }
-
-    .pinned-review-stars {
-      color: #d4af37;
-      font-size: 1.25rem;
-      letter-spacing: 0.35em;
-      margin-bottom: 1.3rem;
-      text-shadow: none;
-    }
-
-    .review-quote,
-    .patron-quote {
-      max-width: 800px;
-      width: 90%;
-      margin: 1rem auto;
-      line-height: 1.5;
-      text-align: center;
-      white-space: normal !important;
-    }
-
-    .pinned-review-quote {
-      font-family: var(--font-display);
-      font-size: clamp(1.9rem, 3.2vw, 2.75rem);
-      font-style: italic;
-      line-height: 1.5;
-      font-weight: 300;
-      color: var(--text-main);
-      margin: 1rem auto;
-      max-width: 800px;
-      width: 90%;
-      text-align: center;
-      white-space: normal !important;
-      word-break: normal;
-      overflow-wrap: break-word;
-    }
-
-    .review-word {
-      display: inline-block;
-      white-space: normal !important;
-    }
-
-    .pinned-review-quote .review-char,
-    .review-quote .review-char,
-    .patron-quote .review-char {
-      display: inline;
-      white-space: normal !important;
-      opacity: 0.15;
-      color: #4a453e;
-      transition: opacity 0.12s ease, color 0.12s ease;
-      will-change: opacity, color;
-    }
-
-    /* Enforce natural line wrapping across all philosophy & review quotes and paragraphs */
-    #manifesto p,
-    #manifesto blockquote,
-    #reviews p,
-    #reviews blockquote,
-    #reviews-pinned-track p,
-    #reviews-pinned-track blockquote {
-      white-space: normal !important;
-      word-break: normal;
-      overflow-wrap: break-word;
-    }
-
-    .pinned-review-meta {
-      display: inline-flex;
-      align-items: center;
-      gap: 1.4rem;
-      padding: 0.4rem 0;
-      background: transparent;
-      border: none;
-      border-radius: 0;
-      backdrop-filter: none;
-    }
-
-    .meta-patron-name {
-      font-size: 0.74rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--gold-pale);
-      font-weight: 600;
-    }
-
-    .meta-patron-divider {
-      width: 1px;
-      height: 12px;
-      background: rgba(212, 175, 55, 0.4);
-    }
-
-    .meta-patron-badge {
-      font-size: 0.62rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold-deep);
-    }
-
-    /* Scroll Cue */
-    .reviews-scroll-cue {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.6rem;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      color: var(--gold-deep);
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      z-index: 5;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
-    }
-
-    .reviews-scroll-cue.is-hidden {
-      opacity: 0;
-    }
-
-    /* ==========================================================================
-       SECTION 6: 100% SCROLL-PINNED SEQUENTIAL CONCIERGE FAQ (#faq)
-       450vh RUNWAY & 4-STAGE PINNED STAGE WITH LERP GLOW
-       ========================================================================== */
-    .faq-scroll-track {
-      height: 600vh !important;
-      position: relative;
-      background-color: #070605;
-      z-index: 20;
-      border-top: 1px solid rgba(212, 175, 55, 0.12);
-    }
-
-    .faq-sticky-viewport {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      background: #090807;
-      padding: 0 4.5rem;
-    }
-
-    .faq-ambient-glow {
-      position: absolute;
-      top: 50%;
-      right: 15%;
-      transform: translateY(-50%);
-      width: 650px;
-      height: 650px;
-      background: radial-gradient(circle, rgba(212, 175, 55, 0.02) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .faq-split-container {
-      max-width: 1340px;
-      width: 100%;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 45% 55%;
-      gap: 4.5rem;
-      align-items: center;
-      position: relative;
-      z-index: 2;
-    }
-
-    /* Left Column (45% - Question Selector) */
-    .faq-selector-column {
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .faq-meta-eyebrow {
-      font-size: 0.64rem;
-      letter-spacing: 0.36em;
-      text-transform: uppercase;
-      color: var(--gold-primary);
-      font-weight: 500;
+      display: block;
       margin-bottom: 0.8rem;
     }
 
-    .faq-headline {
+    .section-header-centered .section-title {
       font-family: var(--font-display);
-      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      font-size: clamp(2.3rem, 3.8vw, 3.2rem);
       font-weight: 300;
       letter-spacing: 0.02em;
-      color: var(--text-main);
-      line-height: 1.15;
-      margin-bottom: 1rem;
+      color: var(--gold-champagne, #f3e5ab);
+      margin: 0;
+      line-height: 1.25;
     }
 
-    .faq-headline em {
+    .section-header-centered .section-title em {
       font-style: italic;
-      color: var(--gold-pale);
-    }
-
-    .faq-subtext {
-      font-size: 0.86rem;
-      line-height: 1.7;
-      color: var(--text-muted);
-      font-weight: 300;
-      margin-bottom: 2.8rem;
-      max-width: 460px;
-    }
-
-    .faq-questions-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.9rem;
-      position: relative;
-    }
-
-    /* Sliding Gold Active Indicator Pill */
-    .faq-active-indicator-pill {
-      position: absolute;
-      left: -2px;
-      top: 0;
-      width: 3px;
-      height: 62px;
-      background: var(--gold-primary);
-      border-radius: 2px;
-      box-shadow: 0 0 6px rgba(212, 175, 55, 0.2);
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.4s ease;
-      pointer-events: none;
-      z-index: 5;
-      will-change: transform, opacity;
-      transform: translate3d(0, 0, 0);
-    }
-
-    .faq-q-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.2rem;
-      padding: 1.25rem 1.6rem;
-      background: transparent;
-      border: 1px solid rgba(212, 175, 55, 0.12);
-      border-radius: 14px;
-      cursor: pointer;
-      text-align: left;
-      opacity: 0.45;
-      transition: opacity 0.45s ease, border-color 0.45s ease, background 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease;
-      position: relative;
-      outline: none;
-      width: 100%;
-      will-change: transform, opacity;
-      transform: translate3d(0, 0, 0);
-    }
-
-    .faq-q-item:hover {
-      opacity: 0.85;
-      background: rgba(255, 255, 255, 0.025);
-      border-color: rgba(212, 175, 55, 0.3);
-      transform: translateX(4px);
-    }
-
-    .faq-q-item.is-active {
-      opacity: 1;
-      background: linear-gradient(90deg, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0.03) 100%);
-      border-color: var(--gold-pale);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6), inset 0 0 18px rgba(212, 175, 55, 0.08);
-      transform: translateX(8px);
-    }
-
-    .faq-q-left {
-      display: flex;
-      align-items: center;
-      gap: 1.1rem;
-    }
-
-    .faq-q-num {
-      font-family: monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
-      color: var(--gold-deep);
-      font-weight: 600;
-      transition: color 0.35s ease;
-    }
-
-    .faq-q-item.is-active .faq-q-num {
-      color: var(--gold-primary);
-    }
-
-    .faq-q-text {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      letter-spacing: 0.03em;
-      color: var(--text-muted);
-      transition: color 0.35s ease;
-      line-height: 1.3;
-    }
-
-    .faq-q-item:hover .faq-q-text {
-      color: var(--text-main);
-    }
-
-    .faq-q-item.is-active .faq-q-text {
       color: var(--gold-champagne, #f3e5ab);
     }
 
-    .faq-q-arrow {
-      width: 16px;
-      height: 16px;
-      stroke: var(--gold-deep);
-      fill: none;
-      flex-shrink: 0;
-      transition: transform 0.4s ease, stroke 0.4s ease;
-    }
-
-    .faq-q-item.is-active .faq-q-arrow {
-      transform: translateX(4px);
-      stroke: var(--gold-pale);
-    }
-
-    /* Right Column (55% - Dynamic Answer Portal) */
-    .faq-answer-portal-column {
-      position: relative;
-      min-height: 520px;
-      display: flex;
-      align-items: center;
-    }
-
-    .faq-glass-portal {
-      width: 100%;
-      min-height: 490px;
-      background: rgba(18, 16, 14, 0.75);
-      border: 1px solid rgba(212, 175, 55, 0.22);
-      border-radius: 20px;
-      padding: 3rem 3.2rem;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), inset 0 0 25px rgba(212, 175, 55, 0.04);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .portal-specular-sheen {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold-pale), transparent);
-      opacity: 0.6;
-    }
-
-    .portal-panels-carrier {
-      position: relative;
-      width: 100%;
-      min-height: 400px;
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr;
-      align-items: center;
-    }
-
-    .faq-answer-panel {
-      grid-area: 1 / 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transform: translate3d(0, 15px, 0);
-      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
-      will-change: transform, opacity;
-    }
-
-    .faq-answer-panel.is-active {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-      transform: translate3d(0, 0, 0);
-    }
-
-    .faq-answer-panel.is-exiting {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transform: translate3d(0, -15px, 0);
-    }
-
-    .ans-badge {
-      display: inline-block;
-      padding: 0;
-      background: transparent;
-      border: none;
-      border-radius: 0;
-      font-size: 0.64rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold-primary);
-      font-weight: 500;
-      width: fit-content;
-      margin-bottom: 0.85rem;
-    }
-
-    .ans-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 2.6vw, 2.2rem);
-      font-weight: 300;
-      letter-spacing: 0.03em;
-      color: var(--text-main);
-      line-height: 1.25;
-      margin-bottom: 0.9rem;
-    }
-
-    .ans-summary {
-      font-family: var(--font-display);
-      font-size: 1.15rem;
-      font-style: italic;
-      color: var(--gold-pale);
-      line-height: 1.5;
-      margin-bottom: 1.2rem;
-    }
-
-    /* Ans 01: Visual Metrics Dial Row */
-    .ans-dial-row {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      background: rgba(10, 9, 8, 0.5);
-      border: 1px solid rgba(212, 175, 55, 0.15);
-      border-radius: 14px;
-      padding: 1.2rem 1.6rem;
-      margin-bottom: 1.4rem;
-    }
-
-    .ans-metrics-dial {
-      position: relative;
-      width: 84px;
-      height: 84px;
-      flex-shrink: 0;
-    }
-
-    .dial-svg {
-      width: 100%;
-      height: 100%;
-      transform: rotate(-90deg);
-    }
-
-    .dial-inner-content {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .dial-big-num {
-      font-family: var(--font-display);
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--gold-pale);
-      line-height: 1;
-    }
-
-    .dial-sub-text {
-      font-size: 0.48rem;
-      letter-spacing: 0.2em;
-      color: var(--gold-deep);
-      text-transform: uppercase;
-      margin-top: 2px;
-    }
-
-    .dial-narrative {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .dial-stat-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-
-    .stat-highlight {
-      font-family: monospace;
-      font-size: 0.76rem;
-      letter-spacing: 0.15em;
-      color: var(--gold-primary);
-      font-weight: 600;
-    }
-
-    .stat-desc {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-    }
-
-    .ans-detailed-text {
-      font-size: 0.9rem;
-      line-height: 1.8;
-      color: var(--text-muted);
-      font-weight: 300;
-      margin-bottom: 1.6rem;
-    }
-
-    .ans-metrics-grid {
+    /* 2x2 Grid for Reviews & FAQ */
+    .reviews-grid-2x2,
+    .faq-grid-2x2 {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      border-top: 1px solid rgba(212, 175, 55, 0.15);
-      padding-top: 1.4rem;
+      gap: 2.6rem 3rem;
+      max-width: 1240px;
+      margin: 0 auto;
+      width: 100%;
+      box-sizing: border-box;
     }
 
-    .metric-pill-card {
-      background: #090807;
-      border: 1px solid rgba(212, 175, 55, 0.15);
-      border-radius: 2px;
-      padding: 0.8rem 1rem;
+    /* Review Card Styling */
+    .review-card-luxury {
+      background: rgba(18, 16, 14, 0.45);
+      border: 1px solid rgba(212, 175, 55, 0.12);
+      border-radius: 4px;
+      padding: 2.2rem 2.4rem;
       display: flex;
       flex-direction: column;
-      gap: 0.25rem;
+      justify-content: space-between;
+      transition: border-color 0.35s ease, background 0.35s ease, transform 0.35s ease;
+      position: relative;
     }
 
-    .metric-lbl {
-      font-size: 0.56rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold-deep);
+    .review-card-luxury:hover {
+      border-color: rgba(212, 175, 55, 0.28);
+      background: rgba(24, 21, 18, 0.65);
+      transform: translateY(-2px);
     }
 
-    .metric-val {
+    .review-stars-row {
+      color: #d4af37;
+      font-size: 1.15rem;
+      letter-spacing: 0.35em;
+      margin-bottom: 1.1rem;
+    }
+
+    .review-quote-text {
       font-family: var(--font-display);
-      font-size: 1.05rem;
-      letter-spacing: 0.04em;
-      color: var(--gold-pale);
+      font-size: clamp(1.2rem, 1.45vw, 1.45rem);
+      font-style: italic;
+      line-height: 1.55;
+      font-weight: 300;
+      color: var(--text-main);
+      margin: 0 0 1.6rem 0;
+      white-space: normal !important;
+      word-break: normal;
+      overflow-wrap: break-word;
     }
 
-    .seal-guarantee-badge {
+    .review-patron-meta {
       display: flex;
       align-items: center;
-      gap: 1.2rem;
-      padding: 1.1rem 1.4rem;
-      background: #090807;
-      border: 1px solid rgba(212, 175, 55, 0.15);
-      border-radius: 2px;
-      margin-top: 0.5rem;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      border-top: 1px solid rgba(212, 175, 55, 0.15);
+      padding-top: 1.1rem;
+      margin-top: auto;
     }
 
-    .seal-icon-svg {
-      width: 32px;
-      height: 32px;
-      stroke: var(--gold-primary);
-      flex-shrink: 0;
-    }
-
-    .seal-text-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .seal-title {
+    .patron-name-city {
       font-size: 0.72rem;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--gold-pale);
       font-weight: 600;
     }
 
-    .seal-desc {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      line-height: 1.45;
-    }
-
-    /* Scroll Cue */
-    .faq-scroll-cue {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.6rem;
-      letter-spacing: 0.32em;
+    .patron-verified-tag {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--gold-deep);
+      font-weight: 500;
+    }
+
+    /* FAQ Card Styling */
+    .faq-card-luxury {
+      background: rgba(18, 16, 14, 0.45);
+      border: 1px solid rgba(212, 175, 55, 0.12);
+      border-radius: 4px;
+      padding: 2.2rem 2.4rem;
       display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      z-index: 5;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
+      flex-direction: column;
+      justify-content: flex-start;
+      transition: border-color 0.35s ease, background 0.35s ease, transform 0.35s ease;
+      position: relative;
     }
 
-    .faq-scroll-cue.is-hidden {
-      opacity: 0;
+    .faq-card-luxury:hover {
+      border-color: rgba(212, 175, 55, 0.28);
+      background: rgba(24, 21, 18, 0.65);
+      transform: translateY(-2px);
     }
 
-    /* Responsive */
-    @media (max-width: 1024px) {
-      .faq-scroll-track {
-        height: 600vh !important;
+    .faq-card-header {
+      margin-bottom: 0.8rem;
+    }
+
+    .faq-num-tag {
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.45rem;
+    }
+
+    .faq-question-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 1.55vw, 1.55rem);
+      font-weight: 400;
+      color: var(--gold-champagne, #f3e5ab);
+      letter-spacing: 0.02em;
+      margin: 0;
+      line-height: 1.35;
+    }
+
+    .faq-answer-text {
+      font-family: var(--font-body);
+      font-size: 0.94rem;
+      line-height: 1.75;
+      color: var(--text-muted);
+      font-weight: 300;
+      margin: 0;
+      border-top: 1px solid rgba(212, 175, 55, 0.12);
+      padding-top: 1rem;
+    }
+
+    @media (max-width: 960px) {
+      .reviews-section,
+      .faq-section {
+        padding: 5rem 1.8rem 6rem;
       }
-      .faq-sticky-viewport {
-        padding: 4rem 1.5rem;
-        overflow-y: auto;
-      }
-      .faq-split-container {
+      .reviews-grid-2x2,
+      .faq-grid-2x2 {
         grid-template-columns: 1fr;
-        gap: 2.5rem;
+        gap: 2rem;
       }
-      .faq-glass-portal {
-        padding: 2.2rem 1.8rem;
-      }
-      .ans-dial-row {
-        flex-direction: column;
-        align-items: flex-start;
+      .section-header-centered {
+        margin-bottom: 2.6rem;
       }
     }
 
@@ -3101,7 +2623,8 @@
         <li><a href="#flightone-showcase" class="nav-link nav-item-btn">Showcase</a></li>
         <li><a href="#manifesto" class="nav-link nav-item-btn">Manifesto</a></li>
         <li><a href="#collection" class="nav-link nav-item-btn" onclick="openDrawer('collection'); return false;">Collection</a></li>
-        <li><a href="#reviews-pinned-track" class="nav-link nav-item-btn">Reviews &amp; FAQ</a></li>
+        <li><a href="#reviews" class="nav-link nav-item-btn">Reviews</a></li>
+        <li><a href="#faq" class="nav-link nav-item-btn">FAQ</a></li>
       </ul>
     </nav>
 
@@ -3119,19 +2642,22 @@
     <!-- ==========================================================================
          SECTION 1: HERO SCROLL VIDEO & SETTLE (PINNED 1800vh RUNWAY)
          ========================================================================== -->
-    <section class="scrub-container" id="the-scent" aria-label="The Sillage Cinematic Journey">
-      <div class="sticky-hero-stage scrub-sticky-viewport" id="hero-sticky-stage">
+    <section class="scrub-container outer-wrapper hero-outer-wrapper hero-video-wrapper" id="the-scent" aria-label="The Sillage Cinematic Journey">
+      <div class="sticky-hero-stage scrub-sticky-viewport hero-video-container" id="hero-sticky-stage">
 
         <!-- Scrubber Video Element -->
         <video 
           id="hero-video" 
-          class="hero-video" 
+          class="hero-video hero-scrub-video" 
           src="assets/hero-scrub.mp4" 
           poster="assets/poster.jpg"
           preload="auto" 
           muted 
           playsinline>
         </video>
+
+        <!-- Canvas Element -->
+        <canvas id="hero-canvas" class="hero-scrub-video" aria-hidden="true" style="display: none;"></canvas>
 
         <!-- Dark Radial Scrim Overlay & Aura -->
         <div class="hero-scrim" aria-hidden="true"></div>
@@ -3404,293 +2930,130 @@
       </div>
     </section>
     <!-- ==========================================================================
-       SECTION 5: SCROLL-PINNED SEQUENTIAL PATRON REVIEWS (#reviews-pinned-track)
+       SECTION 5: REVIEWS (#reviews) - 4 LUXURY APPRAISALS
        ========================================================================== -->
-    <section class="reviews-pinned-track" id="reviews-pinned-track" aria-label="Patron Appraisals">
-      <!-- Anchors for legacy navigation -->
-      <span id="reviews" style="position: absolute; top: 0; pointer-events: none;"></span>
-      <span id="reviews-faq" style="position: absolute; top: 0; pointer-events: none;"></span>
-      
-      <div class="reviews-sticky-viewport" id="reviews-sticky-viewport">
-        
-        <!-- Section Header with generous vertical spacing and zero collision -->
-        <header class="reviews-pinned-header">
-          <span class="reviews-meta-tag">PATRON APPRAISALS &bull; INAUGURAL SALON</span>
-          <h2 class="reviews-main-title">Early <em>Impressions</em></h2>
-          <p class="reviews-main-subhead">Verifiable appraisals from the inaugural private tasting salon.</p>
+    <section class="reviews-section" id="reviews" aria-label="Patron Appraisals">
+      <div class="reviews-wrapper">
+        <header class="section-header-centered">
+          <span class="section-eyebrow">VERIFIABLE APPRAISALS FROM THE INAUGURAL PRIVATE TASTING SALON.</span>
+          <h2 class="section-title">Early <em>Impressions</em></h2>
         </header>
 
-        <!-- Stage Container for the 3 sequential reviews -->
-        <div class="reviews-stage-container" id="reviews-stage-container">
-          
-          <!-- Review 01: Julien V. • Paris (Stage 1: 0.00 - 0.33) -->
-          <article class="pinned-review-item" id="pinned-review-0">
-            <div class="pinned-review-stars" aria-label="5 out of 5 stars">★★★★★</div>
-            <blockquote class="pinned-review-quote review-quote patron-quote" id="review-quote-0">
-              “A deep, intensely sophisticated fragrance with an unforgettable dry down. The smoked amber lingers on cashmere for days.”
-            </blockquote>
-            <div class="pinned-review-meta">
-              <span class="meta-patron-name">JULIEN V. &bull; PARIS</span>
-              <span class="meta-patron-divider"></span>
-              <span class="meta-patron-badge">VERIFIED PATRON ALLOCATION</span>
+        <div class="reviews-grid-2x2">
+          <!-- Review 01 -->
+          <article class="review-card-luxury">
+            <div>
+              <div class="review-stars-row" aria-label="5 out of 5 stars">★★★★★</div>
+              <blockquote class="review-quote-text">
+                “The flacon weight alone is remarkable, but the Assam oud maceration is where the true luxury lies.”
+              </blockquote>
+            </div>
+            <div class="review-patron-meta">
+              <span class="patron-name-city">Sophia H. &bull; Milan</span>
+              <span class="patron-verified-tag">VERIFIED PATRON</span>
             </div>
           </article>
 
-          <!-- Review 02: Marcus T. • London (Stage 2: 0.33 - 0.66) -->
-          <article class="pinned-review-item" id="pinned-review-1">
-            <div class="pinned-review-stars" aria-label="5 out of 5 stars">★★★★★</div>
-            <blockquote class="pinned-review-quote review-quote patron-quote" id="review-quote-1">
-              “True extrait strength. Two sprays leave an intoxicating, quiet trail that commands presence without being loud.”
-            </blockquote>
-            <div class="pinned-review-meta">
-              <span class="meta-patron-name">MARCUS T. &bull; LONDON</span>
-              <span class="meta-patron-divider"></span>
-              <span class="meta-patron-badge">VERIFIED PATRON ALLOCATION</span>
+          <!-- Review 02 -->
+          <article class="review-card-luxury">
+            <div>
+              <div class="review-stars-row" aria-label="5 out of 5 stars">★★★★★</div>
+              <blockquote class="review-quote-text">
+                “True extrait strength. Two sprays leave an intoxicating, quiet trail that commands presence without being loud.”
+              </blockquote>
+            </div>
+            <div class="review-patron-meta">
+              <span class="patron-name-city">Marcus T. &bull; London</span>
+              <span class="patron-verified-tag">VERIFIED PATRON</span>
             </div>
           </article>
 
-          <!-- Review 03: Sophia H. • Milan (Stage 3: 0.66 - 1.00) -->
-          <article class="pinned-review-item" id="pinned-review-2">
-            <div class="pinned-review-stars" aria-label="5 out of 5 stars">★★★★★</div>
-            <blockquote class="pinned-review-quote review-quote patron-quote" id="review-quote-2">
-              “The flacon weight alone is remarkable, but the Assam oud maceration is where the true luxury lies.”
-            </blockquote>
-            <div class="pinned-review-meta">
-              <span class="meta-patron-name">SOPHIA H. &bull; MILAN</span>
-              <span class="meta-patron-divider"></span>
-              <span class="meta-patron-badge">VERIFIED PATRON ALLOCATION</span>
+          <!-- Review 03 -->
+          <article class="review-card-luxury">
+            <div>
+              <div class="review-stars-row" aria-label="5 out of 5 stars">★★★★★</div>
+              <blockquote class="review-quote-text">
+                “Unrivaled longevity. The smoked Baltic amber develops into a deeply intimate skin scent that endures past 24 hours.”
+              </blockquote>
+            </div>
+            <div class="review-patron-meta">
+              <span class="patron-name-city">Elena R. &bull; Geneva</span>
+              <span class="patron-verified-tag">VERIFIED PATRON</span>
             </div>
           </article>
 
+          <!-- Review 04 -->
+          <article class="review-card-luxury">
+            <div>
+              <div class="review-stars-row" aria-label="5 out of 5 stars">★★★★★</div>
+              <blockquote class="review-quote-text">
+                “Haute parfumerie in its purest distillation. The presentation, wax seal, and resinous projection are masterwork tier.”
+              </blockquote>
+            </div>
+            <div class="review-patron-meta">
+              <span class="patron-name-city">Julien V. &bull; Paris</span>
+              <span class="patron-verified-tag">VERIFIED PATRON</span>
+            </div>
+          </article>
         </div>
-
-        <!-- Subtle Scroll Cue -->
-        <div class="reviews-scroll-cue" id="reviews-scroll-cue">
-          <span>SCROLL TO READ PATRON APPRAISALS</span>
-          <span class="cue-chevron">↓</span>
-        </div>
-
       </div>
     </section>
 
     <!-- ==========================================================================
-       SECTION 6: 100% SCROLL-PINNED SEQUENTIAL CONCIERGE FAQ (#faq)
-       450vh RUNWAY & 4-STAGE PINNED STAGE
+       SECTION 6: FAQ (#faq) - 4 MASTER PROTOCOLS
        ========================================================================== -->
-    <section class="faq-scroll-track" id="faq" aria-label="Frequently Inquired Concierge FAQ">
-      <div class="faq-sticky-viewport">
-      <div class="faq-ambient-glow" aria-hidden="true"></div>
+    <section class="faq-section" id="faq" aria-label="Direct Protocols from Master Distiller">
+      <div class="faq-wrapper">
+        <header class="section-header-centered">
+          <span class="section-eyebrow">DIRECT PROTOCOLS FROM OUR MASTER DISTILLER</span>
+          <h2 class="section-title">Frequently <em>Inquired</em></h2>
+        </header>
 
-      <div class="faq-split-container">
-        
-        <!-- Left Column (45% - Question Selector) -->
-        <div class="faq-selector-column">
-          <span class="faq-meta-eyebrow">ATELIER TRANSPARENCY</span>
-          <h2 class="faq-headline">Frequently <em>Inquired</em></h2>
-          <p class="faq-subtext">
-            Direct protocols from our Master Distiller on longevity, authenticated wax sealing, global courier dispatch, and ethical harvesting.
-          </p>
-
-          <div class="faq-questions-list" id="faq-questions-list" role="tablist">
-            <!-- Sliding Gold Indicator Pill -->
-            <div class="faq-active-indicator-pill" id="faq-active-indicator-pill" aria-hidden="true"></div>
-
-            <!-- Q1 -->
-            <button type="button" class="faq-q-item is-active" id="faq-q-0" data-index="0" role="tab" aria-selected="true" aria-controls="faq-ans-0">
-              <div class="faq-q-left">
-                <span class="faq-q-num">01 /</span>
-                <span class="faq-q-text">Longevity &amp; Projection Profile</span>
-              </div>
-              <svg class="faq-q-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            </button>
-
-            <!-- Q2 -->
-            <button type="button" class="faq-q-item" id="faq-q-1" data-index="1" role="tab" aria-selected="false" aria-controls="faq-ans-1">
-              <div class="faq-q-left">
-                <span class="faq-q-num">02 /</span>
-                <span class="faq-q-text">The Sealed Flacon &amp; Discovery Miniature</span>
-              </div>
-              <svg class="faq-q-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            </button>
-
-            <!-- Q3 -->
-            <button type="button" class="faq-q-item" id="faq-q-2" data-index="2" role="tab" aria-selected="false" aria-controls="faq-ans-2">
-              <div class="faq-q-left">
-                <span class="faq-q-num">03 /</span>
-                <span class="faq-q-text">White-Glove Global Courier Logistics</span>
-              </div>
-              <svg class="faq-q-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            </button>
-
-            <!-- Q4 -->
-            <button type="button" class="faq-q-item" id="faq-q-3" data-index="3" role="tab" aria-selected="false" aria-controls="faq-ans-3">
-              <div class="faq-q-left">
-                <span class="faq-q-num">04 /</span>
-                <span class="faq-q-text">Ethical Sourcing &amp; Agarwood CITES Certification</span>
-              </div>
-              <svg class="faq-q-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            </button>
-
-          </div>
-        </div>
-
-        <!-- Right Column (55% - Dynamic Answer Portal) -->
-        <div class="faq-answer-portal-column">
-          <div class="faq-glass-portal">
-            <div class="portal-specular-sheen"></div>
-            <div class="portal-panels-carrier">
-              
-              <!-- Answer 01: Longevity & Projection Profile -->
-              <article class="faq-answer-panel is-active" id="faq-ans-0" role="tabpanel" aria-labelledby="faq-q-0">
-                <div class="ans-badge">CONCENTRATION &bull; EXTRAIT PROFILE</div>
-                <h3 class="ans-title">16+ Hour Resonance with a 2-Meter Radiance</h3>
-                <p class="ans-summary">
-                  “32% pure extrait concentration yields a 16+ hour skin-smolder and 2-meter projection aura.”
-                </p>
-
-                <!-- Visual Metrics Dial -->
-                <div class="ans-dial-row">
-                  <div class="ans-metrics-dial">
-                    <svg class="dial-svg" viewBox="0 0 100 100" aria-label="32 percent extrait concentration dial">
-                      <circle class="dial-track" cx="50" cy="50" r="40" fill="none" stroke="rgba(212,175,55,0.15)" stroke-width="6" />
-                      <circle class="dial-progress" cx="50" cy="50" r="40" fill="none" stroke="url(#goldGradientFaq)" stroke-width="6" stroke-dasharray="251.2" stroke-dashoffset="80" stroke-linecap="round" />
-                      <defs>
-                        <linearGradient id="goldGradientFaq" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stop-color="#f3e5ab" />
-                          <stop offset="100%" stop-color="#d4af37" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                    <div class="dial-inner-content">
-                      <span class="dial-big-num">32%</span>
-                      <span class="dial-sub-text">EXTRAIT</span>
-                    </div>
-                  </div>
-                  <div class="dial-narrative">
-                    <div class="dial-stat-item">
-                      <span class="stat-highlight">16+ HOURS RESIDENCE</span>
-                      <span class="stat-desc">Dermal adherence sustained by wild Assamese resins without synthetic fixatives.</span>
-                    </div>
-                    <div class="dial-stat-item">
-                      <span class="stat-highlight">2.0-METER PROJECTION</span>
-                      <span class="stat-desc">Intimate sillage aura that commands space without overwhelming presence.</span>
-                    </div>
-                  </div>
-                </div>
-
-                <p class="ans-detailed-text">
-                  Compounded without water dilution or synthetic fixatives, SILLAGE opens with crisp vibrant effervescence before developing into an intimate 1.5m to 2.2m sillage. Resinous Baltic amber and wild Assamese agarwood cling deeply to pulse points and cashmere for multiple days.
-                </p>
-                <div class="ans-metrics-grid">
-                  <div class="metric-pill-card">
-                    <span class="metric-lbl">CONCENTRATION</span>
-                    <span class="metric-val">28% &ndash; 32% Pure Extrait</span>
-                  </div>
-                  <div class="metric-pill-card">
-                    <span class="metric-lbl">DIFFUSION RADIUS</span>
-                    <span class="metric-val">1.8m &ndash; 2.2m Sillage Aura</span>
-                  </div>
-                  <div class="metric-pill-card">
-                    <span class="metric-lbl">SKIN PERSISTENCE</span>
-                    <span class="metric-val">16 &ndash; 24 Hours Continuous</span>
-                  </div>
-                  <div class="metric-pill-card">
-                    <span class="metric-lbl">OAK MACERATION</span>
-                    <span class="metric-val">120 Days Aged in Grasse</span>
-                  </div>
-                </div>
-              </article>
-
-              <!-- Answer 02: Sealed Flacon & Discovery Miniature -->
-              <article class="faq-answer-panel" id="faq-ans-1" role="tabpanel" aria-labelledby="faq-q-1">
-                <div class="ans-badge">DISCOVERY PROTOCOL &bull; SEAL PROTECTION</div>
-                <h3 class="ans-title">Test First with Complimentary Discovery Vial</h3>
-                <p class="ans-summary">
-                  “Every allocation includes a complimentary 2ml discovery vial. Test on skin first; full flacon remains eligible for return if wax seal is intact.”
-                </p>
-                <p class="ans-detailed-text">
-                  To honor the intimacy of personal chemistry, we include a hand-filled 2ml extraction vial beside each numbered presentation flacon. Experience the top, heart, and base notes over 48 hours. If the sillage does not command your devotion, return the untouched sealed box within 30 days for an immediate refund.
-                </p>
-                <div class="seal-guarantee-badge">
-                  <svg class="seal-icon-svg" viewBox="0 0 24 24"><path d="M12 2L4 7v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V7l-8-5z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
-                  <div class="seal-text-group">
-                    <span class="seal-title">UNBROKEN WAX SEAL GUARANTEE</span>
-                    <span class="seal-desc">30-day atelier return window with complimentary insured courier return logistics.</span>
-                  </div>
-                </div>
-              </article>
-
-              <!-- Answer 03: White-Glove Global Courier Logistics -->
-              <article class="faq-answer-panel" id="faq-ans-2" role="tabpanel" aria-labelledby="faq-q-2">
-                <div class="ans-badge">GLOBAL CONCIERGE &bull; WHITE-GLOVE DISPATCH</div>
-                <h3 class="ans-title">Insured Temperature-Controlled Express Delivery</h3>
-                <p class="ans-summary">
-                  “Complimentary temperature-controlled insured courier dispatched directly from Paris Atelier to over 60 countries.”
-                </p>
-                <p class="ans-detailed-text">
-                  Bottles are dispatched directly from our 8th arrondissement vault in shock-absorbent thermal cases to protect volatile botanicals from altitude and temperature fluctuation. Full insurance and signature requirement are included without charge.
-                </p>
-                <div class="ans-metrics-grid">
-                  <div class="metric-pill-card">
-                    <span class="metric-lbl">DISPATCH ORIGIN</span>
-                    <span class="metric-val">Paris Atelier, France</span>
-                  </div>
-                  <div class="metric-pill-card">
-                    <span class="metric-lbl">TRANSIT DURATION</span>
-                    <span class="metric-val">3 &ndash; 5 Business Days Global</span>
-                  </div>
-                  <div class="metric-pill-card">
-                    <span class="metric-lbl">DESTINATIONS</span>
-                    <span class="metric-val">60+ Sovereign Nations</span>
-                  </div>
-                  <div class="metric-pill-card">
-                    <span class="metric-lbl">COURIER PROTOCOL</span>
-                    <span class="metric-val">Direct Signature Required</span>
-                  </div>
-                </div>
-              </article>
-
-              <!-- Answer 04: Ethical Sourcing & CITES Certification -->
-              <article class="faq-answer-panel" id="faq-ans-3" role="tabpanel" aria-labelledby="faq-q-3">
-                <div class="ans-badge">SUSTAINABLE HARVEST &bull; CITES AUDIT</div>
-                <h3 class="ans-title">100% Certified Sustainable Centenarian Agarwood</h3>
-                <p class="ans-summary">
-                  “100% CITES-certified sustainable Assam agarwood harvested ethically from centenarian plantations.”
-                </p>
-                <p class="ans-detailed-text">
-                  Our Assamese agarwood is salvaged exclusively from fallen centenarian trees in certified reserves under strict supervision of forestry authorities. Grasse Damask roses and Florentine orris butter are cultivated biodynamically with zero chemical fertilizers.
-                </p>
-                <div class="ans-metrics-grid">
-                  <div class="metric-pill-card">
-                    <span class="metric-lbl">CITES COMPLIANCE</span>
-                    <span class="metric-val">Appendix II Certified Audit</span>
-                  </div>
-                  <div class="metric-pill-card">
-                    <span class="metric-lbl">BOTANICAL PURITY</span>
-                    <span class="metric-val">Zero Synthetic Fixatives</span>
-                  </div>
-                  <div class="metric-pill-card">
-                    <span class="metric-lbl">FLORAL EXTRACTION</span>
-                    <span class="metric-val">Supercritical CO₂ Molecular</span>
-                  </div>
-                  <div class="metric-pill-card">
-                    <span class="metric-lbl">REFORESTATION</span>
-                    <span class="metric-val">5 Saplings Planted per Flacon</span>
-                  </div>
-                </div>
-              </article>
-
+        <div class="faq-grid-2x2">
+          <!-- Protocol 01 -->
+          <article class="faq-card-luxury">
+            <div class="faq-card-header">
+              <span class="faq-num-tag">01 / EXTRAIT SPECIFICATION</span>
+              <h3 class="faq-question-title">Longevity &amp; Sillage Profile</h3>
             </div>
-          </div>
-        </div>
+            <p class="faq-answer-text">
+              Compounded at 32% pure extrait concentration, yielding a 16+ hour skin-smolder persistence and intimate sillage aura that commands subtle authority.
+            </p>
+          </article>
 
-      </div>
-          <!-- Scroll Cue Indicator -->
-        <div class="faq-scroll-cue" id="faq-scroll-cue" aria-hidden="true">
-          <span>SCROLL TO ADVANCE PROTOCOLS</span>
-          <div class="cue-pill-arrow">↓</div>
-        </div>
+          <!-- Protocol 02 -->
+          <article class="faq-card-luxury">
+            <div class="faq-card-header">
+              <span class="faq-num-tag">02 / DISCOVERY PROTOCOL</span>
+              <h3 class="faq-question-title">The Sealed Flacon &amp; Discovery Miniature</h3>
+            </div>
+            <p class="faq-answer-text">
+              Every 100ml flacon arrives protected by a hand-poured wax seal alongside a complimentary 2ml discovery vial to experience the scent before unsealing your bottle.
+            </p>
+          </article>
 
+          <!-- Protocol 03 -->
+          <article class="faq-card-luxury">
+            <div class="faq-card-header">
+              <span class="faq-num-tag">03 / CONCIERGE TRANSIT</span>
+              <h3 class="faq-question-title">White-Glove Global Courier Logistics</h3>
+            </div>
+            <p class="faq-answer-text">
+              Dispatched internationally via climate-controlled bonded courier service with end-to-end serialized tracking and direct signature verification upon handover.
+            </p>
+          </article>
+
+          <!-- Protocol 04 -->
+          <article class="faq-card-luxury">
+            <div class="faq-card-header">
+              <span class="faq-num-tag">04 / BOTANICAL ETHICS</span>
+              <h3 class="faq-question-title">Ethical Sourcing &amp; CITES Certification</h3>
+            </div>
+            <p class="faq-answer-text">
+              Distilled strictly from 100% certified sustainable Assamese agarwood and artisanal harvests, accompanied by official CITES legal registry verification documentation.
+            </p>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -4166,6 +3529,8 @@
       // ========================================================================
       // 1. DOM REFS & CORE CONSTANTS
       // ========================================================================
+      const siteHeader = document.getElementById('site-header');
+
       // Hero
       const heroTrack = document.getElementById('the-scent');
       const video = document.getElementById('hero-video');
@@ -4209,23 +3574,9 @@
       const manifestoPillars = document.getElementById('manifesto-pillars');
       let manifestoCharSpans = [];
 
-      // Reviews
-      const reviewsTrack = document.getElementById('reviews-pinned-track');
-      const reviewsCue = document.getElementById('reviews-scroll-cue');
-      const reviewItems = [
-        document.getElementById('pinned-review-0'),
-        document.getElementById('pinned-review-1'),
-        document.getElementById('pinned-review-2')
-      ];
-      let reviewCharSpans = [[], [], []];
-
-      // FAQ
+      // Reviews & FAQ Sections
+      const reviewsTrack = document.getElementById('reviews');
       const faqTrack = document.getElementById('faq');
-      const faqQuestionButtons = document.querySelectorAll('.faq-q-item');
-      const faqAnswerPanels = document.querySelectorAll('.faq-answer-panel');
-      const faqIndicatorPill = document.getElementById('faq-active-indicator-pill');
-      const faqScrollCue = document.getElementById('faq-scroll-cue');
-      let activeFaqStage = -1;
 
       // ========================================================================
       // 2. PRE-CALCULATED LAYOUT ENGINE (ZERO JANK / ZERO REFLOWS IN rAF)
@@ -4235,8 +3586,8 @@
         flight: { top: 0, height: 0, total: 1 },
         manifesto: { top: 0, total: 1 },
         collection: { top: 0, height: 0 },
-        reviews: { top: 0, total: 1 },
-        faq: { top: 0, total: 1 },
+        reviews: { top: 0, height: 0 },
+        faq: { top: 0, height: 0 },
         docTotal: 1
       };
 
@@ -4267,12 +3618,12 @@
 
         if (reviewsTrack) {
           layoutMetrics.reviews.top = getDocTop(reviewsTrack);
-          layoutMetrics.reviews.total = Math.max(1, reviewsTrack.offsetHeight - winH);
+          layoutMetrics.reviews.height = reviewsTrack.offsetHeight;
         }
 
         if (faqTrack) {
           layoutMetrics.faq.top = getDocTop(faqTrack);
-          layoutMetrics.faq.total = Math.max(1, faqTrack.offsetHeight - winH);
+          layoutMetrics.faq.height = faqTrack.offsetHeight;
         }
 
         const collTrack = document.getElementById('collection');
@@ -4340,7 +3691,7 @@
       // ========================================================================
       function renderHero(progressHero) {
         if (video) {
-          video.style.transform = 'scale(1) translate3d(0, 0, 0)';
+          video.style.transform = 'translate3d(0, 0, 0)';
         }
 
         if (video && video.duration && !isNaN(video.duration)) {
@@ -4646,277 +3997,6 @@
         }
       }
 
-      // Reviews Character Splitting
-      function initReviewTypewriters() {
-        for (let k = 0; k < 3; k++) {
-          const quoteElem = document.getElementById('review-quote-' + k);
-          if (quoteElem) {
-            const rawText = quoteElem.textContent.trim();
-            quoteElem.innerHTML = '';
-            const words = rawText.split(/\\s+/);
-            words.forEach(function (word, wIdx) {
-              const wordSpan = document.createElement('span');
-              wordSpan.className = 'review-word';
-
-              for (let i = 0; i < word.length; i++) {
-                const charSpan = document.createElement('span');
-                charSpan.className = 'review-char';
-                charSpan.textContent = word[i];
-                charSpan.style.opacity = '0.15';
-                charSpan.style.color = '#4a453e';
-                wordSpan.appendChild(charSpan);
-                reviewCharSpans[k].push(charSpan);
-              }
-
-              quoteElem.appendChild(wordSpan);
-              if (wIdx < words.length - 1) {
-                quoteElem.appendChild(document.createTextNode(' '));
-              }
-            });
-          }
-        }
-      }
-      initReviewTypewriters();
-
-      function renderReviewsSequence(p) {
-        if (reviewsCue) {
-          if (p > 0.04) {
-            reviewsCue.classList.add('is-hidden');
-          } else {
-            reviewsCue.classList.remove('is-hidden');
-          }
-        }
-
-        // Stage 1: Review 0
-        if (reviewItems[0]) {
-          if (p < 0.35) {
-            const local = p / 0.33;
-            let op = 1;
-            let y = 0;
-
-            if (local > 0.85) {
-              const exit = (local - 0.85) / 0.15;
-              op = 1 - exit;
-              y = -exit * 30;
-            }
-
-            reviewItems[0].style.opacity = op.toFixed(3);
-            reviewItems[0].style.transform = 'translate3d(0, ' + y.toFixed(1) + 'px, 0)';
-            reviewItems[0].style.display = op > 0.01 ? 'flex' : 'none';
-
-            const typeProg = Math.min(1, Math.max(0, local / 0.70));
-            const chars = reviewCharSpans[0];
-            const activeCount = Math.floor(typeProg * chars.length);
-            for (let i = 0; i < chars.length; i++) {
-              if (i < activeCount) {
-                chars[i].style.opacity = '1';
-                chars[i].style.color = '#f3e5ab';
-                chars[i].style.textShadow = 'none';
-              } else {
-                chars[i].style.opacity = '0.15';
-                chars[i].style.color = '#4a453e';
-                chars[i].style.textShadow = 'none';
-              }
-            }
-          } else {
-            reviewItems[0].style.display = 'none';
-            reviewItems[0].style.opacity = '0';
-          }
-        }
-
-        // Stage 2: Review 1
-        if (reviewItems[1]) {
-          if (p >= 0.31 && p < 0.68) {
-            const local = (p - 0.33) / 0.33;
-            let op = 1;
-            let y = 0;
-
-            if (local < 0.12) {
-              const entry = Math.max(0, local / 0.12);
-              op = entry;
-              y = (1 - entry) * 30;
-            } else if (local > 0.85) {
-              const exit = (local - 0.85) / 0.15;
-              op = 1 - exit;
-              y = -exit * 30;
-            }
-
-            reviewItems[1].style.opacity = op.toFixed(3);
-            reviewItems[1].style.transform = 'translate3d(0, ' + y.toFixed(1) + 'px, 0)';
-            reviewItems[1].style.display = op > 0.01 ? 'flex' : 'none';
-
-            const typeProg = Math.min(1, Math.max(0, (local - 0.10) / 0.65));
-            const chars = reviewCharSpans[1];
-            const activeCount = Math.floor(typeProg * chars.length);
-            for (let i = 0; i < chars.length; i++) {
-              if (i < activeCount) {
-                chars[i].style.opacity = '1';
-                chars[i].style.color = '#f3e5ab';
-                chars[i].style.textShadow = 'none';
-              } else {
-                chars[i].style.opacity = '0.15';
-                chars[i].style.color = '#4a453e';
-                chars[i].style.textShadow = 'none';
-              }
-            }
-          } else {
-            reviewItems[1].style.display = 'none';
-            reviewItems[1].style.opacity = '0';
-          }
-        }
-
-        // Stage 3: Review 2
-        if (reviewItems[2]) {
-          if (p >= 0.64) {
-            const local = (p - 0.66) / 0.34;
-            let op = 1;
-            let y = 0;
-
-            if (local < 0.12) {
-              const entry = Math.max(0, local / 0.12);
-              op = entry;
-              y = (1 - entry) * 30;
-            } else if (local > 0.90) {
-              const exit = (local - 0.90) / 0.10;
-              op = 1 - exit;
-              y = -exit * 20;
-            }
-
-            reviewItems[2].style.opacity = op.toFixed(3);
-            reviewItems[2].style.transform = 'translate3d(0, ' + y.toFixed(1) + 'px, 0)';
-            reviewItems[2].style.display = op > 0.01 ? 'flex' : 'none';
-
-            const typeProg = Math.min(1, Math.max(0, (local - 0.10) / 0.65));
-            const chars = reviewCharSpans[2];
-            const activeCount = Math.floor(typeProg * chars.length);
-            for (let i = 0; i < chars.length; i++) {
-              if (i < activeCount) {
-                chars[i].style.opacity = '1';
-                chars[i].style.color = '#f3e5ab';
-                chars[i].style.textShadow = 'none';
-              } else {
-                chars[i].style.opacity = '0.15';
-                chars[i].style.color = '#4a453e';
-                chars[i].style.textShadow = 'none';
-              }
-            }
-          } else {
-            reviewItems[2].style.display = 'none';
-            reviewItems[2].style.opacity = '0';
-          }
-        }
-      }
-
-      // FAQ Indicators and Stages
-      function updateFaqPill(targetIndex) {
-        if (!faqIndicatorPill || !faqQuestionButtons[targetIndex]) return;
-        const activeBtn = faqQuestionButtons[targetIndex];
-        faqIndicatorPill.style.transform = 'translate3d(0, ' + activeBtn.offsetTop + 'px, 0)';
-        faqIndicatorPill.style.height = activeBtn.offsetHeight + 'px';
-      }
-
-      function applyFaqStage(targetIndex) {
-        faqQuestionButtons.forEach(function (btn, idx) {
-          if (idx === targetIndex) {
-            btn.classList.add('is-active');
-            btn.setAttribute('aria-selected', 'true');
-          } else {
-            btn.classList.remove('is-active');
-            btn.setAttribute('aria-selected', 'false');
-          }
-        });
-
-        faqAnswerPanels.forEach(function (panel, idx) {
-          if (idx === targetIndex) {
-            panel.classList.remove('is-exiting');
-            panel.classList.add('is-active');
-          } else {
-            if (panel.classList.contains('is-active')) {
-              panel.classList.remove('is-active');
-              panel.classList.add('is-exiting');
-            } else {
-              panel.classList.remove('is-exiting');
-            }
-          }
-        });
-
-        updateFaqPill(targetIndex);
-      }
-
-      let lastFaqStageTime = 0;
-      const FAQ_STAGE_MIN_INTERVAL = 110; // ms minimum dwell per sequential stage on fast scroll
-
-      function renderFaqSequence(p) {
-        if (faqScrollCue) {
-          if (p > 0.04) {
-            faqScrollCue.classList.add('is-hidden');
-          } else {
-            faqScrollCue.classList.remove('is-hidden');
-          }
-        }
-
-        // 4 dedicated stages (150vh runway per row):
-        // Row 01: 0.00 - 0.25
-        // Row 02: 0.25 - 0.50
-        // Row 03: 0.50 - 0.75
-        // Row 04: 0.75 - 1.00
-        let targetStage = 0;
-        if (p < 0.25) {
-          targetStage = 0;
-        } else if (p < 0.50) {
-          targetStage = 1;
-        } else if (p < 0.75) {
-          targetStage = 2;
-        } else {
-          targetStage = 3;
-        }
-
-        if (activeFaqStage === -1) {
-          activeFaqStage = targetStage;
-          applyFaqStage(activeFaqStage);
-          lastFaqStageTime = Date.now();
-          return;
-        }
-
-        if (targetStage !== activeFaqStage) {
-          const now = Date.now();
-          // Sequential activation: even on ultra-fast scroll or wheel flick,
-          // advance exactly 1 stage at a time (01 -> 02 -> 03 -> 04) without skipping
-          if (now - lastFaqStageTime >= FAQ_STAGE_MIN_INTERVAL) {
-            if (targetStage > activeFaqStage) {
-              activeFaqStage = activeFaqStage + 1;
-            } else if (targetStage < activeFaqStage) {
-              activeFaqStage = activeFaqStage - 1;
-            }
-            applyFaqStage(activeFaqStage);
-            lastFaqStageTime = now;
-          }
-        }
-      }
-
-      faqQuestionButtons.forEach(function (btn) {
-        const idx = parseInt(btn.getAttribute('data-index'), 10);
-        btn.addEventListener('click', function () {
-          activeFaqStage = idx;
-          applyFaqStage(idx);
-          lastFaqStageTime = Date.now();
-          if (faqTrack) {
-            const targetProg = (idx * 0.25) + 0.12;
-            const targetY = layoutMetrics.faq.top + (targetProg * layoutMetrics.faq.total);
-            window.scrollTo({ top: targetY, behavior: 'smooth' });
-          } else {
-            applyFaqStage(idx);
-          }
-        });
-      });
-
-      window.addEventListener('load', function () {
-        applyFaqStage(0);
-      });
-      window.addEventListener('resize', function () {
-        updateFaqPill(activeFaqStage >= 0 ? activeFaqStage : 0);
-      });
-
       // ========================================================================
       // 5. MASTER ANIMATION LOOP (SINGLE rAF, INSTANT WHEEL, ZERO JANK)
       // ========================================================================
@@ -4931,23 +4011,13 @@
         const flightScroll = scrollY - layoutMetrics.flight.top;
         flightTargetProgress = Math.min(Math.max(flightScroll / layoutMetrics.flight.total, 0), 1);
 
-        // Update nav scroll spy
+        // Update nav scroll spy & header transparency
         updateNavActive();
+        updateHeaderTransparency();
 
         // Manifesto
         const manifestoScroll = scrollY - layoutMetrics.manifesto.top;
         manifestoTargetProgress = Math.min(Math.max(manifestoScroll / layoutMetrics.manifesto.total, 0), 1);
-
-        // Reviews
-        const reviewsScroll = scrollY - layoutMetrics.reviews.top;
-        reviewsTargetProgress = Math.min(Math.max(reviewsScroll / layoutMetrics.reviews.total, 0), 1);
-
-        // FAQ (strictly clamped progress: 0.0 to 1.0)
-        const faqScroll = scrollY;
-        const faqTop = layoutMetrics.faq.top;
-        const faqTotalHeight = layoutMetrics.faq.total;
-        const faqProgress = Math.min(Math.max((faqScroll - faqTop) / faqTotalHeight, 0), 1);
-        faqTargetProgress = faqProgress;
 
         // Telemetry progress bar
         if (progressBar && layoutMetrics.docTotal > 0) {
@@ -4970,14 +4040,6 @@
         // 3. Manifesto Typewriter
         manifestoCurrentProgress = lerpSnap(manifestoCurrentProgress, manifestoTargetProgress, 0.12);
         renderManifesto(manifestoCurrentProgress);
-
-        // 4. Patron Reviews
-        reviewsCurrentProgress = lerpSnap(reviewsCurrentProgress, reviewsTargetProgress, 0.12);
-        renderReviewsSequence(reviewsCurrentProgress);
-
-        // 5. Concierge FAQ
-        faqCurrentProgress = lerpSnap(faqCurrentProgress, faqTargetProgress, 0.12);
-        renderFaqSequence(faqCurrentProgress);
 
         requestAnimationFrame(updateScroll);
       }
@@ -5132,10 +4194,30 @@
         { id: 'flightone-showcase', link: document.querySelector('.nav-menu a[href="#flightone-showcase"]') },
         { id: 'manifesto', link: document.querySelector('.nav-menu a[href="#manifesto"]') },
         { id: 'collection', link: document.querySelector('.nav-menu a[href="#collection"]') },
-        { id: 'reviews-pinned-track', link: document.querySelector('.nav-menu a[href="#reviews-pinned-track"]') || document.querySelector('.nav-menu a[href="#reviews-faq"]') }
+        { id: 'reviews', link: document.querySelector('.nav-menu a[href="#reviews"]') },
+        { id: 'faq', link: document.querySelector('.nav-menu a[href="#faq"]') }
       ];
 
+      function updateHeaderTransparency() {
+        if (!siteHeader) return;
+        const scrollY = window.scrollY;
+        // When scroll leaves hero video (#the-scent) and enters Showcase (#flightone-showcase) or beyond
+        const heroEnd = layoutMetrics.hero.total > 1 ? layoutMetrics.hero.total : (layoutMetrics.flight.top > 0 ? layoutMetrics.flight.top : 800);
+        const isPastHero = scrollY >= (heroEnd - 10);
+
+        if (isPastHero) {
+          if (!siteHeader.classList.contains('header-transparent')) {
+            siteHeader.classList.add('header-transparent');
+          }
+        } else {
+          if (siteHeader.classList.contains('header-transparent')) {
+            siteHeader.classList.remove('header-transparent');
+          }
+        }
+      }
+
       function updateNavActive() {
+        updateHeaderTransparency();
         // If collection modal is open, immediately highlight COLLECTION link
         if (collectionModal && collectionModal.classList.contains('is-open')) {
           observedSections.forEach(function (item) {
@@ -5172,9 +4254,12 @@
           } else if (sId === 'collection') {
             top = layoutMetrics.collection.top;
             height = layoutMetrics.collection.height || 350;
-          } else if (sId === 'reviews-pinned-track') {
+          } else if (sId === 'reviews') {
             top = layoutMetrics.reviews.top;
-            height = (layoutMetrics.faq.top + layoutMetrics.faq.total + window.innerHeight) - top;
+            height = layoutMetrics.reviews.height || 600;
+          } else if (sId === 'faq') {
+            top = layoutMetrics.faq.top;
+            height = layoutMetrics.faq.height || 600;
           } else {
             const sec = document.getElementById(sId);
             if (sec) { top = sec.offsetTop; height = sec.offsetHeight; }
@@ -5205,8 +4290,7 @@
           if (collectionModal && collectionModal.classList.contains('is-open')) return;
           entries.forEach(function (entry) {
             if (entry.isIntersecting) {
-              let targetId = entry.target.id;
-              if (targetId === 'faq') targetId = 'reviews-pinned-track';
+              const targetId = entry.target.id;
               observedSections.forEach(function (item) {
                 if (item.link) {
                   if (item.id === targetId) {
@@ -5225,7 +4309,7 @@
           threshold: 0
         });
 
-        ['the-scent', 'flightone-showcase', 'manifesto', 'collection', 'reviews-pinned-track', 'faq'].forEach(function (id) {
+        ['the-scent', 'flightone-showcase', 'manifesto', 'collection', 'reviews', 'faq'].forEach(function (id) {
           const el = document.getElementById(id);
           if (el) spyObserver.observe(el);
         });

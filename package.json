@@ -1,0 +1,22 @@
+{
+  "name": "10k-dollers-web",
+  "version": "1.0.0",
+  "description": "An ultra-luxury, scrollytelling web experience crafted for **SILLAGE**, an exclusive Parisian haute parfumerie atelier based in the 8ème Arrondissement of Paris with distillation quarters in Grasse.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx serve . -p 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khokharyasir749/MODERN-PERFUME-WEB-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/khokharyasir749/MODERN-PERFUME-WEB-/issues"
+  },
+  "homepage": "https://github.com/khokharyasir749/MODERN-PERFUME-WEB-#readme"
+}
